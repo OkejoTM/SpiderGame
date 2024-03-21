@@ -1,25 +1,24 @@
-import Setting.Flora;
-import Setting.Web;
+import Setting.*;
 
 public class Game {
     private Web _web;
     private Flora _flora;
 
-    public Game(Web web, Flora flora){
-        _web = web;
-        _flora = flora;
+    public Game(){
+
     }
 
     public void startGame(){
-
+        _web = new Web(8);
+        _flora = new Flora(_web);
     }
 
     public void endGame(){
 
     }
 
-    public void createWeb(){
-
+    public void createWeb(int size){
+        _web = new Web(size);
     }
 
     public boolean moveAllBots(){

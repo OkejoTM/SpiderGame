@@ -15,8 +15,6 @@ public class Web {
 
     public Web(int size){
         _size = size;
-        _playerSpider = new PlayerSpider(10, _webCrossList.get(0));
-        _playerInWeb = true;
         createWebCrosses();
     }
 
