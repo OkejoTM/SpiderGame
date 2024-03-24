@@ -57,4 +57,8 @@ public class Flora {
         }
         return _web.getWebCross(new Point(randomX, randomY));
     }
+
+    public void setWeb(Web web){
+        _web = web;
+    }
 }

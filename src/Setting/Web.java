@@ -101,5 +101,30 @@ public class Web {
         return _insectsList;
     }
 
+    public void clearWeb(){
+        clearWebCrosses();
+        clearSpiders();
+        clearInsects();
+    }
 
+    public void clearWebCrosses(){
+        for (var webCross : _webCrossList){
+            webCross.releaseAnimal();
+        }
+        _webCrossList.clear();
+    }
+
+    public void clearSpiders(){
+        for (var spider : _botSpidersList){
+            spider.die();
+        }
+        _botSpidersList.clear();
+    }
+
+    public void clearInsects(){
+        for (var insect : _insectsList){
+            insect.die();
+        }
+        _insectsList.clear();
+    }
 }

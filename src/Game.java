@@ -41,7 +41,9 @@ public class Game {
     }
 
     public void endGame(){
-        System.out.println("Game ended");
+        _web.clearWeb();
+        _flora.setWeb(null);
+        _flora = null;
     }
 
     public void createWeb(int size){
