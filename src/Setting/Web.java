@@ -85,7 +85,7 @@ public class Web {
 
     public ArrayList<IPrey> getAllPreys(){
         ArrayList<IPrey> preyList = new ArrayList<IPrey>(_insectsList);
-        preyList.add(_playerSpider);
+        if (_playerSpider != null) preyList.add(_playerSpider);
         return preyList;
     }
 

@@ -5,11 +5,15 @@ import Interfaces.IPredator;
 import Interfaces.IPrey;
 import Setting.WebCross;
 import Utils.Direction;
+import Utils.PredatorEatBehaviour;
+import Utils.PreyEatBehaviour;
 
-public class PlayerSpider extends Animal implements IPredator, IDieable, IPrey {
+public class PlayerSpider extends Animal implements IDieable, IPrey {
+    private IPredator _preyEatBehaviour;
 
-    public PlayerSpider(int health, WebCross webCross) {
+    public PlayerSpider(int health, WebCross webCross, IPredator eatBehaviour) {
         super(health, webCross);
+        _preyEatBehaviour = eatBehaviour;
     }
 
     public void makeMove(Direction direction){
@@ -25,7 +29,7 @@ public class PlayerSpider extends Animal implements IPredator, IDieable, IPrey {
                 }
             }
             else if (nextWebCross.getAnimal() instanceof IPrey prey){
-                eat(prey);
+                changeHealth(_preyEatBehaviour.eat(prey));
                 move(nextWebCross);
             }
         }
@@ -41,11 +45,8 @@ public class PlayerSpider extends Animal implements IPredator, IDieable, IPrey {
         _health += delta;
     }
 
-    @Override
-    public void eat(IPrey prey) {
-        if (prey instanceof Insect insect){
-            changeHealth(insect.getHealth());
-            insect.die();
-        }
+    void setEatBehaviour(IPredator behaviour){
+        _preyEatBehaviour = behaviour;
     }
+
 }
