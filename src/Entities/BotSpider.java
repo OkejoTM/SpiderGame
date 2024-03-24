@@ -11,11 +11,10 @@ import Utils.PredatorEatBehaviour;
 public class BotSpider extends Animal implements IDieable {
     private Algorithm _algorithm;
     private PlayerSpider _playerSpider;
-    private IPredator _predatorBehaviour = new PredatorEatBehaviour();
 
     public BotSpider(int health, WebCross webCross, Algorithm algorithm) {
         super(health, webCross);
-        _playerSpider = new PlayerSpider(health, webCross, _predatorBehaviour);
+        _playerSpider = new PlayerSpider(health, webCross,  new PredatorEatBehaviour());
         _algorithm = algorithm;
     }
 
@@ -24,10 +23,6 @@ public class BotSpider extends Animal implements IDieable {
         if (direction != null){
             _playerSpider.makeMove(direction);
         }
-    }
-
-    void setEatBehaviour(IPredator behaviour){
-        _predatorBehaviour = behaviour;
     }
 
 }
