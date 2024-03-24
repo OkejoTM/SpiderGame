@@ -10,8 +10,4 @@ public abstract class Insect extends Animal implements IDieable, IPrey {
         super(health, webCross);
     }
 
-    @Override
-    public void die(){
-
-    }
 }

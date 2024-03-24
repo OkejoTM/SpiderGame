@@ -1,10 +1,11 @@
 package Entities;
 
+import Interfaces.IDieable;
 import Setting.WebCross;
 
-public abstract class Animal{
-    private int _health;
-    private WebCross _webCross;
+public abstract class Animal implements IDieable {
+    protected int _health;
+    protected WebCross _webCross;
 
     public Animal(int health, WebCross webCross){
         _health = health;
@@ -16,19 +17,21 @@ public abstract class Animal{
     }
 
     public void setHealth(int health){
-
+        _health = health;
     }
 
     public WebCross getWebCross(){
-        return null;
+        return _webCross;
     }
 
     public void setWebCross(WebCross webCross){
-
+        _webCross = webCross;
     }
 
-    public boolean canMoveInWebCross(WebCross webCross){
-        return false;
+    @Override
+    public void die() {
+        _health = 0;
+        _webCross.releaseAnimal();
+        setWebCross(null);
     }
-
 }
