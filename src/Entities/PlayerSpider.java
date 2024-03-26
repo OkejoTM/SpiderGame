@@ -48,5 +48,4 @@ public class PlayerSpider extends Animal implements IDieable, IPrey {
     void setEatBehaviour(IPredator behaviour){
         _preyEatBehaviour = behaviour;
     }
-
 }

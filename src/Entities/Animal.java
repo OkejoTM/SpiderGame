@@ -37,7 +37,7 @@ public abstract class Animal implements IDieable {
             playerSpider.setEatBehaviour(null);
         }
         if (this instanceof BotSpider botSpider){
-            botSpider.setEatBehaviour(null);
+            botSpider.clearEatBehaviour();
         }
     }
 }

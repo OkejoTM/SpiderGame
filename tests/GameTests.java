@@ -13,6 +13,7 @@ public class GameTests {
         Flora flora = new Flora(web);
         flora.createPlayerSpider();
         flora.createBotSpiders(1);
+        web.getBotSpiders().get(0).getWebCross().releaseAnimal();
         web.getBotSpiders().get(0).setWebCross(web.getWebCross(new Point(0,1)));
         web.getWebCross(new Point(0,1)).setAnimal(web.getBotSpiders().get(0));
         web.getBotSpiders().get(0).makeOptimalMove();
@@ -25,6 +26,8 @@ public class GameTests {
         Web web = new Web(3);
         Flora flora = new Flora(web);
         flora.createBotSpiders(2);
+        web.getBotSpiders().get(0).getWebCross().releaseAnimal();
+        web.getBotSpiders().get(1).getWebCross().releaseAnimal();
         web.getBotSpiders().get(0).setWebCross(web.getWebCross(new Point(0,1)));
         web.getBotSpiders().get(1).setWebCross(web.getWebCross(new Point(0,0)));
         web.getWebCross(new Point(0,1)).setAnimal(web.getBotSpiders().get(0));
@@ -45,4 +48,60 @@ public class GameTests {
         Assert.assertEquals(1, web.getBotSpiders().size());
         Assert.assertTrue(web.isPlayerInWeb());
     }
+
+    @Test
+    public void PlayerOneHealthMovesTest(){
+        Web web = new Web(3);
+        Flora flora = new Flora(web);
+        flora.createPlayerSpider();
+        web.getPlayer().setHealth(1);
+        web.getPlayer().makeMove(Direction.north());
+        Assert.assertNull(web.getPlayer());
+        Assert.assertFalse(web.isPlayerInWeb());
+    }
+
+    @Test
+    public void MoveToEdgeNorthTest(){
+        Web web = new Web(3);
+        Flora flora = new Flora(web);
+        flora.createPlayerSpider();
+        web.getPlayer().makeMove(Direction.north());
+        web.getPlayer().makeMove(Direction.north());
+        Assert.assertTrue(web.isPlayerInWeb());
+        Assert.assertEquals(web.getPlayer().getWebCross().getPosition(), new Point(0,1));
+    }
+
+    @Test
+    public void MoveToEdgeSouthTest(){
+        Web web = new Web(3);
+        Flora flora = new Flora(web);
+        flora.createPlayerSpider();
+        web.getPlayer().makeMove(Direction.south());
+        Assert.assertTrue(web.isPlayerInWeb());
+        Assert.assertEquals(web.getPlayer().getWebCross().getPosition(), new Point(1,1));
+    }
+
+    @Test
+    public void MoveToEdgeWestTest(){
+        Web web = new Web(3);
+        Flora flora = new Flora(web);
+        flora.createPlayerSpider();
+        web.getPlayer().makeMove(Direction.west());
+        web.getPlayer().makeMove(Direction.west());
+        Assert.assertTrue(web.isPlayerInWeb());
+        Assert.assertEquals(web.getPlayer().getWebCross().getPosition(), new Point(1,0));
+    }
+
+    @Test
+    public void MoveToEdgeEastTest(){
+        Web web = new Web(3);
+        Flora flora = new Flora(web);
+        flora.createPlayerSpider();
+        web.getPlayer().makeMove(Direction.east());
+        Assert.assertTrue(web.isPlayerInWeb());
+        Assert.assertEquals(web.getPlayer().getWebCross().getPosition(), new Point(1,1));
+    }
+
+
+
 }

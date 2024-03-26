@@ -25,4 +25,8 @@ public class BotSpider extends Animal implements IDieable {
         }
     }
 
+    public void clearEatBehaviour(){
+        _playerSpider.setEatBehaviour(null);
+    }
+
 }
