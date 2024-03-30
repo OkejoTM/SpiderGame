@@ -34,10 +34,10 @@ public abstract class Animal implements IDieable {
         _webCross.releaseAnimal();
         setWebCross(null);
         if (this instanceof PlayerSpider playerSpider){
-            playerSpider.setEatBehaviour(null);
+            playerSpider.clearEatBehaviour();
         }
-        if (this instanceof BotSpider botSpider){
-            botSpider.clearEatBehaviour();
+        else if (this instanceof BotSpider botSpider){
+            botSpider.clearPlayerEatBehaviour();
         }
     }
 }

@@ -22,8 +22,8 @@ public class BotSpider extends Animal{
         }
     }
 
-    public void clearEatBehaviour(){
-        _playerSpider.setEatBehaviour(null);
+    void clearPlayerEatBehaviour(){
+        _playerSpider.clearEatBehaviour();
     }
 
 }

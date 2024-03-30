@@ -2,10 +2,10 @@ package Utils;
 
 import Entities.Insect;
 import Entities.PlayerSpider;
-import Interfaces.IPredator;
+import Interfaces.IEatBehaviour;
 import Interfaces.IPrey;
 
-public class PredatorEatBehaviour implements IPredator {
+public class PredatorEatBehaviour implements IEatBehaviour {
     @Override
     public void eat(IPrey prey) {
         if (prey instanceof Insect insect){

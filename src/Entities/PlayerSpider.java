@@ -1,14 +1,14 @@
 package Entities;
 
-import Interfaces.IPredator;
+import Interfaces.IEatBehaviour;
 import Interfaces.IPrey;
 import Setting.WebCross;
 import Utils.Direction;
 
 public class PlayerSpider extends Animal implements IPrey {
-    private IPredator _eatBehaviour;
+    private IEatBehaviour _eatBehaviour;
 
-    public PlayerSpider(int health, WebCross webCross, IPredator eatBehaviour) {
+    public PlayerSpider(int health, WebCross webCross, IEatBehaviour eatBehaviour) {
         super(health, webCross);
         _eatBehaviour = eatBehaviour;
     }
@@ -43,8 +43,7 @@ public class PlayerSpider extends Animal implements IPrey {
     public void changeHealth(int delta){
         _health += delta;
     }
-
-    void setEatBehaviour(IPredator behaviour){
-        _eatBehaviour = behaviour;
+    void clearEatBehaviour(){
+        _eatBehaviour = null;
     }
 }

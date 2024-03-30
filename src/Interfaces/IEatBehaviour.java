@@ -1,5 +1,5 @@
 package Interfaces;
 
-public interface IPredator {
+public interface IEatBehaviour {
     void eat(IPrey prey);
 }
