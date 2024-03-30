@@ -9,8 +9,8 @@ import java.awt.*;
 public class Flora {
     private Web _web;
 
-    public Flora(Web web){
-        _web = web;
+    public Flora(){
+
     }
 
     public void instantiateAnimals(){
@@ -24,7 +24,7 @@ public class Flora {
         int spiderHealth = 10;
         int pos = (_web.getSize()-1)/2;
         PlayerSpider playerSpider = new PlayerSpider(spiderHealth, _web.getWebCross(new Point(pos, pos)), new PreyEatBehaviour());
-        playerSpider.getWebCross().setAnimal(playerSpider);
+        placeAnimalInWebCross(playerSpider.getWebCross(), playerSpider);
         _web.setPlayer(playerSpider);
         return true;
     }
@@ -33,7 +33,7 @@ public class Flora {
         for (int i = 0; i < amount; i++){
             int spiderHealth = 10;
             BotSpider botSpider = new BotSpider(spiderHealth, getRandomWebCross(), new Algorithm(_web));
-            botSpider.getWebCross().setAnimal(botSpider);
+            placeAnimalInWebCross(botSpider.getWebCross(), botSpider);
             _web.addBotSpider(botSpider);
         }
     }
@@ -42,12 +42,16 @@ public class Flora {
         for (int i = 0; i < amount; i++){
             int moleHealth = 2;
             Mole mole = new Mole(moleHealth, getRandomWebCross());
-            mole.getWebCross().setAnimal(mole);
+            placeAnimalInWebCross(mole.getWebCross(), mole);
             _web.addInsect(mole);
         }
     }
 
-    public WebCross getRandomWebCross(){
+    private void placeAnimalInWebCross(WebCross webCross, Animal animal){
+        webCross.setAnimal(animal);
+    }
+
+    private WebCross getRandomWebCross(){
         int randomX = (int)(Math.random()*_web.getSize()-1);
         int randomY = (int)(Math.random()*_web.getSize()-1);
         while (_web.getWebCross(new Point(randomX, randomY)).getAnimal() != null)
@@ -61,4 +65,5 @@ public class Flora {
     public void setWeb(Web web){
         _web = web;
     }
+
 }

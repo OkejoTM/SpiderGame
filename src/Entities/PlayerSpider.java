@@ -1,14 +1,11 @@
 package Entities;
 
-import Interfaces.IDieable;
 import Interfaces.IPredator;
 import Interfaces.IPrey;
 import Setting.WebCross;
 import Utils.Direction;
-import Utils.PredatorEatBehaviour;
-import Utils.PreyEatBehaviour;
 
-public class PlayerSpider extends Animal implements IDieable, IPrey {
+public class PlayerSpider extends Animal implements IPrey {
     private IPredator _preyEatBehaviour;
 
     public PlayerSpider(int health, WebCross webCross, IPredator eatBehaviour) {

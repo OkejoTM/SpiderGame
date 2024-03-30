@@ -8,7 +8,7 @@ import Utils.Algorithm;
 import Utils.Direction;
 import Utils.PredatorEatBehaviour;
 
-public class BotSpider extends Animal implements IDieable {
+public class BotSpider extends Animal{
     private Algorithm _algorithm;
     private PlayerSpider _playerSpider;
 

@@ -8,9 +8,10 @@ public class Game {
     private Flora _flora;
     private boolean gameOver = false;
 
-    public Game(){
+    public Game(Flora flora){
         createWeb(4);
-        _flora = new Flora(_web);
+        _flora = flora;
+        _flora.setWeb(_web);
     }
 
     public void startGame(){
@@ -32,10 +33,9 @@ public class Game {
                 _flora.createInsects(1);
             }
 
-            // Если не осталось пауков-ботов
-            if (!moveAllBots()){
-                gameOver = true;
-            };
+            // Если не осталось пауков-ботов, gameOver - false
+            gameOver = moveAllBots();
+
         }while(_web.isPlayerInWeb() && !gameOver);
         endGame();
     }
@@ -59,7 +59,6 @@ public class Game {
     }
 
     public static void main(String[] args){
-        Game game = new Game();
-        game.startGame();
+
     }
 }
