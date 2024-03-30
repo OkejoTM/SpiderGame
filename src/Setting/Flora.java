@@ -10,7 +10,6 @@ public class Flora {
     private Web _web;
 
     public Flora(){
-
     }
 
     public void instantiateAnimals(){

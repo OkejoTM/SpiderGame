@@ -7,16 +7,12 @@ import Interfaces.IPrey;
 
 public class PredatorEatBehaviour implements IPredator {
     @Override
-    public int eat(IPrey prey) {
-        int health = 0;
+    public void eat(IPrey prey) {
         if (prey instanceof Insect insect){
-            health = insect.getHealth();
             insect.die();
         }
         if (prey instanceof PlayerSpider playerSpider){
-            health = playerSpider.getHealth();
             playerSpider.die();
         }
-        return health;
     }
 }

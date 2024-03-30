@@ -6,11 +6,11 @@ import Setting.WebCross;
 import Utils.Direction;
 
 public class PlayerSpider extends Animal implements IPrey {
-    private IPredator _preyEatBehaviour;
+    private IPredator _eatBehaviour;
 
     public PlayerSpider(int health, WebCross webCross, IPredator eatBehaviour) {
         super(health, webCross);
-        _preyEatBehaviour = eatBehaviour;
+        _eatBehaviour = eatBehaviour;
     }
 
     public void makeMove(Direction direction){
@@ -26,7 +26,9 @@ public class PlayerSpider extends Animal implements IPrey {
                 }
             }
             else if (nextWebCross.getAnimal() instanceof IPrey prey){
-                changeHealth(_preyEatBehaviour.eat(prey));
+                int reducingHealth = ((Animal)prey).getHealth();
+                _eatBehaviour.eat(prey);
+                changeHealth(reducingHealth);
                 move(nextWebCross);
             }
         }
@@ -43,6 +45,6 @@ public class PlayerSpider extends Animal implements IPrey {
     }
 
     void setEatBehaviour(IPredator behaviour){
-        _preyEatBehaviour = behaviour;
+        _eatBehaviour = behaviour;
     }
 }

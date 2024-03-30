@@ -1,8 +1,5 @@
 package Entities;
 
-import Interfaces.IDieable;
-import Interfaces.IPredator;
-import Interfaces.IPrey;
 import Setting.WebCross;
 import Utils.Algorithm;
 import Utils.Direction;

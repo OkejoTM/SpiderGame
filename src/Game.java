@@ -1,12 +1,10 @@
 import Setting.*;
 import Utils.Direction;
 import java.lang.Math;
-import java.util.ArrayList;
 
 public class Game {
     private Web _web;
     private Flora _flora;
-    private boolean gameOver = false;
 
     public Game(Flora flora){
         createWeb(4);
@@ -34,9 +32,9 @@ public class Game {
             }
 
             // Если не осталось пауков-ботов, gameOver - false
-            gameOver = moveAllBots();
+            moveAllBots();
 
-        }while(_web.isPlayerInWeb() && !gameOver);
+        }while(_web.isPlayerInWeb() && !_web.getBotSpiders().isEmpty());
         endGame();
     }
 
@@ -44,21 +42,18 @@ public class Game {
         _web.clearWeb();
         _flora.setWeb(null);
         _flora = null;
+        _web = null;
     }
 
     public void createWeb(int size){
         _web = new Web(size);
     }
 
-    public boolean moveAllBots(){
-        if (_web.getBotSpiders().isEmpty()) return false;
-        for (var bot : _web.getBotSpiders()){
-            bot.makeOptimalMove();
+    public void moveAllBots(){
+        if (!_web.getBotSpiders().isEmpty()) {
+            for (var bot : _web.getBotSpiders()){
+                bot.makeOptimalMove();
+            }
         }
-        return true;
-    }
-
-    public static void main(String[] args){
-
     }
 }

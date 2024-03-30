@@ -84,7 +84,7 @@ public class Web {
     }
 
     public ArrayList<IPrey> getAllPreys(){
-        ArrayList<IPrey> preyList = new ArrayList<IPrey>(_insectsList);
+        ArrayList<IPrey> preyList = new ArrayList<>(_insectsList);
         if (_playerSpider != null) preyList.add(_playerSpider);
         return preyList;
     }
@@ -105,6 +105,7 @@ public class Web {
         clearWebCrosses();
         clearSpiders();
         clearInsects();
+        removePlayer();
     }
 
     public void clearWebCrosses(){
