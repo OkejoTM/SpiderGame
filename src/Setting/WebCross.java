@@ -39,7 +39,7 @@ public class WebCross {
     }
 
     public boolean setAnimal(Animal animal){
-        if (_animal != null) return false;
+        if (_animal != null) return false; // Если занято
         _animal = animal;
         return true;
     }
@@ -54,16 +54,16 @@ public class WebCross {
 
     // ------------------ Порождение и проверка смежных позиций ---------------------
     public boolean hasNext(Direction direction){
-        int[] newPos = calcNewPosition(_position.x, _position.y, direction);
-        return isValid(new Point(newPos[0], newPos[1]));
+        Point newPos = calcNewPosition((Point)_position.clone(), direction);
+        return isValid(newPos);
     }
 
     public WebCross getNextWebCross(Direction direction){
-        int[] newPos = calcNewPosition(_position.x, _position.y, direction);
-        return _web.getWebCross(new Point(newPos[0], newPos[1]));
+        Point newPos = calcNewPosition((Point)_position.clone(), direction);
+        return _web.getWebCross(newPos);
     }
 
-    private int[] calcNewPosition(int row, int col, Direction direct){
+    private Point calcNewPosition(Point position, Direction direct){
 
         // Таблица смещения для различных направлений: (горизонталь,вертикаль)
         HashMap<Direction, int [] > offset=  new  HashMap<Direction, int [] >();
@@ -73,12 +73,7 @@ public class WebCross {
         offset.put(Direction.east(),    new int []{ 1,  0} );
         offset.put(Direction.west(),    new int []{-1,  0} );
 
-        int[] newPos = new int[2];
-
-        newPos[0] = _position.x + offset.get(direct)[1];
-        newPos[1] = _position.y + offset.get(direct)[0];
-
-        return newPos;
+        return new Point(position.x + offset.get(direct)[1],position.y + offset.get(direct)[0]);
     }
 
 }
