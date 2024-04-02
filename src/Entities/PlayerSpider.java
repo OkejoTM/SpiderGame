@@ -27,8 +27,8 @@ public class PlayerSpider extends Animal implements IPrey {
             }
             else if (nextWebCross.getAnimal() instanceof IPrey prey){
                 int reducingHealth = ((Animal)prey).getHealth();
-                _eatBehaviour.eat(prey);
                 changeHealth(reducingHealth);
+                _eatBehaviour.eat(prey);
                 move(nextWebCross);
             }
         }

@@ -14,8 +14,8 @@ public class Flora {
 
     public void instantiateAnimals(){
         createPlayerSpider();
-        createBotSpiders(2);
-        createInsects(2);
+        createBotSpiders(1);
+//        createInsects(2);
     }
 
     public boolean createPlayerSpider(){
@@ -30,8 +30,9 @@ public class Flora {
 
     public void createBotSpiders(int amount){
         for (int i = 0; i < amount; i++){
-            int spiderHealth = 10;
-            BotSpider botSpider = new BotSpider(spiderHealth, getRandomWebCross(), new Algorithm(_web));
+            int spiderHealth = 1;
+//            BotSpider botSpider = new BotSpider(spiderHealth, getRandomWebCross(), new Algorithm(_web));
+            BotSpider botSpider = new BotSpider(spiderHealth, _web.getWebCross(new Point(0,0)), new Algorithm(_web));
             placeAnimalInWebCross(botSpider.getWebCross(), botSpider);
             _web.addBotSpider(botSpider);
         }

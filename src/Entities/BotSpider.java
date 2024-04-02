@@ -19,11 +19,24 @@ public class BotSpider extends Animal{
         Direction direction = _algorithm.findDirectionToNearest(this.getWebCross());
         if (direction != null){
             _playerSpider.makeMove(direction);
+            if (_playerSpider.getHealth() == 0){
+                die();
+            }
         }
     }
 
-    void clearPlayerEatBehaviour(){
+    private void clearPlayerEatBehaviour(){
         _playerSpider.clearEatBehaviour();
+    }
+
+    private void clearAlgorithm(){
+        _algorithm = null;
+    }
+
+    public void botDie(){
+        clearPlayerEatBehaviour();
+        clearAlgorithm();
+        _playerSpider = null;
     }
 
 }

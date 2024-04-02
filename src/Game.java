@@ -18,7 +18,7 @@ public class Game {
         {
             Direction[] directions = new Direction[] {Direction.north(), Direction.east(),Direction.west(),Direction.south()};
             int randomDirection = (int)(Math.random()*4);
-            _web.getPlayer().makeMove(directions[randomDirection]);
+//            _web.getPlayer().makeMove(directions[randomDirection]);
 
             double randomDigit = Math.random()*100;
             if (randomDigit >10 && randomDigit < 15 && !_web.getInsects().isEmpty()){
@@ -39,6 +39,8 @@ public class Game {
     }
 
     public void endGame(){
+        System.out.println(_web.getPlayer());
+        System.out.println(_web.getBotSpiders().size());
         _web.clearWeb();
         _flora.setWeb(null);
         _flora = null;
