@@ -1,42 +1,46 @@
 package Entities;
 
+import Interfaces.IPrey;
 import Setting.WebCross;
 import Utils.Algorithm;
 import Utils.Direction;
-import Utils.PredatorEatBehaviour;
 
-public class BotSpider extends Animal{
+public class BotSpider extends Spider{
     private Algorithm _algorithm;
-    private PlayerSpider _playerSpider;
 
     public BotSpider(int health, WebCross webCross, Algorithm algorithm) {
         super(health, webCross);
-        _playerSpider = new PlayerSpider(health, webCross,  new PredatorEatBehaviour());
         _algorithm = algorithm;
     }
 
     public void makeOptimalMove(){
         Direction direction = _algorithm.findDirectionToNearest(this.getWebCross());
         if (direction != null){
-            _playerSpider.makeMove(direction);
-            if (_playerSpider.getHealth() == 0){
-                die();
-            }
+            makeMove(direction);
         }
-    }
-
-    private void clearPlayerEatBehaviour(){
-        _playerSpider.clearEatBehaviour();
     }
 
     private void clearAlgorithm(){
         _algorithm = null;
     }
 
-    public void botDie(){
-        clearPlayerEatBehaviour();
-        clearAlgorithm();
-        _playerSpider = null;
+    @Override
+    public void eat(IPrey prey) {
+        int reducingHealth = ((Animal)prey).getHealth();
+        changeHealth(reducingHealth);
+        if (prey instanceof Insect insect){
+            insect.die();
+        }
+        if (prey instanceof PlayerSpider playerSpider){
+            playerSpider.die();
+        }
     }
 
+    @Override
+    public void die(){
+        _health = 0;
+        _webCross.releaseAnimal();
+        setWebCross(null);
+        clearAlgorithm();
+    }
 }

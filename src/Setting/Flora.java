@@ -2,7 +2,6 @@ package Setting;
 
 import Entities.*;
 import Utils.Algorithm;
-import Utils.PreyEatBehaviour;
 
 import java.awt.*;
 
@@ -22,7 +21,7 @@ public class Flora {
         if (_web.isPlayerInWeb()) return false;
         int spiderHealth = 10;
         int pos = (_web.getSize()-1)/2;
-        PlayerSpider playerSpider = new PlayerSpider(spiderHealth, _web.getWebCross(new Point(pos, pos)), new PreyEatBehaviour());
+        PlayerSpider playerSpider = new PlayerSpider(spiderHealth, _web.getWebCross(new Point(pos, pos)));
         placeAnimalInWebCross(playerSpider.getWebCross(), playerSpider);
         _web.setPlayer(playerSpider);
         return true;

@@ -5,45 +5,22 @@ import Interfaces.IPrey;
 import Setting.WebCross;
 import Utils.Direction;
 
-public class PlayerSpider extends Animal implements IPrey {
-    private IEatBehaviour _eatBehaviour;
+public class PlayerSpider extends Spider implements IPrey {
 
-    public PlayerSpider(int health, WebCross webCross, IEatBehaviour eatBehaviour) {
+
+    public PlayerSpider(int health, WebCross webCross) {
         super(health, webCross);
-        _eatBehaviour = eatBehaviour;
+
     }
 
-    public void makeMove(Direction direction){
-        if (_webCross.hasNext(direction)){
-            WebCross nextWebCross = _webCross.getNextWebCross(direction);
-            if (nextWebCross.getAnimal() == null){
-                changeHealth(-1);
-                if (_health == 0)
-                {
-                    this.die();
-                }else {
-                    move(nextWebCross);
-                }
-            }
-            else if (nextWebCross.getAnimal() instanceof IPrey prey){
-                int reducingHealth = ((Animal)prey).getHealth();
-                changeHealth(reducingHealth);
-                _eatBehaviour.eat(prey);
-                move(nextWebCross);
-            }
+    @Override
+    public void eat(IPrey prey) {
+        int reducingHealth = ((Animal)prey).getHealth();
+        changeHealth(reducingHealth);
+        if (prey instanceof Insect insect){
+            insect.die();
         }
     }
 
-    private void move(WebCross nextWebCross){
-        _webCross.releaseAnimal(); // Убрать из текущего перекрестия
-        nextWebCross.setAnimal(this); // Поставить животное в след. перекрестие
-        setWebCross(nextWebCross); // Поставить животному след. перекрестие
-    }
 
-    public void changeHealth(int delta){
-        _health += delta;
-    }
-    void clearEatBehaviour(){
-        _eatBehaviour = null;
-    }
 }

@@ -25,17 +25,8 @@ public class WebCross {
         if (_animal == null) {
             return false;
         }
-        removeAnimalFromWeb(_animal); // Если животное осовобождается в результате смерти
         _animal = null;
         return true;
-    }
-
-    private void removeAnimalFromWeb(Animal animal){
-        if (animal.getHealth() == 0){
-            if (animal instanceof Insect) _web.removeInsect((Insect) animal);
-            else if (animal instanceof BotSpider) _web.removeBotSpider((BotSpider) animal);
-            else if (animal instanceof PlayerSpider) _web.removePlayer();
-        }
     }
 
     public boolean setAnimal(Animal animal){

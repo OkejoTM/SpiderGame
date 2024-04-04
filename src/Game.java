@@ -1,6 +1,8 @@
+import Entities.BotSpider;
 import Setting.*;
 import Utils.Direction;
 import java.lang.Math;
+import java.util.Iterator;
 
 public class Game {
     private Web _web;
@@ -52,9 +54,12 @@ public class Game {
     }
 
     public void moveAllBots(){
-        if (!_web.getBotSpiders().isEmpty()) {
-            for (var bot : _web.getBotSpiders()){
-                bot.makeOptimalMove();
+        Iterator<BotSpider> botSpiderIterator = _web.getBotSpiders().iterator();
+        while (botSpiderIterator.hasNext()){
+            BotSpider bot = botSpiderIterator.next();
+            bot.makeOptimalMove();
+            if (bot.getHealth() == 0){
+                botSpiderIterator.remove();
             }
         }
     }
