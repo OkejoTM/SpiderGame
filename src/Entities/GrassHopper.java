@@ -4,6 +4,8 @@ import Setting.WebCross;
 
 public class GrassHopper extends Insect{
     public static final double _probabilityOfDisappearance = 0.5;
+    public static final double _probabilityOfAppearance = 0.1;
+
     public GrassHopper(int health, WebCross webCross) {
         super(health, webCross);
     }

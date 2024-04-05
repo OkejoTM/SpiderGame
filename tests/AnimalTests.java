@@ -1,8 +1,12 @@
+import Entities.Mole;
+import Factories.AbstractInsectFactory;
+import Factories.MoleFactory;
 import Setting.*;
 import org.junit.Test;
 import org.junit.Assert;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AnimalTests {
     @Test
@@ -32,7 +36,9 @@ public class AnimalTests {
         Web web = new Web(3);
         Flora flora = new Flora();
         flora.setWeb(web);
-        flora.createInsects(1);
+        ArrayList<AbstractInsectFactory> factoryList = new ArrayList<>();
+        factoryList.add(new MoleFactory());
+        flora.createInsects(factoryList);
         web.getInsects().get(0).die();
         Assert.assertEquals(0, web.getInsects().get(0).getHealth());
     }

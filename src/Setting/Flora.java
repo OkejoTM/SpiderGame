@@ -1,6 +1,7 @@
 package Setting;
 
 import Entities.*;
+import Factories.AbstractInsectFactory;
 import Utils.Algorithm;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ public class Flora {
     public void instantiateAnimals() {
         createPlayerSpider();
         createBotSpiders(1);
-//        createInsects(2);
+//        createInsects();
     }
 
     public boolean createPlayerSpider() {
@@ -38,12 +39,14 @@ public class Flora {
         }
     }
 
-    public void createInsects(int amount) {
-        for (int i = 0; i < amount; i++){
-            int moleHealth = 2;
-            Mole mole = new Mole(moleHealth, getRandomWebCross());
-            placeAnimalInWebCross(mole.getWebCross(), mole);
-            _web.addInsect(mole);
+    public void createInsects(ArrayList<AbstractInsectFactory> factories) {
+        for (var factory : factories) {
+            ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
+            var insect = factory.createInsect();
+            if (insect != null && !emptyWebCrosses.isEmpty()) // Если создалось насекомое, и место для установки есть
+            {
+                placeAnimalInWebCross(getRandomWebCross(emptyWebCrosses), insect);
+            }
         }
     }
 
@@ -51,11 +54,8 @@ public class Flora {
         webCross.setAnimal(animal);
     }
 
-    private WebCross getRandomWebCross() {
-        ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
-        int randomX = (int) (Math.random() * emptyWebCrosses.size() - 1);
-        int randomY = (int) (Math.random() * emptyWebCrosses.size() - 1);
-        return _web.getWebCross(new Point(randomX, randomY));
+    private WebCross getRandomWebCross(ArrayList<WebCross> webCrossesList) {
+        return webCrossesList.get((int)(Math.random() * (webCrossesList.size() - 1)));
     }
 
     public void setWeb(Web web) {

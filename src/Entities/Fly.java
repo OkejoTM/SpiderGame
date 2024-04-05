@@ -4,6 +4,7 @@ import Setting.WebCross;
 
 public class Fly extends Insect{
     public static final double _probabilityOfDisappearance = 0.3;
+    public static final double _probabilityOfAppearance = 0.2;
 
     public Fly(int health, WebCross webCross) {
         super(health, webCross);
