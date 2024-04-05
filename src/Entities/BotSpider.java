@@ -1,9 +1,13 @@
 package Entities;
 
+import Events.BotSpiderActionEvent;
+import Events.BotSpiderActionListener;
 import Interfaces.IPrey;
 import Setting.WebCross;
 import Utils.Algorithm;
 import Utils.Direction;
+
+import java.util.ArrayList;
 
 public class BotSpider extends Spider{
     private Algorithm _algorithm;
@@ -24,17 +28,12 @@ public class BotSpider extends Spider{
         _algorithm = null;
     }
 
-    @Override
-    public void eat(IPrey prey) {
-        int reducingHealth = ((Animal)prey).getHealth();
-        changeHealth(reducingHealth);
-        if (prey instanceof Insect insect){
-            insect.die();
-        }
-        if (prey instanceof PlayerSpider playerSpider){
-            playerSpider.die();
-        }
-    }
+//    @Override
+//    public void eat(IPrey prey) {
+//        int reducingHealth = ((Animal)prey).getHealth();
+//        changeHealth(reducingHealth);
+//        prey.getsEaten();
+//    }
 
     @Override
     public void die(){
@@ -42,5 +41,42 @@ public class BotSpider extends Spider{
         _webCross.releaseAnimal();
         setWebCross(null);
         clearAlgorithm();
+        fireBotSpiderDied();
     }
+
+    @Override
+    public void getIntoWebCross(WebCross nextWebCross) {
+        _webCross.releaseAnimal(); // Убрать из текущего перекрестия
+        nextWebCross.setAnimal(this); // Поставить животное в след. перекрестие
+        setWebCross(nextWebCross); // Поставить животному след. перекрестие
+        fireBotSpiderDied();
+    }
+
+    private ArrayList<BotSpiderActionListener> _botSpiderListenerList = new ArrayList<>();
+
+    public void addBotSpiderActionListener(BotSpiderActionListener listener) {
+        _botSpiderListenerList.add(listener);
+    }
+
+    public void removeBotSpiderActionListener(BotSpiderActionListener listener) {
+        _botSpiderListenerList.remove(listener);
+    }
+
+    public void fireBotSpiderMoved(){
+        for(BotSpiderActionListener listener : _botSpiderListenerList){
+            BotSpiderActionEvent event = new BotSpiderActionEvent(listener);
+            event.setBot(this);
+            listener.botMoved(event);
+        }
+    }
+
+    public void fireBotSpiderDied(){
+        for(BotSpiderActionListener listener : _botSpiderListenerList){
+            BotSpiderActionEvent event = new BotSpiderActionEvent(listener);
+            event.setBot(this);
+            listener.botDied(event);
+        }
+    }
+
+
 }

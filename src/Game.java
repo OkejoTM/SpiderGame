@@ -1,7 +1,8 @@
-import Entities.BotSpider;
+import Entities.*;
+import Events.*;
 import Setting.*;
-import Utils.Direction;
-import java.lang.Math;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Game {
@@ -16,37 +17,26 @@ public class Game {
 
     public void startGame(){
         _flora.instantiateAnimals();
-        do
-        {
-            Direction[] directions = new Direction[] {Direction.north(), Direction.east(),Direction.west(),Direction.south()};
-            int randomDirection = (int)(Math.random()*4);
-//            _web.getPlayer().makeMove(directions[randomDirection]);
 
-            double randomDigit = Math.random()*100;
-            if (randomDigit >10 && randomDigit < 15 && !_web.getInsects().isEmpty()){
-                int randomIndex = (int)(0+Math.random()*_web.getInsects().size());
-                _web.getInsects().get(randomIndex).die();
-            }
+        _web.getPlayer().addPlayerSpiderActionListener(new PlayerSpiderObserver());
 
-            randomDigit = Math.random()*100;
-            if (randomDigit > 10 && randomDigit < 15){
-                _flora.createInsects(1);
-            }
+        for(var bot : _web.getBotSpiders()){
+            bot.addBotSpiderActionListener(new BotSpiderObserver());
+        }
 
-            // Если не осталось пауков-ботов, gameOver - false
-            moveAllBots();
+        for (var insect : _web.getInsects()){
+            insect.addInsectActionListener(new InsectObserver());
+        }
 
-        }while(_web.isPlayerInWeb() && !_web.getBotSpiders().isEmpty());
-        endGame();
     }
 
     public void endGame(){
-        System.out.println(_web.getPlayer());
-        System.out.println(_web.getBotSpiders().size());
         _web.clearWeb();
         _flora.setWeb(null);
         _flora = null;
         _web = null;
+        _botsToRemove = null;
+        _insectsToRemove = null;
     }
 
     public void createWeb(int size){
@@ -58,9 +48,62 @@ public class Game {
         while (botSpiderIterator.hasNext()){
             BotSpider bot = botSpiderIterator.next();
             bot.makeOptimalMove();
-            if (bot.getHealth() == 0){
-                botSpiderIterator.remove();
-            }
+        }
+        _web.removeBotSpiders(_botsToRemove);
+        _botsToRemove.clear();
+    }
+
+    public void disappearInsects(){
+        Iterator<Insect> insectIterator = _web.getInsects().iterator();
+        while (insectIterator.hasNext()){
+            Insect insect = insectIterator.next();
+            insect.jumpOff();
+        }
+        _web.removeInsects(_insectsToRemove);
+        _insectsToRemove.clear();
+    }
+
+    public Web getWeb(){
+        return _web;
+    }
+
+    private ArrayList<BotSpider> _botsToRemove = new ArrayList<>();
+    private ArrayList<Insect> _insectsToRemove = new ArrayList<>();
+
+    private class PlayerSpiderObserver implements PlayerActionListener {
+        @Override
+        public void playerDied(PlayerActionEvent event) {
+            _web.removePlayer();
+            endGame();
+        }
+
+        @Override
+        public void playerMoved(PlayerActionEvent event) {
+            moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
+            disappearInsects(); // Пропадают насекомые
         }
     }
+
+    private class BotSpiderObserver implements BotSpiderActionListener {
+
+        @Override
+        public void botMoved(BotSpiderActionEvent event) {
+
+        }
+
+        @Override
+        public void botDied(BotSpiderActionEvent event) {
+            _botsToRemove.add(event.getBot());
+        }
+    }
+
+    private class InsectObserver implements InsectActionListener {
+
+        @Override
+        public void insectDied(InsectActionEvent event) {
+            _insectsToRemove.add(event.getInsect());
+        }
+    }
+
+
 }

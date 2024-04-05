@@ -1,9 +1,13 @@
 package Entities;
 
-import Interfaces.IEatBehaviour;
+import Events.BotSpiderActionEvent;
+import Events.BotSpiderActionListener;
+import Events.PlayerActionEvent;
+import Events.PlayerActionListener;
 import Interfaces.IPrey;
 import Setting.WebCross;
-import Utils.Direction;
+
+import java.util.ArrayList;
 
 public class PlayerSpider extends Spider implements IPrey {
 
@@ -13,14 +17,59 @@ public class PlayerSpider extends Spider implements IPrey {
 
     }
 
+//    @Override
+//    public void eat(IPrey prey) {
+//        int reducingHealth = ((Animal)prey).getHealth();
+//        changeHealth(reducingHealth);
+//        prey.getsEaten();
+//    }
+
     @Override
-    public void eat(IPrey prey) {
-        int reducingHealth = ((Animal)prey).getHealth();
-        changeHealth(reducingHealth);
-        if (prey instanceof Insect insect){
-            insect.die();
-        }
+    public void die() {
+        _health = 0;
+        _webCross.releaseAnimal();
+        setWebCross(null);
+        firePlayerDied();
+    }
+
+    @Override
+    public void getIntoWebCross(WebCross nextWebCross) {
+        _webCross.releaseAnimal(); // Убрать из текущего перекрестия
+        nextWebCross.setAnimal(this); // Поставить животное в след. перекрестие
+        setWebCross(nextWebCross); // Поставить животному след. перекрестие
+        firePlayerMoved();
+    }
+
+    @Override
+    public void getsEaten() {
+        die();
+        firePlayerDied();
     }
 
 
+    private ArrayList<PlayerActionListener> _playerSpiderListenerList = new ArrayList<>();
+
+    public void addPlayerSpiderActionListener(PlayerActionListener listener) {
+        _playerSpiderListenerList.add(listener);
+    }
+
+    public void removePlayerSpiderActionListener(PlayerActionListener listener) {
+        _playerSpiderListenerList.remove(listener);
+    }
+
+    public void firePlayerMoved(){
+        for(PlayerActionListener listener : _playerSpiderListenerList){
+            PlayerActionEvent event = new PlayerActionEvent(listener);
+            event.setPlayer(this);
+            listener.playerMoved(event);
+        }
+    }
+
+    public void firePlayerDied(){
+        for(PlayerActionListener listener : _playerSpiderListenerList){
+            PlayerActionEvent event = new PlayerActionEvent(listener);
+            event.setPlayer(this);
+            listener.playerDied(event);
+        }
+    }
 }

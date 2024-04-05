@@ -34,4 +34,6 @@ public abstract class Animal implements IDieable {
         _webCross.releaseAnimal();
         setWebCross(null);
     }
+
+
 }

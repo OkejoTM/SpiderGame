@@ -60,8 +60,7 @@ public class GameTests {
         flora.createPlayerSpider();
         web.getPlayer().setHealth(1);
         web.getPlayer().makeMove(Direction.north());
-        Assert.assertNull(web.getPlayer());
-        Assert.assertFalse(web.isPlayerInWeb());
+        Assert.assertEquals(0, web.getPlayer().getHealth());
     }
 
     @Test
@@ -70,6 +69,7 @@ public class GameTests {
         Flora flora = new Flora();
         flora.setWeb(web);
         flora.createPlayerSpider();
+        web.getPlayer().setHealth(10);
         web.getPlayer().makeMove(Direction.north());
         web.getPlayer().makeMove(Direction.north());
         Assert.assertTrue(web.isPlayerInWeb());
@@ -82,6 +82,7 @@ public class GameTests {
         Flora flora = new Flora();
         flora.setWeb(web);
         flora.createPlayerSpider();
+        web.getPlayer().setHealth(10);
         web.getPlayer().makeMove(Direction.south());
         Assert.assertTrue(web.isPlayerInWeb());
         Assert.assertEquals(web.getPlayer().getWebCross().getPosition(), new Point(1,1));
@@ -93,6 +94,7 @@ public class GameTests {
         Flora flora = new Flora();
         flora.setWeb(web);
         flora.createPlayerSpider();
+        web.getPlayer().setHealth(10);
         web.getPlayer().makeMove(Direction.west());
         web.getPlayer().makeMove(Direction.west());
         Assert.assertTrue(web.isPlayerInWeb());
@@ -105,6 +107,7 @@ public class GameTests {
         Flora flora = new Flora();
         flora.setWeb(web);
         flora.createPlayerSpider();
+        web.getPlayer().setHealth(10);
         web.getPlayer().makeMove(Direction.east());
         Assert.assertTrue(web.isPlayerInWeb());
         Assert.assertEquals(web.getPlayer().getWebCross().getPosition(), new Point(1,1));

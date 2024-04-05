@@ -69,16 +69,16 @@ public class Web {
         return false;
     }
 
-    public boolean removeInsect(Insect insect){
+    public boolean removeInsects(ArrayList<Insect> insectRange){
         if (!_insectsList.isEmpty()){
-            return _insectsList.remove(insect);
+            return _insectsList.removeAll(insectRange);
         }
         return false;
     }
 
-    public boolean removeBotSpider(BotSpider botSpider){
+    public boolean removeBotSpiders(ArrayList<BotSpider> botSpiderRange){
         if (!_botSpidersList.isEmpty()){
-            return _botSpidersList.remove(botSpider);
+            return _botSpidersList.removeAll(botSpiderRange);
         }
         return false;
     }
@@ -88,6 +88,17 @@ public class Web {
         if (_playerSpider != null) preyList.add(_playerSpider);
         return preyList;
     }
+
+    public ArrayList<WebCross> getEmptyWebCrosses(){
+        ArrayList<WebCross> emptyWebCrossList = new ArrayList<>();
+        for (var webCross : _webCrossList){
+            if (webCross.getAnimal() == null){
+                emptyWebCrossList.add(webCross);
+            }
+        }
+        return emptyWebCrossList;
+    }
+
 
     public PlayerSpider getPlayer(){
         return _playerSpider;
