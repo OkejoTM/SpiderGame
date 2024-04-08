@@ -28,18 +28,10 @@ public class BotSpider extends Spider{
         _algorithm = null;
     }
 
-//    @Override
-//    public void eat(IPrey prey) {
-//        int reducingHealth = ((Animal)prey).getHealth();
-//        changeHealth(reducingHealth);
-//        prey.getsEaten();
-//    }
-
     @Override
     public void die(){
         _health = 0;
         _webCross.releaseAnimal();
-        setWebCross(null);
         clearAlgorithm();
         fireBotSpiderDied();
     }

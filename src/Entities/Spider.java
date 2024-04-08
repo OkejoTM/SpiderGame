@@ -1,13 +1,9 @@
 package Entities;
 
-import Events.BotSpiderActionEvent;
-import Events.BotSpiderActionListener;
 import Interfaces.IMoveable;
 import Interfaces.IPrey;
 import Setting.WebCross;
 import Utils.Direction;
-
-import java.util.ArrayList;
 
 public abstract class Spider extends Animal implements IMoveable {
     public Spider(int health, WebCross webCross) {
@@ -18,11 +14,11 @@ public abstract class Spider extends Animal implements IMoveable {
         if (_webCross.hasNext(direction)){
             WebCross nextWebCross = _webCross.getNextWebCross(direction);
             if (nextWebCross.getAnimal() == null){
-                goIntoWebCross(nextWebCross);
+                go(nextWebCross);
             }
             else if (nextWebCross.getAnimal() instanceof IPrey prey){
                 eat(prey);
-                goIntoWebCross(nextWebCross);
+                go(nextWebCross);
             }
         }
     }
@@ -37,7 +33,7 @@ public abstract class Spider extends Animal implements IMoveable {
         prey.getsEaten();
     }
 
-    private void goIntoWebCross(WebCross nextWebCross){
+    private void go(WebCross nextWebCross){
         changeHealth(-1);
         if (_health == 0){
             die();

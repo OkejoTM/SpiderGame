@@ -32,7 +32,6 @@ public abstract class Animal implements IDieable {
     public void die() {
         _health = 0;
         _webCross.releaseAnimal();
-        setWebCross(null);
     }
 
 

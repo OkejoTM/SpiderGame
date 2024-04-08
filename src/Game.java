@@ -1,5 +1,6 @@
 import Entities.*;
 import Events.*;
+import Factories.*;
 import Setting.*;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class Game {
         _web = new Web(size);
     }
 
-    public void moveAllBots(){
+    private void moveAllBots(){
         Iterator<BotSpider> botSpiderIterator = _web.getBotSpiders().iterator();
         while (botSpiderIterator.hasNext()){
             BotSpider bot = botSpiderIterator.next();
@@ -53,7 +54,7 @@ public class Game {
         _botsToRemove.clear();
     }
 
-    public void disappearInsects(){
+    private void disappearInsects(){
         Iterator<Insect> insectIterator = _web.getInsects().iterator();
         while (insectIterator.hasNext()){
             Insect insect = insectIterator.next();
@@ -81,6 +82,12 @@ public class Game {
         public void playerMoved(PlayerActionEvent event) {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
             disappearInsects(); // Пропадают насекомые
+            ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
+            factories.add(new MoleFactory());
+            factories.add(new WaspFactory());
+            factories.add(new FlyFactory());
+            factories.add(new GrassHopperFactory());
+            _flora.createInsects(factories);
         }
     }
 

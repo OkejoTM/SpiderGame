@@ -99,6 +99,9 @@ public class Web {
         return emptyWebCrossList;
     }
 
+    public ArrayList<WebCross> getWebCrosses(){
+        return _webCrossList;
+    }
 
     public PlayerSpider getPlayer(){
         return _playerSpider;
@@ -113,10 +116,10 @@ public class Web {
     }
 
     public void clearWeb(){
-        clearWebCrosses();
+        removePlayer();
         clearSpiders();
         clearInsects();
-        removePlayer();
+        clearWebCrosses();
     }
 
     public void clearWebCrosses(){

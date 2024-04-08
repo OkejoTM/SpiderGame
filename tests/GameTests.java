@@ -1,5 +1,4 @@
 import Setting.*;
-import Entities.*;
 import Utils.Direction;
 import org.junit.Test;
 import org.junit.Assert;

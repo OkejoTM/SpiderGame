@@ -25,7 +25,8 @@ public class WebCross {
         if (_animal == null) {
             return false;
         }
-        _animal = null;
+        _animal.setWebCross(null); // Убрать у животного пересечение
+        _animal = null; // Убрать пересечение у животного
         return true;
     }
 

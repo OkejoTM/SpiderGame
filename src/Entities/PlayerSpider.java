@@ -10,25 +10,15 @@ import Setting.WebCross;
 import java.util.ArrayList;
 
 public class PlayerSpider extends Spider implements IPrey {
-
-
     public PlayerSpider(int health, WebCross webCross) {
         super(health, webCross);
 
     }
 
-//    @Override
-//    public void eat(IPrey prey) {
-//        int reducingHealth = ((Animal)prey).getHealth();
-//        changeHealth(reducingHealth);
-//        prey.getsEaten();
-//    }
-
     @Override
     public void die() {
         _health = 0;
         _webCross.releaseAnimal();
-        setWebCross(null);
         firePlayerDied();
     }
 
