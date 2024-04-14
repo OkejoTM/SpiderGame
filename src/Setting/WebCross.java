@@ -1,6 +1,5 @@
 package Setting;
 
-import Entities.*;
 import Utils.Direction;
 
 import java.awt.*;
@@ -31,9 +30,21 @@ public class WebCross {
     }
 
     public boolean setAnimal(Animal animal){
-        if (_animal != null) return false; // Если занято
-        _animal = animal;
-        return true;
+        boolean success;
+
+        if (this.getAnimal() == animal){
+            success = false;
+        }
+        else if (animal == null){
+            releaseAnimal();
+            success = true;
+        }
+        else{
+            animal.setWebCross(this);
+            _animal = animal;
+            success = true;
+        }
+        return success;
     }
 
     public Point getPosition() {
@@ -55,17 +66,23 @@ public class WebCross {
         return _web.getWebCross(newPos);
     }
 
-    private Point calcNewPosition(Point position, Direction direct){
+    private Point calcNewPosition(Point position, Direction direct) {
 
         // Таблица смещения для различных направлений: (горизонталь,вертикаль)
-        HashMap<Direction, int [] > offset=  new  HashMap<Direction, int [] >();
+        HashMap<Direction, int[]> offset = new HashMap<Direction, int[]>();
 
-        offset.put(Direction.north(),   new int []{ 0, -1} );
-        offset.put(Direction.south(),   new int []{ 0,  1} );
-        offset.put(Direction.east(),    new int []{ 1,  0} );
-        offset.put(Direction.west(),    new int []{-1,  0} );
+        offset.put(Direction.north(), new int[]{0, -1});
+        offset.put(Direction.south(), new int[]{0, 1});
+        offset.put(Direction.east(), new int[]{1, 0});
+        offset.put(Direction.west(), new int[]{-1, 0});
 
-        return new Point(position.x + offset.get(direct)[1],position.y + offset.get(direct)[0]);
+        return new Point(position.x + offset.get(direct)[1], position.y + offset.get(direct)[0]);
     }
+
+    @Override
+    public Object clone(){
+        return new WebCross(this._web, (Point) this._position.clone());
+    }
+
 
 }

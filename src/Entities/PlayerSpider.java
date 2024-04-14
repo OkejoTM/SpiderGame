@@ -12,28 +12,22 @@ import java.util.ArrayList;
 public class PlayerSpider extends Spider implements IPrey {
     public PlayerSpider(int health, WebCross webCross) {
         super(health, webCross);
-
     }
 
     @Override
     public void die() {
-        _health = 0;
-        _webCross.releaseAnimal();
+        super.die();
         firePlayerDied();
-    }
-
-    @Override
-    public void getIntoWebCross(WebCross nextWebCross) {
-        _webCross.releaseAnimal(); // Убрать из текущего перекрестия
-        nextWebCross.setAnimal(this); // Поставить животное в след. перекрестие
-        setWebCross(nextWebCross); // Поставить животному след. перекрестие
-        firePlayerMoved();
     }
 
     @Override
     public void getsEaten() {
-        die();
-        firePlayerDied();
+        this.die();
+    }
+
+    @Override
+    protected void notifySpiderMoved() {
+        firePlayerMoved();
     }
 
 
@@ -47,7 +41,7 @@ public class PlayerSpider extends Spider implements IPrey {
         _playerSpiderListenerList.remove(listener);
     }
 
-    public void firePlayerMoved(){
+    protected void firePlayerMoved(){
         for(PlayerActionListener listener : _playerSpiderListenerList){
             PlayerActionEvent event = new PlayerActionEvent(listener);
             event.setPlayer(this);
@@ -55,7 +49,7 @@ public class PlayerSpider extends Spider implements IPrey {
         }
     }
 
-    public void firePlayerDied(){
+    protected void firePlayerDied(){
         for(PlayerActionListener listener : _playerSpiderListenerList){
             PlayerActionEvent event = new PlayerActionEvent(listener);
             event.setPlayer(this);

@@ -11,7 +11,7 @@ public class FloraTests {
         Web web = new Web(3);
         Flora flora = new Flora();
         flora.setWeb(web);
-        flora.createPlayerSpider();
+        flora.createPlayerSpider(2);
         Assert.assertNotNull(web.getPlayer());
         Assert.assertEquals(web.getPlayer().getClass(), PlayerSpider.class);
     }

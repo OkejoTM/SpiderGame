@@ -1,5 +1,6 @@
 package Entities;
 
+import Setting.Web;
 import Setting.WebCross;
 
 public class Wasp extends Insect{
@@ -20,4 +21,8 @@ public class Wasp extends Insect{
         }
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return new Wasp(_health, (WebCross)_webCross.clone());
+    }
 }

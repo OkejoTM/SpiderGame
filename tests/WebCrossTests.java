@@ -1,5 +1,6 @@
 import Setting.*;
 import Entities.*;
+import Utils.Algorithm;
 import Utils.Direction;
 import org.junit.Test;
 import org.junit.Assert;
@@ -13,7 +14,7 @@ public class WebCrossTests {
         Web web = new Web(3);
         Flora flora = new Flora();
         flora.setWeb(web);
-        flora.createPlayerSpider();
+        flora.createPlayerSpider(2);
         WebCross webCross = web.getWebCross(new Point(1, 1));
         webCross.releaseAnimal();
         Assert.assertNull(webCross.getAnimal());
@@ -23,26 +24,23 @@ public class WebCrossTests {
     @Test
     public void ReleaseBotTest(){
         Web web = new Web(3);
-        Flora flora = new Flora();
-        flora.setWeb(web);
-        flora.createBotSpiders(1);
-        WebCross webCross = web.getBotSpiders().get(0).getWebCross();
+        WebCross webCross = web.getWebCross(new Point(1,1));
+        BotSpider bot = new BotSpider(1, webCross, null);
+        webCross.setAnimal(bot);
         webCross.releaseAnimal();
         Assert.assertNull(webCross.getAnimal());
-        Assert.assertNull(web.getBotSpiders().get(0).getWebCross());
+        Assert.assertNull(bot.getWebCross());
     }
 
     @Test
     public void ReleaseInsectTest(){
         Web web = new Web(3);
-        Insect insect = new Mole(1, null);
-        web.getInsects().add(insect);
-        WebCross webCross = web.getWebCross(new Point(0,0));
-        insect.setWebCross(webCross);
+        WebCross webCross = web.getWebCross(new Point(1,1));
+        Insect insect = new Mole(1, webCross);
         webCross.setAnimal(insect);
-        web.getInsects().get(0).getWebCross().releaseAnimal();
+        webCross.releaseAnimal();
         Assert.assertNull(webCross.getAnimal());
-        Assert.assertNull(web.getInsects().get(0).getWebCross());
+        Assert.assertNull(insect.getWebCross());
     }
 
     @Test
@@ -50,11 +48,11 @@ public class WebCrossTests {
         Web web = new Web(3);
         Flora flora = new Flora();
         flora.setWeb(web);
-        flora.createPlayerSpider();
+        flora.createPlayerSpider(2);
         WebCross webCross = web.getWebCross(new Point(1, 1));
         Insect insect = new Mole(1, null);
         webCross.setAnimal(insect);
-        Assert.assertEquals(web.getPlayer(), webCross.getAnimal());
+        Assert.assertEquals(insect, webCross.getAnimal());
     }
 
     @Test

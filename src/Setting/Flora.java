@@ -14,7 +14,7 @@ public class Flora {
     }
 
     public void instantiateAnimals() {
-        createPlayerSpider();
+        createPlayerSpider(2);
         createBotSpiders(1);
         ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
         factories.add(new MoleFactory());
@@ -24,9 +24,8 @@ public class Flora {
         createInsects(factories);
     }
 
-    public boolean createPlayerSpider() {
-        if (_web.isPlayerInWeb()) return false;
-        int spiderHealth = 1;
+    public boolean createPlayerSpider(int spiderHealth) {
+        if (_web.getPlayer() != null) return false;
         int pos = (_web.getSize() - 1) / 2;
         WebCross webCross = _web.getWebCross(new Point(pos, pos));
         PlayerSpider playerSpider = new PlayerSpider(spiderHealth, null);
@@ -48,10 +47,11 @@ public class Flora {
         return true;
     }
 
+
     public void createInsects(ArrayList<AbstractInsectFactory> factories) {
-        for (var factory : factories) {
+        for (AbstractInsectFactory factory : factories) {
             ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
-            var insect = factory.createInsect();
+            Insect insect = factory.createInsect();
             if (insect != null && !emptyWebCrosses.isEmpty()) // Если создалось насекомое, и место для установки есть
             {
                 placeAnimalInWebCross(getRandomWebCross(emptyWebCrosses), insect);
@@ -62,7 +62,6 @@ public class Flora {
 
     private void placeAnimalInWebCross(WebCross webCross, Animal animal) {
         webCross.setAnimal(animal);
-        animal.setWebCross(webCross);
     }
 
     private WebCross getRandomWebCross(ArrayList<WebCross> webCrossesList) {

@@ -1,6 +1,6 @@
 package Utils;
 
-import Entities.Animal;
+import Setting.Animal;
 import Interfaces.IPrey;
 import Setting.Web;
 import Setting.WebCross;
@@ -22,8 +22,8 @@ public class Algorithm {
         Point nearestPoint = ((Animal)preyList.get(0)).getWebCross().getPosition();
         double minDistance = startWebCross.getPosition().distance(nearestPoint);
 
-        for (var prey : preyList) {
-            var point = ((Animal)prey).getWebCross().getPosition();
+        for (IPrey prey : preyList) {
+            Point point = ((Animal)prey).getWebCross().getPosition();
             double distance = startWebCross.getPosition().distance(point);
             if (distance < minDistance) {
                 minDistance = distance;

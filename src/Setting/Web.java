@@ -8,7 +8,6 @@ import Interfaces.IPrey;
 
 public class Web {
     private final int _size;
-    private boolean _playerInWeb = false;
     private PlayerSpider _playerSpider;
     private ArrayList<WebCross> _webCrossList;
     private ArrayList<BotSpider> _botSpidersList;
@@ -25,10 +24,6 @@ public class Web {
         return _size;
     }
 
-    public boolean isPlayerInWeb(){
-        return _playerInWeb;
-    }
-
     private void createWebCrosses(){
         _webCrossList = new ArrayList<>();
         for (int i = 0 ; i < _size-1; i++){
@@ -39,7 +34,7 @@ public class Web {
     }
 
     public WebCross getWebCross(Point position){
-        for (var webCross : _webCrossList){
+        for (WebCross webCross : _webCrossList){
             if (position.equals(webCross.getPosition())){
                 return webCross;
             }
@@ -49,35 +44,54 @@ public class Web {
 
     void setPlayer(PlayerSpider spider){
         _playerSpider = spider;
-        _playerInWeb = true;
     }
 
     void addBotSpider(BotSpider botSpider){
-        _botSpidersList.add(botSpider);
+        if (!_botSpidersList.contains(botSpider)){
+            _botSpidersList.add(botSpider);
+        }
     }
+
 
     void addInsect(Insect insect){
-        _insectsList.add(insect);
+        if (!_insectsList.contains(insect)){
+            _insectsList.add(insect);
+        }
     }
 
-    public boolean removePlayer(){
+    // TODO
+    boolean removePlayer(){
         if (_playerSpider != null){
+            _playerSpider.die();
             _playerSpider = null;
-            _playerInWeb = false;
             return true;
         }
         return false;
     }
 
-    public boolean removeInsects(ArrayList<Insect> insectRange){
+    // TODO
+    boolean removeInsects(ArrayList<Insect> insectRange){
         if (!_insectsList.isEmpty()){
+            for (var insect : insectRange){
+                insect.die();
+                if (!_insectsList.contains(insect)){
+                    return false;
+                }
+            }
             return _insectsList.removeAll(insectRange);
         }
         return false;
     }
 
-    public boolean removeBotSpiders(ArrayList<BotSpider> botSpiderRange){
+    // TODO
+    boolean removeBotSpiders(ArrayList<BotSpider> botSpiderRange){
         if (!_botSpidersList.isEmpty()){
+            for(var bot : botSpiderRange){
+                bot.die();
+                if (!_botSpidersList.contains(bot)){
+                    return false;
+                }
+            }
             return _botSpidersList.removeAll(botSpiderRange);
         }
         return false;
@@ -91,7 +105,7 @@ public class Web {
 
     public ArrayList<WebCross> getEmptyWebCrosses(){
         ArrayList<WebCross> emptyWebCrossList = new ArrayList<>();
-        for (var webCross : _webCrossList){
+        for (WebCross webCross : _webCrossList){
             if (webCross.getAnimal() == null){
                 emptyWebCrossList.add(webCross);
             }
@@ -99,8 +113,13 @@ public class Web {
         return emptyWebCrossList;
     }
 
+    // TODO
     public ArrayList<WebCross> getWebCrosses(){
-        return _webCrossList;
+        ArrayList<WebCross> webCrosses = new ArrayList<>();
+        for(WebCross webCross : _webCrossList){
+            webCrosses.add((WebCross)webCross.clone());
+        }
+        return webCrosses;
     }
 
     public PlayerSpider getPlayer(){
@@ -108,10 +127,22 @@ public class Web {
     }
 
     public ArrayList<BotSpider> getBotSpiders(){
+        ArrayList<BotSpider> botSpiders = new ArrayList<>();
+        for (BotSpider bot : _botSpidersList){
+            botSpiders.add((BotSpider)bot.clone());
+        }
         return _botSpidersList;
     }
 
-    public ArrayList<Insect> getInsects(){
+    public ArrayList<Insect> getInsects() {
+        ArrayList<Insect> insectsList = new ArrayList<>();
+        for (Insect insect : _insectsList){
+            try {
+                insectsList.add((Insect)insect.clone());
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return _insectsList;
     }
 
@@ -123,21 +154,21 @@ public class Web {
     }
 
     public void clearWebCrosses(){
-        for (var webCross : _webCrossList){
+        for (WebCross webCross : _webCrossList){
             webCross.releaseAnimal();
         }
         _webCrossList.clear();
     }
 
     public void clearSpiders(){
-        for (var spider : _botSpidersList){
+        for (BotSpider spider : _botSpidersList){
             spider.die();
         }
         _botSpidersList.clear();
     }
 
     public void clearInsects(){
-        for (var insect : _insectsList){
+        for (Insect insect : _insectsList){
             insect.die();
         }
         _insectsList.clear();

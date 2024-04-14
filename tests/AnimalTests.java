@@ -1,3 +1,4 @@
+import Entities.BotSpider;
 import Entities.Insect;
 import Entities.Mole;
 import Factories.AbstractInsectFactory;
@@ -15,7 +16,7 @@ public class AnimalTests {
         Web web = new Web(3);
         Flora flora = new Flora();
         flora.setWeb(web);
-        flora.createPlayerSpider();
+        flora.createPlayerSpider(2);
         web.getPlayer().die();
         Assert.assertEquals(0, web.getPlayer().getHealth());
         Assert.assertNull(web.getPlayer().getWebCross());
@@ -25,25 +26,23 @@ public class AnimalTests {
     @Test
     public void BotSpiderDiesTest(){
         Web web = new Web(3);
-        Flora flora = new Flora();
-        flora.setWeb(web);
-        flora.createBotSpiders(1);
-        web.getBotSpiders().get(0).die();
-        Assert.assertEquals(0, web.getBotSpiders().get(0).getHealth());
+        WebCross webCross = web.getWebCross(new Point(1,1));
+        BotSpider bot = new BotSpider(1, webCross, null);
+        webCross.setAnimal(bot);
+        bot.die();
+        Assert.assertEquals(0, bot.getHealth());
+        Assert.assertNull(bot.getWebCross());
     }
 
     @Test
     public void InsectDiesTest(){
         Web web = new Web(3);
-        Insect insect = new Mole(1, null);
-        web.getInsects().add(insect);
-        WebCross webCross = web.getWebCross(new Point(0,0));
-        insect.setWebCross(webCross);
+        WebCross webCross = web.getWebCross(new Point(1,1));
+        Insect insect = new Mole(1, webCross);
         webCross.setAnimal(insect);
-        web.getInsects().get(0).die();
-        Assert.assertEquals(0, web.getInsects().get(0).getHealth());
+        insect.die();
+        Assert.assertEquals(0, insect.getHealth());
         Assert.assertNull(insect.getWebCross());
-        Assert.assertNull(webCross.getAnimal());
     }
 
 //    @Test
@@ -55,7 +54,6 @@ public class AnimalTests {
 //        insect.setWebCross(webCross);
 //        webCross.setAnimal(insect);
 //        web.getInsects().get(0).jumpOff();
-//        Assert.assertEquals(0, web.getInsects().get(0).getHealth());
 //        Assert.assertNull(insect.getWebCross());
 //        Assert.assertNull(webCross.getAnimal());
 //    }

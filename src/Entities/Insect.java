@@ -1,11 +1,9 @@
 package Entities;
 
-import Events.BotSpiderActionEvent;
-import Events.BotSpiderActionListener;
 import Events.InsectActionEvent;
 import Events.InsectActionListener;
-import Interfaces.IDieable;
 import Interfaces.IPrey;
+import Setting.Animal;
 import Setting.WebCross;
 
 import java.util.ArrayList;
@@ -19,7 +17,12 @@ public abstract class Insect extends Animal implements IPrey {
 
     @Override
     public void getsEaten() {
-        die();
+        this.die();
+    }
+
+    @Override
+    public void die() {
+        super.die();
         fireInsectDied();
     }
 
@@ -36,7 +39,7 @@ public abstract class Insect extends Animal implements IPrey {
         _insectListenersList.remove(listener);
     }
 
-    public void fireInsectDied(){
+    protected void fireInsectDied(){
         for(InsectActionListener listener : _insectListenersList){
             InsectActionEvent event = new InsectActionEvent(listener);
             event.setInsect(this);
@@ -44,4 +47,8 @@ public abstract class Insect extends Animal implements IPrey {
         }
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

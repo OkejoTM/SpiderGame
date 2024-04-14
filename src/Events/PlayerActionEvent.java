@@ -1,6 +1,5 @@
 package Events;
 
-import Entities.Animal;
 import Entities.PlayerSpider;
 
 import java.util.EventObject;

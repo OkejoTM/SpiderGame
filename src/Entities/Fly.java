@@ -19,4 +19,8 @@ public class Fly extends Insect{
         }
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return new Fly(_health, (WebCross)_webCross.clone());
+    }
 }

@@ -1,3 +1,5 @@
+package Setting;
+
 import Entities.*;
 import Events.*;
 import Factories.*;
@@ -9,29 +11,36 @@ import java.util.Iterator;
 public class Game {
     private Web _web;
     private Flora _flora;
+    private static ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
+    static {
+        factories.add(new MoleFactory());
+        factories.add(new WaspFactory());
+        factories.add(new FlyFactory());
+        factories.add(new GrassHopperFactory());
+    }
 
-    public Game(Flora flora){
-        createWeb(4);
+    public Game(Flora flora, int webSize) {
+        createWeb(webSize);
         _flora = flora;
         _flora.setWeb(_web);
     }
 
-    public void startGame(){
+    public void startGame() {
         _flora.instantiateAnimals();
 
         _web.getPlayer().addPlayerSpiderActionListener(new PlayerSpiderObserver());
 
-        for(var bot : _web.getBotSpiders()){
+        for (BotSpider bot : _web.getBotSpiders()) {
             bot.addBotSpiderActionListener(new BotSpiderObserver());
         }
 
-        for (var insect : _web.getInsects()){
+        for (Insect insect : _web.getInsects()) {
             insect.addInsectActionListener(new InsectObserver());
         }
 
     }
 
-    public void endGame(){
+    public void endGame() {
         _web.clearWeb();
         _flora.setWeb(null);
         _flora = null;
@@ -40,31 +49,27 @@ public class Game {
         _insectsToRemove = null;
     }
 
-    public void createWeb(int size){
+    public void createWeb(int size) {
         _web = new Web(size);
     }
 
-    private void moveAllBots(){
-        Iterator<BotSpider> botSpiderIterator = _web.getBotSpiders().iterator();
-        while (botSpiderIterator.hasNext()){
-            BotSpider bot = botSpiderIterator.next();
+    private void moveAllBots() {
+        for (BotSpider bot : _web.getBotSpiders()) {
             bot.makeOptimalMove();
         }
         _web.removeBotSpiders(_botsToRemove);
         _botsToRemove.clear();
     }
 
-    private void disappearInsects(){
-        Iterator<Insect> insectIterator = _web.getInsects().iterator();
-        while (insectIterator.hasNext()){
-            Insect insect = insectIterator.next();
+    private void disappearInsects() {
+        for (Insect insect : _web.getInsects()) {
             insect.jumpOff();
         }
         _web.removeInsects(_insectsToRemove);
         _insectsToRemove.clear();
     }
 
-    public Web getWeb(){
+    public Web getWeb() {
         return _web;
     }
 
@@ -74,7 +79,6 @@ public class Game {
     private class PlayerSpiderObserver implements PlayerActionListener {
         @Override
         public void playerDied(PlayerActionEvent event) {
-            _web.removePlayer();
             endGame();
         }
 
@@ -82,11 +86,6 @@ public class Game {
         public void playerMoved(PlayerActionEvent event) {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
             disappearInsects(); // Пропадают насекомые
-            ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
-            factories.add(new MoleFactory());
-            factories.add(new WaspFactory());
-            factories.add(new FlyFactory());
-            factories.add(new GrassHopperFactory());
             _flora.createInsects(factories);
         }
     }

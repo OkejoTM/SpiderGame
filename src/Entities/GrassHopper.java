@@ -18,4 +18,9 @@ public class GrassHopper extends Insect{
             fireInsectDied();
         }
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return new GrassHopper(_health, (WebCross)_webCross.clone());
+    }
 }

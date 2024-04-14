@@ -30,18 +30,14 @@ public class BotSpider extends Spider{
 
     @Override
     public void die(){
-        _health = 0;
-        _webCross.releaseAnimal();
+        super.die();
         clearAlgorithm();
         fireBotSpiderDied();
     }
 
     @Override
-    public void getIntoWebCross(WebCross nextWebCross) {
-        _webCross.releaseAnimal(); // Убрать из текущего перекрестия
-        nextWebCross.setAnimal(this); // Поставить животное в след. перекрестие
-        setWebCross(nextWebCross); // Поставить животному след. перекрестие
-        fireBotSpiderDied();
+    protected void notifySpiderMoved() {
+        fireBotSpiderMoved();
     }
 
     private ArrayList<BotSpiderActionListener> _botSpiderListenerList = new ArrayList<>();
@@ -54,7 +50,7 @@ public class BotSpider extends Spider{
         _botSpiderListenerList.remove(listener);
     }
 
-    public void fireBotSpiderMoved(){
+    protected void fireBotSpiderMoved(){
         for(BotSpiderActionListener listener : _botSpiderListenerList){
             BotSpiderActionEvent event = new BotSpiderActionEvent(listener);
             event.setBot(this);
@@ -62,7 +58,7 @@ public class BotSpider extends Spider{
         }
     }
 
-    public void fireBotSpiderDied(){
+    protected void fireBotSpiderDied(){
         for(BotSpiderActionListener listener : _botSpiderListenerList){
             BotSpiderActionEvent event = new BotSpiderActionEvent(listener);
             event.setBot(this);
@@ -70,5 +66,8 @@ public class BotSpider extends Spider{
         }
     }
 
-
+    @Override
+    public Object clone(){
+        return new BotSpider(this._health, (WebCross)_webCross.clone(), this._algorithm);
+    }
 }

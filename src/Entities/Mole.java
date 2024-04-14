@@ -18,4 +18,9 @@ public class Mole extends Insect{
             fireInsectDied();
         }
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return new Mole(_health, (WebCross)_webCross.clone());
+    }
 }
