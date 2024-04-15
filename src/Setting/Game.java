@@ -50,7 +50,9 @@ public class Game {
     }
 
     public void createWeb(int size) {
-        _web = new Web(size);
+        if (_web == null){
+            _web = new Web(size);
+        }
     }
 
     private void moveAllBots() {

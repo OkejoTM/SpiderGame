@@ -59,7 +59,6 @@ public class Web {
         }
     }
 
-    // TODO
     boolean removePlayer(){
         if (_playerSpider != null){
             _playerSpider.die();
@@ -69,7 +68,6 @@ public class Web {
         return false;
     }
 
-    // TODO
     boolean removeInsects(ArrayList<Insect> insectRange){
         if (!_insectsList.isEmpty()){
             for (var insect : insectRange){
@@ -83,14 +81,13 @@ public class Web {
         return false;
     }
 
-    // TODO
     boolean removeBotSpiders(ArrayList<BotSpider> botSpiderRange){
         if (!_botSpidersList.isEmpty()){
             for(var bot : botSpiderRange){
-                bot.die();
                 if (!_botSpidersList.contains(bot)){
                     return false;
                 }
+                bot.die();
             }
             return _botSpidersList.removeAll(botSpiderRange);
         }
@@ -131,7 +128,7 @@ public class Web {
         for (BotSpider bot : _botSpidersList){
             botSpiders.add((BotSpider)bot.clone());
         }
-        return _botSpidersList;
+        return botSpiders;
     }
 
     public ArrayList<Insect> getInsects() {
@@ -143,7 +140,7 @@ public class Web {
                 throw new RuntimeException(e);
             }
         }
-        return _insectsList;
+        return insectsList;
     }
 
     public void clearWeb(){
@@ -153,21 +150,21 @@ public class Web {
         clearWebCrosses();
     }
 
-    public void clearWebCrosses(){
+    private void clearWebCrosses(){
         for (WebCross webCross : _webCrossList){
             webCross.releaseAnimal();
         }
         _webCrossList.clear();
     }
 
-    public void clearSpiders(){
+    private void clearSpiders(){
         for (BotSpider spider : _botSpidersList){
             spider.die();
         }
         _botSpidersList.clear();
     }
 
-    public void clearInsects(){
+    private void clearInsects(){
         for (Insect insect : _insectsList){
             insect.die();
         }

@@ -21,11 +21,13 @@ public abstract class Animal {
 
     // TODO
     void setWebCross(WebCross webCross) {
+        // Если разные перекрестия
         if (webCross != null && this.getWebCross() != null && this.getWebCross() != webCross){
             webCross.releaseAnimal(); // Освобождаем устанавливаемую клетку перед назначением ее новому животному
             _webCross.releaseAnimal(); // Освобождаем собственную клетку
         }
-        if (webCross != null && _webCross == null){
+        // Если перекрестие назначается в первый раз
+        else if (webCross != null && _webCross == null){
             webCross.releaseAnimal();
         }
         _webCross = webCross;
