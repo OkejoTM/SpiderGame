@@ -30,21 +30,17 @@ public class WebCross {
     }
 
     public boolean setAnimal(Animal animal){
-        boolean success;
-
         if (this.getAnimal() == animal){
-            success = false;
+            return false;
         }
         else if (animal == null){
             releaseAnimal();
-            success = true;
         }
         else{
             animal.setWebCross(this);
             _animal = animal;
-            success = true;
         }
-        return success;
+        return true;
     }
 
     public Point getPosition() {
