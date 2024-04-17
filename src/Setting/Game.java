@@ -40,14 +40,16 @@ public class Game {
 
     }
 
+    // TODO game ended -> fireGameEnded event to all game listeners
     public void endGame() {
-        _web.clearWeb();
-        _flora.setWeb(null);
-        _flora = null;
-        _web = null;
-        _botsToRemove = null;
-        _insectsToRemove = null;
+//        _web.clearWeb();
+//        _flora.setWeb(null);
+//        _flora = null;
+//        _web = null;
+//        _botsToRemove = null;
+//        _insectsToRemove = null;
         System.out.println("Game ended");
+        fireGameEnded();
     }
 
     public void createWeb(int size) {
@@ -78,6 +80,8 @@ public class Game {
 
     private ArrayList<BotSpider> _botsToRemove = new ArrayList<>();
     private ArrayList<Insect> _insectsToRemove = new ArrayList<>();
+
+    // --------------------------- Game Observes ---------------------------------------
 
     private class PlayerSpiderObserver implements PlayerActionListener {
         @Override
@@ -118,6 +122,26 @@ public class Game {
             _insectsToRemove.add(event.getInsect());
             _web.removeInsects(_insectsToRemove);
             _insectsToRemove.clear();
+        }
+    }
+
+    // --------------------------- Game Listeners ---------------------------------------
+
+    private ArrayList<GameActionListener> _gameListeners = new ArrayList<>();
+
+    public void addGameActionListener(GameActionListener listener){
+        _gameListeners.add(listener);
+    }
+
+    public void removeGameActionListener(GameActionListener listener){
+        _gameListeners.remove(listener);
+    }
+
+    protected void fireGameEnded(){
+        for(GameActionListener listener : _gameListeners){
+            GameActionEvent event = new GameActionEvent(listener);
+            event.setGame(this);
+            listener.gameEnded(event);
         }
     }
 

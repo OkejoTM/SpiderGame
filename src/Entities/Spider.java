@@ -12,7 +12,6 @@ public abstract class Spider extends Animal {
         super(health, webCross);
     }
 
-    // TODO
     public void makeMove(Direction direction) {
         changeHealth(-1);
         if (getHealth() == 0) {
