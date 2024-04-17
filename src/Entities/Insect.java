@@ -17,7 +17,8 @@ public abstract class Insect extends Animal implements IPrey {
 
     @Override
     public void getsEaten() {
-        this.die();
+        super.die();
+        fireInsectWasEaten();
     }
 
     @Override
@@ -46,6 +47,15 @@ public abstract class Insect extends Animal implements IPrey {
             listener.insectDied(event);
         }
     }
+
+    protected void fireInsectWasEaten(){
+        for(InsectActionListener listener : _insectListenersList){
+            InsectActionEvent event = new InsectActionEvent(listener);
+            event.setInsect(this);
+            listener.insectWasEaten(event);
+        }
+    }
+
 
     @Override
     public Object clone() throws CloneNotSupportedException {

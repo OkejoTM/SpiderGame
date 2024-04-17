@@ -43,7 +43,9 @@ public class Web {
     }
 
     void setPlayer(PlayerSpider spider){
-        _playerSpider = spider;
+        if (_playerSpider == null){
+            _playerSpider = spider;
+        }
     }
 
     void addBotSpider(BotSpider botSpider){
@@ -51,7 +53,6 @@ public class Web {
             _botSpidersList.add(botSpider);
         }
     }
-
 
     void addInsect(Insect insect){
         if (!_insectsList.contains(insect)){
@@ -61,7 +62,7 @@ public class Web {
 
     boolean removePlayer(){
         if (_playerSpider != null){
-            _playerSpider.die();
+            _playerSpider.clear();
             _playerSpider = null;
             return true;
         }
@@ -71,10 +72,10 @@ public class Web {
     boolean removeInsects(ArrayList<Insect> insectRange){
         if (!_insectsList.isEmpty()){
             for (var insect : insectRange){
-                insect.die();
                 if (!_insectsList.contains(insect)){
                     return false;
                 }
+                insect.clear();
             }
             return _insectsList.removeAll(insectRange);
         }
@@ -87,7 +88,7 @@ public class Web {
                 if (!_botSpidersList.contains(bot)){
                     return false;
                 }
-                bot.die();
+                bot.clear();
             }
             return _botSpidersList.removeAll(botSpiderRange);
         }
@@ -123,24 +124,27 @@ public class Web {
         return _playerSpider;
     }
 
+    // TODO неглубокое
     public ArrayList<BotSpider> getBotSpiders(){
-        ArrayList<BotSpider> botSpiders = new ArrayList<>();
-        for (BotSpider bot : _botSpidersList){
-            botSpiders.add((BotSpider)bot.clone());
-        }
-        return botSpiders;
+//        ArrayList<BotSpider> botSpiders = new ArrayList<>();
+//        for (BotSpider bot : _botSpidersList){
+//            botSpiders.add((BotSpider)bot.clone());
+//        }
+//        return botSpiders;
+        return _botSpidersList;
     }
 
     public ArrayList<Insect> getInsects() {
-        ArrayList<Insect> insectsList = new ArrayList<>();
-        for (Insect insect : _insectsList){
-            try {
-                insectsList.add((Insect)insect.clone());
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return insectsList;
+//        ArrayList<Insect> insectsList = new ArrayList<>();
+//        for (Insect insect : _insectsList){
+//            try {
+//                insectsList.add((Insect)insect.clone());
+//            } catch (CloneNotSupportedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        return insectsList;
+        return _insectsList;
     }
 
     public void clearWeb(){
@@ -159,14 +163,14 @@ public class Web {
 
     private void clearSpiders(){
         for (BotSpider spider : _botSpidersList){
-            spider.die();
+            spider.clear();
         }
         _botSpidersList.clear();
     }
 
     private void clearInsects(){
         for (Insect insect : _insectsList){
-            insect.die();
+            insect.clear();
         }
         _insectsList.clear();
     }

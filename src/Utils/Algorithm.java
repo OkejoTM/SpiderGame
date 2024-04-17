@@ -30,9 +30,7 @@ public class Algorithm {
                 nearestPoint = point;
             }
         }
-        Direction direction = getDirection(startWebCross.getPosition(), nearestPoint);
-        return direction;
-
+        return getDirection(startWebCross.getPosition(), nearestPoint);
     }
 
     private Direction getDirection(Point start, Point nearestPoint){

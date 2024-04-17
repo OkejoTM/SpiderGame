@@ -24,6 +24,12 @@ public class BotSpider extends Spider{
         }
     }
 
+    @Override
+    public void clear() {
+        super.clear();
+        clearAlgorithm();
+    }
+
     private void clearAlgorithm(){
         _algorithm = null;
     }
@@ -31,7 +37,6 @@ public class BotSpider extends Spider{
     @Override
     public void die(){
         super.die();
-        clearAlgorithm();
         fireBotSpiderDied();
     }
 

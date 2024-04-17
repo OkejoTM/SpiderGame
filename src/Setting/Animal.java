@@ -35,6 +35,12 @@ public abstract class Animal {
 
     public void die() {
         _health = 0;
-        _webCross.releaseAnimal();
+        clear();
+    }
+
+    public void clear(){
+        if (_webCross != null){
+            _webCross.releaseAnimal();
+        }
     }
 }

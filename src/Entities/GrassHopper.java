@@ -15,7 +15,6 @@ public class GrassHopper extends Insect{
         double probability = Math.round(Math.random() * 10)/10.0;
         if (probability <= _probabilityOfDisappearance){
             die();
-            fireInsectDied();
         }
     }
 

@@ -47,6 +47,7 @@ public class Game {
         _web = null;
         _botsToRemove = null;
         _insectsToRemove = null;
+        System.out.println("Game ended");
     }
 
     public void createWeb(int size) {
@@ -110,6 +111,13 @@ public class Game {
         @Override
         public void insectDied(InsectActionEvent event) {
             _insectsToRemove.add(event.getInsect());
+        }
+
+        @Override
+        public void insectWasEaten(InsectActionEvent event) {
+            _insectsToRemove.add(event.getInsect());
+            _web.removeInsects(_insectsToRemove);
+            _insectsToRemove.clear();
         }
     }
 

@@ -31,7 +31,7 @@ public class WebCross {
 
     public boolean setAnimal(Animal animal){
         if (this.getAnimal() == animal){
-            return false;
+            return true;
         }
         else if (animal == null){
             releaseAnimal();
