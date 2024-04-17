@@ -1,6 +1,7 @@
 package Setting;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import Entities.*;
 import Interfaces.IPrey;
@@ -111,7 +112,6 @@ public class Web {
         return emptyWebCrossList;
     }
 
-    // TODO
     public ArrayList<WebCross> getWebCrosses(){
         ArrayList<WebCross> webCrosses = new ArrayList<>();
         for(WebCross webCross : _webCrossList){
@@ -124,27 +124,12 @@ public class Web {
         return _playerSpider;
     }
 
-    // TODO неглубокое
     public ArrayList<BotSpider> getBotSpiders(){
-//        ArrayList<BotSpider> botSpiders = new ArrayList<>();
-//        for (BotSpider bot : _botSpidersList){
-//            botSpiders.add((BotSpider)bot.clone());
-//        }
-//        return botSpiders;
-        return _botSpidersList;
+        return new ArrayList<>(_botSpidersList);
     }
 
     public ArrayList<Insect> getInsects() {
-//        ArrayList<Insect> insectsList = new ArrayList<>();
-//        for (Insect insect : _insectsList){
-//            try {
-//                insectsList.add((Insect)insect.clone());
-//            } catch (CloneNotSupportedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        return insectsList;
-        return _insectsList;
+        return new ArrayList<>(_insectsList);
     }
 
     public void clearWeb(){
