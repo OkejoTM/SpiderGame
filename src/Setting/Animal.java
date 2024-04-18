@@ -19,7 +19,6 @@ public abstract class Animal {
         return _webCross;
     }
 
-    // TODO
     void setWebCross(WebCross webCross) {
         // Если разные перекрестия
         if (webCross != null && this.getWebCross() != null && this.getWebCross() != webCross){

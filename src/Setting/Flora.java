@@ -14,14 +14,14 @@ public class Flora {
     }
 
     public void instantiateAnimals() {
-        createPlayerSpider(2);
-        createBotSpiders(1);
-        ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
-        factories.add(new MoleFactory());
-        factories.add(new WaspFactory());
-        factories.add(new FlyFactory());
-        factories.add(new GrassHopperFactory());
-        createInsects(factories);
+        createPlayerSpider(10);
+        createBotSpiders(3);
+//        ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
+//        factories.add(new MoleFactory());
+//        factories.add(new WaspFactory());
+//        factories.add(new FlyFactory());
+//        factories.add(new GrassHopperFactory());
+        createInsects(Game.factories);
     }
 
     public boolean createPlayerSpider(int spiderHealth) {
@@ -39,8 +39,8 @@ public class Flora {
         for (int i = 0; i < amount; i++) {
             int spiderHealth = 10;
             ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
+            if (emptyWebCrosses.isEmpty()) return false;
             BotSpider botSpider = new BotSpider(spiderHealth, null, new Algorithm(_web));
-//            BotSpider botSpider = new BotSpider(spiderHealth, _web.getWebCross(new Point(0, 0)), new Algorithm(_web));
             placeAnimalInWebCross(getRandomWebCross(emptyWebCrosses), botSpider);
             _web.addBotSpider(botSpider);
         }

@@ -21,5 +21,8 @@ public class Main {
         Game game = new Game(flora, 4);
         game.startGame();
         game.getWeb().getPlayer().makeMove(Direction.north());
+        game.getWeb().getPlayer().makeMove(Direction.north());
+        game.getWeb().getPlayer().makeMove(Direction.north());
+
     }
 }

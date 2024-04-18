@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class Game {
     private Web _web;
     private Flora _flora;
-    private static ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
+    public static final ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
     static {
         factories.add(new MoleFactory());
         factories.add(new WaspFactory());
@@ -40,14 +40,7 @@ public class Game {
 
     }
 
-    // TODO game ended -> fireGameEnded event to all game listeners
     public void endGame() {
-//        _web.clearWeb();
-//        _flora.setWeb(null);
-//        _flora = null;
-//        _web = null;
-//        _botsToRemove = null;
-//        _insectsToRemove = null;
         System.out.println("Game ended");
         fireGameEnded();
     }

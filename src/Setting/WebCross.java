@@ -10,10 +10,15 @@ public class WebCross {
     private Point _position;
     private Web _web;
     private Animal _animal = null;
+    private boolean _isValid;
 
     public WebCross(Web web, Point position){
         _web = web;
+        if (!isValidPosition(position)){
+            throw new RuntimeException("Invalid Position");
+        }
         _position = position;
+        _isValid = true;
     }
 
     public Animal getAnimal(){
@@ -47,14 +52,23 @@ public class WebCross {
         return (Point)_position.clone();
     }
 
-    public boolean isValid(Point position){
+    public boolean isValidPosition(Point position){
         return position.x < _web.getSize()-1 && position.y < _web.getSize()-1 && position.x >= 0 && position.y >= 0;
+    }
+
+    public boolean isValid(){
+        return _isValid;
+    }
+
+    public void clear(){
+        this.releaseAnimal();
+        _isValid = false;
     }
 
     // ------------------ Порождение и проверка смежных позиций ---------------------
     public boolean hasNext(Direction direction){
         Point newPos = calcNewPosition((Point)_position.clone(), direction);
-        return isValid(newPos);
+        return isValidPosition(newPos);
     }
 
     public WebCross getNextWebCross(Direction direction){

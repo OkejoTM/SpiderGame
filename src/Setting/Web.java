@@ -132,7 +132,7 @@ public class Web {
         return new ArrayList<>(_insectsList);
     }
 
-    public void clearWeb(){
+    public void clear(){
         removePlayer();
         clearSpiders();
         clearInsects();
@@ -141,7 +141,7 @@ public class Web {
 
     private void clearWebCrosses(){
         for (WebCross webCross : _webCrossList){
-            webCross.releaseAnimal();
+            webCross.clear();
         }
         _webCrossList.clear();
     }
