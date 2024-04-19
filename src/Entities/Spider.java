@@ -14,10 +14,10 @@ public abstract class Spider extends Animal {
 
     public void makeMove(Direction direction) {
         changeHealth(-1);
-        if (getHealth() == 0) {
+        if (!isAlive()) {
             die();
         }
-        if (this.getHealth() != 0 && _webCross.hasNext(direction)) {
+        else if (_webCross.hasNext(direction)) {
             WebCross nextWebCross = _webCross.getNextWebCross(direction);
             if (nextWebCross.getAnimal() instanceof IPrey prey) {
                 eat(prey);

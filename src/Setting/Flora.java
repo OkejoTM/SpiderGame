@@ -10,18 +10,21 @@ import java.util.ArrayList;
 public class Flora {
     private Web _web;
 
+    private static final ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
+    static {
+        factories.add(new MoleFactory());
+        factories.add(new WaspFactory());
+        factories.add(new FlyFactory());
+        factories.add(new GrassHopperFactory());
+    }
+
     public Flora() {
     }
 
     public void instantiateAnimals() {
         createPlayerSpider(10);
         createBotSpiders(3);
-//        ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
-//        factories.add(new MoleFactory());
-//        factories.add(new WaspFactory());
-//        factories.add(new FlyFactory());
-//        factories.add(new GrassHopperFactory());
-        createInsects(Game.factories);
+        createInsects();
     }
 
     public boolean createPlayerSpider(int spiderHealth) {
@@ -48,7 +51,7 @@ public class Flora {
     }
 
 
-    public void createInsects(ArrayList<AbstractInsectFactory> factories) {
+    public void createInsects() {
         for (AbstractInsectFactory factory : factories) {
             ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
             Insect insect = factory.createInsect();

@@ -11,13 +11,7 @@ import java.util.Iterator;
 public class Game {
     private Web _web;
     private Flora _flora;
-    public static final ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
-    static {
-        factories.add(new MoleFactory());
-        factories.add(new WaspFactory());
-        factories.add(new FlyFactory());
-        factories.add(new GrassHopperFactory());
-    }
+
 
     public Game(Flora flora, int webSize) {
         createWeb(webSize);
@@ -86,7 +80,7 @@ public class Game {
         public void playerMoved(PlayerActionEvent event) {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
             disappearInsects(); // Пропадают насекомые
-            _flora.createInsects(factories);
+            _flora.createInsects();
         }
     }
 

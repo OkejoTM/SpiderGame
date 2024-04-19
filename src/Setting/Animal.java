@@ -15,6 +15,10 @@ public abstract class Animal {
         return _health;
     }
 
+    public boolean isAlive(){
+        return _health > 0;
+    }
+
     public WebCross getWebCross() {
         return _webCross;
     }
@@ -42,4 +46,5 @@ public abstract class Animal {
             _webCross.releaseAnimal();
         }
     }
+
 }

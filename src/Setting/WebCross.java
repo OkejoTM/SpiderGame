@@ -15,7 +15,7 @@ public class WebCross {
     public WebCross(Web web, Point position){
         _web = web;
         if (!isValidPosition(position)){
-            throw new RuntimeException("Invalid Position");
+            throw new IllegalArgumentException("Invalid Position");
         }
         _position = position;
         _isValid = true;
@@ -35,6 +35,7 @@ public class WebCross {
     }
 
     public boolean setAnimal(Animal animal){
+
         if (this.getAnimal() == animal){
             return true;
         }
