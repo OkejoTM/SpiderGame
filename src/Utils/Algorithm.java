@@ -19,18 +19,23 @@ public class Algorithm {
         ArrayList<IPrey> preyList = _web.getAllPreys();
         if (startWebCross == null || preyList.isEmpty()) return null;
 
-        Point nearestPoint = ((Animal)preyList.get(0)).getWebCross().getPosition();
-        double minDistance = startWebCross.getPosition().distance(nearestPoint);
+        WebCrossPosition webCrossPosition =  ((Animal)preyList.get(0)).getWebCross().getPosition();
+        Point nearestPoint = new Point(webCrossPosition.row(), webCrossPosition.column());
+
+        WebCrossPosition startWebCrossPosition = startWebCross.getPosition();
+        Point startPosition = new Point(startWebCrossPosition.row(), startWebCrossPosition.column());
+        double minDistance = startPosition.distance(nearestPoint);
 
         for (IPrey prey : preyList) {
-            Point point = ((Animal)prey).getWebCross().getPosition();
-            double distance = startWebCross.getPosition().distance(point);
+            WebCrossPosition preyPosition = ((Animal)prey).getWebCross().getPosition();
+            Point point = new Point(preyPosition.row(), preyPosition.column());
+            double distance = startPosition.distance(point);
             if (distance < minDistance) {
                 minDistance = distance;
                 nearestPoint = point;
             }
         }
-        return getDirection(startWebCross.getPosition(), nearestPoint);
+        return getDirection(startPosition, nearestPoint);
     }
 
     private Direction getDirection(Point start, Point nearestPoint){

@@ -17,8 +17,8 @@ public abstract class Spider extends Animal {
         if (!isAlive()) {
             die();
         }
-        else if (_webCross.hasNext(direction)) {
-            WebCross nextWebCross = _webCross.getNextWebCross(direction);
+        else if (_webCross.hasNeighbour(direction)) {
+            WebCross nextWebCross = _webCross.neighbour(direction);
             if (nextWebCross.getAnimal() instanceof IPrey prey) {
                 eat(prey);
             }

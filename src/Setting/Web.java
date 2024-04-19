@@ -3,44 +3,73 @@ package Setting;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import Entities.*;
 import Interfaces.IPrey;
+import Utils.Direction;
+import Utils.WebCrossPosition;
 
 
-public class Web {
+public class Web implements Iterable<WebCross>{
+
     private final int _size;
     private PlayerSpider _playerSpider;
-    private ArrayList<WebCross> _webCrossList;
-    private ArrayList<BotSpider> _botSpidersList;
-    private ArrayList<Insect> _insectsList;
+    private final HashMap<WebCrossPosition, WebCross> _webCrosses = new HashMap<>();
+    private ArrayList<BotSpider> _botSpidersList = new ArrayList<>();
+    private ArrayList<Insect> _insectsList = new ArrayList<>();
 
     public Web(int size){
+        if (size < 0) throw new IllegalArgumentException("Illegal size");
         _size = size;
         createWebCrosses();
-        _insectsList = new ArrayList<>();
-        _botSpidersList = new ArrayList<>();
     }
 
     public int getSize() {
         return _size;
     }
 
+    @Override
+    public Iterator<WebCross> iterator() {
+        return new WebIterator(this);
+    }
+
     private void createWebCrosses(){
-        _webCrossList = new ArrayList<>();
-        for (int i = 0 ; i < _size-1; i++){
-            for (int j = 0 ; j < _size-1; j++){
-                _webCrossList.add(new WebCross(this, new Point(i,j)));
+        for (int i = 0; i < _size - 1 ; i++){
+            for (int j = 0 ; j < _size - 1 ; j++){
+                WebCrossPosition pos = new WebCrossPosition(i,j);
+                _webCrosses.put(pos, new WebCross(pos));
+            }
+        }
+
+        for (int i = 0; i < _size - 1 ; i++){
+            for (int j = 0 ; j < _size - 1 ; j++){
+                WebCross webCross = getWebCross(new WebCrossPosition(i, j));
+
+                if (_size > 1 && i < _size - 1){
+                    webCross.setNeighbour(Direction.south(), getWebCross(i+1, j));
+                }
+                if (i > 0){
+                    webCross.setNeighbour(Direction.north(), getWebCross(i-1, j));
+                }
+                if (_size > 1 && j < _size - 1){
+                    webCross.setNeighbour(Direction.east(), getWebCross(i, j+1));
+                }
+                if (j > 0){
+                    webCross.setNeighbour(Direction.west(), getWebCross(i, j-1));
+                }
+
             }
         }
     }
 
-    public WebCross getWebCross(Point position){
-        for (WebCross webCross : _webCrossList){
-            if (position.equals(webCross.getPosition())){
-                return webCross;
-            }
-        }
-        return null;
+    public WebCross getWebCross(WebCrossPosition position){
+        return _webCrosses.get(position);
+    }
+
+    public WebCross getWebCross(int row, int column){
+        return _webCrosses.get(new WebCrossPosition(row, column));
     }
 
     void setPlayer(PlayerSpider spider){
@@ -104,21 +133,24 @@ public class Web {
 
     public ArrayList<WebCross> getEmptyWebCrosses(){
         ArrayList<WebCross> emptyWebCrossList = new ArrayList<>();
-        for (WebCross webCross : _webCrossList){
-            if (webCross.getAnimal() == null){
+        Iterator<WebCross> webCrossIterator =  new WebIterator(this);
+        while(webCrossIterator.hasNext()){
+            WebCross webCross = webCrossIterator.next();
+            if (webCross.getAnimal() == null)
+            {
                 emptyWebCrossList.add(webCross);
             }
         }
         return emptyWebCrossList;
     }
 
-    public ArrayList<WebCross> getWebCrosses(){
-        ArrayList<WebCross> webCrosses = new ArrayList<>();
-        for(WebCross webCross : _webCrossList){
-            webCrosses.add((WebCross)webCross.clone());
-        }
-        return webCrosses;
-    }
+//    public ArrayList<WebCross> getWebCrosses(){
+//        ArrayList<WebCross> webCrosses = new ArrayList<>();
+//        for(WebCross webCross : _webCrossList){
+//            webCrosses.add((WebCross)webCross.clone());
+//        }
+//        return webCrosses;
+//    }
 
     public PlayerSpider getPlayer(){
         return _playerSpider;
@@ -140,10 +172,12 @@ public class Web {
     }
 
     private void clearWebCrosses(){
-        for (WebCross webCross : _webCrossList){
+        Iterator<WebCross> webCrossIterator = new WebIterator(this);
+        while(webCrossIterator.hasNext()){
+            WebCross webCross = webCrossIterator.next();
             webCross.clear();
         }
-        _webCrossList.clear();
+        _webCrosses.clear();
     }
 
     private void clearSpiders(){
@@ -159,4 +193,43 @@ public class Web {
         }
         _insectsList.clear();
     }
+
+    // --- Iterator for webCrosses ---
+    private class WebIterator implements Iterator<WebCross>{
+
+        private WebCross _webCross = null;
+        private final Web _web;
+
+        public WebIterator(Web web){
+            _web = web;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextWebCross(_webCross) != null;
+        }
+
+        @Override
+        public WebCross next() {
+            _webCross = nextWebCross(_webCross);
+            return _webCross;
+        }
+
+        private WebCross nextWebCross(WebCross webCross){
+            WebCross nextWebCross = null;
+
+            if (webCross == null){
+                nextWebCross = _web.getWebCross(new WebCrossPosition(0,0));
+            }
+            else{
+                nextWebCross = webCross.neighbour(Direction.east());
+                if (nextWebCross == null && webCross.getPosition().row() < _web.getSize()-1){
+                    nextWebCross = _web.getWebCross(new WebCrossPosition(webCross.getPosition().row()+1, webCross.getPosition().column()));
+                }
+            }
+
+            return nextWebCross;
+        }
+    }
+
 }

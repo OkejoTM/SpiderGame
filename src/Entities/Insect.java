@@ -56,9 +56,4 @@ public abstract class Insect extends Animal implements IPrey {
         }
     }
 
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }

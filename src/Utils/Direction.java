@@ -25,13 +25,14 @@ public class Direction {
     public static Direction west()
     { return new Direction(180); }
 
+    public Direction opposite(){
+        return new Direction(this._angle + 180);
+    }
+
     @Override
     public boolean equals(Object other) {
 
-        if(other instanceof Direction) {
-            // Типы совместимы, можно провести преобразование
-            Direction otherDirect = (Direction)other;
-            // Возвращаем результат сравнения углов
+        if(other instanceof Direction otherDirect) {
             return  _angle == otherDirect._angle;
         }
 

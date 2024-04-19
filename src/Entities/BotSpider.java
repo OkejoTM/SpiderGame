@@ -71,8 +71,4 @@ public class BotSpider extends Spider{
         }
     }
 
-    @Override
-    public Object clone(){
-        return new BotSpider(this._health, (WebCross)_webCross.clone(), this._algorithm);
-    }
 }

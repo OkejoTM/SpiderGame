@@ -3,6 +3,7 @@ package Setting;
 import Entities.*;
 import Factories.*;
 import Utils.Algorithm;
+import Utils.WebCrossPosition;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class Flora {
     public boolean createPlayerSpider(int spiderHealth) {
         if (_web.getPlayer() != null) return false;
         int pos = (_web.getSize() - 1) / 2;
-        WebCross webCross = _web.getWebCross(new Point(pos, pos));
+        WebCross webCross = _web.getWebCross(new WebCrossPosition(pos, pos));
         PlayerSpider playerSpider = new PlayerSpider(spiderHealth, null);
         placeAnimalInWebCross(webCross, playerSpider);
         _web.setPlayer(playerSpider);

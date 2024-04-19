@@ -31,7 +31,6 @@ public class Game {
         for (Insect insect : _web.getInsects()) {
             insect.addInsectActionListener(new InsectObserver());
         }
-
     }
 
     public void endGame() {

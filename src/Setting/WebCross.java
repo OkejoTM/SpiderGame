@@ -1,25 +1,53 @@
 package Setting;
 
 import Utils.Direction;
+import Utils.WebCrossPosition;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class WebCross {
-    private Point _position;
-    private Web _web;
+    private WebCrossPosition _position;
     private Animal _animal = null;
     private boolean _isValid;
 
-    public WebCross(Web web, Point position){
-        _web = web;
-        if (!isValidPosition(position)){
-            throw new IllegalArgumentException("Invalid Position");
-        }
+    public WebCross(WebCrossPosition position){
         _position = position;
         _isValid = true;
     }
+
+    public boolean isValid(){
+        return _isValid;
+    }
+
+    // ----- Neighbours ------
+    private final Map<Direction, WebCross> _neighbours = new HashMap<>();
+
+    public WebCross neighbour(Direction direction){
+        if (_neighbours.containsKey(direction)){
+            return _neighbours.get(direction);
+        }
+        return null;
+    }
+
+    void setNeighbour(Direction direction, WebCross neighbour){
+        if (neighbour != this && !isNeighbour(neighbour)){
+            _neighbours.put(direction, neighbour);
+            neighbour.setNeighbour(direction.opposite(), this);
+        }
+    }
+
+    public boolean isNeighbour(WebCross other){
+        return _neighbours.containsValue(other);
+    }
+
+    public boolean hasNeighbour(Direction direction){
+        return _neighbours.containsKey(direction);
+    }
+
+    // ----- Animal -----
 
     public Animal getAnimal(){
         return _animal;
@@ -49,51 +77,14 @@ public class WebCross {
         return true;
     }
 
-    public Point getPosition() {
-        return (Point)_position.clone();
+    public WebCrossPosition getPosition() {
+        return _position;
     }
 
-    public boolean isValidPosition(Point position){
-        return position.x < _web.getSize()-1 && position.y < _web.getSize()-1 && position.x >= 0 && position.y >= 0;
-    }
 
-    public boolean isValid(){
-        return _isValid;
-    }
 
     public void clear(){
         this.releaseAnimal();
         _isValid = false;
     }
-
-    // ------------------ Порождение и проверка смежных позиций ---------------------
-    public boolean hasNext(Direction direction){
-        Point newPos = calcNewPosition((Point)_position.clone(), direction);
-        return isValidPosition(newPos);
-    }
-
-    public WebCross getNextWebCross(Direction direction){
-        Point newPos = calcNewPosition((Point)_position.clone(), direction);
-        return _web.getWebCross(newPos);
-    }
-
-    private Point calcNewPosition(Point position, Direction direct) {
-
-        // Таблица смещения для различных направлений: (горизонталь,вертикаль)
-        HashMap<Direction, int[]> offset = new HashMap<Direction, int[]>();
-
-        offset.put(Direction.north(), new int[]{0, -1});
-        offset.put(Direction.south(), new int[]{0, 1});
-        offset.put(Direction.east(), new int[]{1, 0});
-        offset.put(Direction.west(), new int[]{-1, 0});
-
-        return new Point(position.x + offset.get(direct)[1], position.y + offset.get(direct)[0]);
-    }
-
-    @Override
-    public Object clone(){
-        return new WebCross(this._web, (Point) this._position.clone());
-    }
-
-
 }
