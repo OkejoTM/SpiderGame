@@ -1,6 +1,6 @@
 package Factories;
 
-import Entities.Wasp;
+import Setting.Wasp;
 
 public class WaspFactory extends AbstractInsectFactory{
     @Override

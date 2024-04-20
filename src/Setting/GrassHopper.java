@@ -1,6 +1,4 @@
-package Entities;
-
-import Setting.WebCross;
+package Setting;
 
 public class GrassHopper extends Insect{
     public static final double _probabilityOfDisappearance = 0.5;

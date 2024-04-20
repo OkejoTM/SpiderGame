@@ -1,4 +1,4 @@
-package Entities;
+package Setting;
 
 import Interfaces.IPrey;
 import Setting.Animal;
@@ -22,7 +22,8 @@ public abstract class Spider extends Animal {
             if (nextWebCross.getAnimal() instanceof IPrey prey) {
                 eat(prey);
             }
-            if (nextWebCross.getAnimal() == null){
+            // Если не занята
+            if (!nextWebCross.isOccupied()){
                 getIntoWebCross(nextWebCross);
             }
         }

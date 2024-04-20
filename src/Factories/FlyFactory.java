@@ -1,6 +1,6 @@
 package Factories;
 
-import Entities.Fly;
+import Setting.Fly;
 
 public class FlyFactory extends AbstractInsectFactory{
     @Override

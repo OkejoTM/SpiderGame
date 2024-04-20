@@ -1,9 +1,7 @@
 package Setting;
 
-import Entities.*;
 import Factories.*;
 import Utils.BotSpiderMovementAlgorithm;
-import Utils.WebCrossPosition;
 
 import java.util.ArrayList;
 

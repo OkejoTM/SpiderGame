@@ -9,68 +9,73 @@ import java.util.Map;
 
 
 public class WebCross {
-    private WebCrossPosition _position;
+    private final WebCrossPosition _position;
     private Animal _animal = null;
     private boolean _isValid;
 
-    public WebCross(WebCrossPosition position){
+    public WebCross(WebCrossPosition position) {
         _position = position;
         _isValid = true;
     }
 
-    public boolean isValid(){
+    public boolean isValid() {
         return _isValid;
+    }
+
+    public boolean isOccupied(){
+        return _animal != null;
     }
 
     // ----- Neighbours ------
     private final Map<Direction, WebCross> _neighbours = new HashMap<>();
 
-    public WebCross neighbour(Direction direction){
-        if (_neighbours.containsKey(direction)){
+    public WebCross neighbour(Direction direction) {
+        if (_neighbours.containsKey(direction)) {
             return _neighbours.get(direction);
         }
         return null;
     }
 
-    void setNeighbour(Direction direction, WebCross neighbour){
-        if (neighbour != this && !isNeighbour(neighbour)){
+    void setNeighbour(Direction direction, WebCross neighbour) {
+        if (neighbour != this && !isNeighbour(neighbour)) {
             _neighbours.put(direction, neighbour);
             neighbour.setNeighbour(direction.opposite(), this);
         }
     }
 
-    public boolean isNeighbour(WebCross other){
+    public boolean isNeighbour(WebCross other) {
         return _neighbours.containsValue(other);
     }
 
-    public boolean hasNeighbour(Direction direction){
+    public boolean hasNeighbour(Direction direction) {
         return _neighbours.containsKey(direction);
     }
 
     // ----- Animal -----
 
-    public Animal getAnimal(){
+    public Animal getAnimal() {
         return _animal;
     }
 
-    boolean releaseAnimal(){
+    private void releaseAnimal() {
         if (_animal == null) {
-            return false;
+            return;
         }
         _animal.setWebCross(null); // Убрать у животного пересечение
         _animal = null; // Убрать пересечение у животного
-        return true;
     }
 
-    public boolean setAnimal(Animal animal){
-
-        if (this.getAnimal() == animal){
-            return true;
+    public boolean setAnimal(Animal animal) {
+        if (!isValid()) {
+            return false;
         }
-        else if (animal == null){
+        if (animal == null) { // Если нужно удалить, удаляем
             releaseAnimal();
         }
-        else{
+        else if (this.getAnimal() == animal || (animal.getWebCross() != null && !animal.getWebCross().isOccupied()) ) { // Если одинаковые или животное занято другим
+            return true;
+        }
+        else {
             animal.setWebCross(this);
             _animal = animal;
         }
@@ -81,9 +86,7 @@ public class WebCross {
         return _position;
     }
 
-
-
-    void clear(){
+    void clear() {
         this.releaseAnimal();
         _isValid = false;
     }

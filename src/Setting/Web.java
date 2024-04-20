@@ -1,12 +1,9 @@
 package Setting;
 
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import Entities.*;
 import Interfaces.IPrey;
 import Utils.Direction;
 import Utils.WebCrossPosition;

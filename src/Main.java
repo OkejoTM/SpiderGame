@@ -1,12 +1,6 @@
-import Entities.Insect;
-import Entities.Wasp;
 import Setting.Flora;
 import Setting.Game;
-import Setting.Web;
-import Setting.WebCross;
 import Utils.Direction;
-
-import java.awt.*;
 
 public class Main {
     public static void main(String[] args){

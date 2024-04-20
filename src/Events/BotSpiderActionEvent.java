@@ -1,7 +1,6 @@
 package Events;
 
-import Entities.BotSpider;
-import Entities.Spider;
+import Setting.BotSpider;
 
 import java.util.EventObject;
 

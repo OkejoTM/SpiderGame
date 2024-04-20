@@ -15,7 +15,7 @@ public abstract class Animal {
         return _health;
     }
 
-    public boolean isAlive(){
+    public boolean isAlive() {
         return _health > 0;
     }
 
@@ -24,14 +24,8 @@ public abstract class Animal {
     }
 
     void setWebCross(WebCross webCross) {
-        // Если разные перекрестия
-        if (webCross != null && this.getWebCross() != null && this.getWebCross() != webCross){
-            webCross.releaseAnimal(); // Освобождаем устанавливаемую клетку перед назначением ее новому животному
-            _webCross.releaseAnimal(); // Освобождаем собственную клетку
-        }
-        // Если перекрестие назначается в первый раз
-        else if (webCross != null && _webCross == null){
-            webCross.releaseAnimal();
+        if (this.getWebCross() == webCross){
+            return;
         }
         _webCross = webCross;
     }
@@ -41,9 +35,9 @@ public abstract class Animal {
         clear();
     }
 
-    public void clear(){
-        if (_webCross != null){
-            _webCross.releaseAnimal();
+    void clear() {
+        if (_webCross != null) {
+            _webCross.clear();
         }
     }
 

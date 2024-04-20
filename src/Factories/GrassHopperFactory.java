@@ -1,6 +1,6 @@
 package Factories;
 
-import Entities.GrassHopper;
+import Setting.GrassHopper;
 
 public class GrassHopperFactory extends AbstractInsectFactory{
     @Override

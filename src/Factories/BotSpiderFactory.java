@@ -1,8 +1,6 @@
 package Factories;
 
-import Entities.BotSpider;
-import Entities.Spider;
-import Utils.BotSpiderMovementAlgorithm;
+import Setting.BotSpider;
 
 public class BotSpiderFactory extends AbstractSpiderFactory{
     @Override

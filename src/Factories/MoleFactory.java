@@ -1,6 +1,6 @@
 package Factories;
 
-import Entities.Mole;
+import Setting.Mole;
 
 public class MoleFactory extends AbstractInsectFactory{
     @Override

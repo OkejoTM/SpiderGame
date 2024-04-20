@@ -1,6 +1,4 @@
-package Entities;
-
-import Setting.WebCross;
+package Setting;
 
 public class Fly extends Insect{
     public static final double _probabilityOfDisappearance = 0.3;

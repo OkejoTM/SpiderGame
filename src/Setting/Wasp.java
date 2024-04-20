@@ -1,7 +1,4 @@
-package Entities;
-
-import Setting.Web;
-import Setting.WebCross;
+package Setting;
 
 public class Wasp extends Insect{
 

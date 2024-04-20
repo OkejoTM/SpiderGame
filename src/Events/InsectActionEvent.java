@@ -1,6 +1,6 @@
 package Events;
 
-import Entities.Insect;
+import Setting.Insect;
 
 import java.util.EventObject;
 

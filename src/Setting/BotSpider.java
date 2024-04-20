@@ -1,8 +1,7 @@
-package Entities;
+package Setting;
 
 import Events.BotSpiderActionEvent;
 import Events.BotSpiderActionListener;
-import Setting.WebCross;
 import Utils.BotSpiderMovementAlgorithm;
 import Utils.Direction;
 

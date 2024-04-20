@@ -1,7 +1,6 @@
 package Factories;
 
-import Entities.PlayerSpider;
-import Entities.Spider;
+import Setting.PlayerSpider;
 
 public class PlayerSpiderFactory extends AbstractSpiderFactory{
     @Override

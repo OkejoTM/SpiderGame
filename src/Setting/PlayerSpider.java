@@ -1,11 +1,8 @@
-package Entities;
+package Setting;
 
-import Events.BotSpiderActionEvent;
-import Events.BotSpiderActionListener;
 import Events.PlayerActionEvent;
 import Events.PlayerActionListener;
 import Interfaces.IPrey;
-import Setting.WebCross;
 
 import java.util.ArrayList;
 

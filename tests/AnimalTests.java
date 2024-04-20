@@ -1,6 +1,6 @@
-//import Entities.BotSpider;
-//import Entities.Insect;
-//import Entities.Mole;
+//import Setting.BotSpider;
+//import Setting.Insect;
+//import Setting.Mole;
 //import Factories.AbstractInsectFactory;
 //import Factories.MoleFactory;
 //import Setting.*;

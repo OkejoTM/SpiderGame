@@ -1,12 +1,8 @@
 package Setting;
 
-import Entities.*;
 import Events.*;
-import Factories.*;
-import Setting.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Game {
     private Web _web;

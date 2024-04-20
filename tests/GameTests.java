@@ -1,4 +1,4 @@
-//import Entities.BotSpider;
+//import Setting.BotSpider;
 //import Setting.*;
 //import Utils.Algorithm;
 //import Utils.Direction;

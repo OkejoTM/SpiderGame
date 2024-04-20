@@ -1,4 +1,4 @@
-package Entities;
+package Setting;
 
 import Events.InsectActionEvent;
 import Events.InsectActionListener;

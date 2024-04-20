@@ -1,6 +1,6 @@
 package Factories;
 
-import Entities.Insect;
+import Setting.Insect;
 
 public abstract class AbstractInsectFactory {
 
