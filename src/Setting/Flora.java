@@ -64,15 +64,14 @@ public class Flora {
         }
     }
 
-
-    public void generateInsects() {
+    // Game can invoke this method
+    void generateInsects() {
         ArrayList<Insect> insectList = insectsFabricCreation();
         ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
 
         placeInsects(insectList, emptyWebCrosses, insectList.size());
     }
 
-    // TODO: нормальное заселение насекомыми
     private void generateInsects(int amount) {
         ArrayList<Insect> insectList = insectsFabricCreation(amount);
         ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
