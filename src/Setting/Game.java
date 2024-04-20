@@ -36,6 +36,7 @@ public class Game {
     public void endGame() {
         System.out.println("Game ended");
         fireGameEnded();
+        System.exit(0);
     }
 
     public void createWeb(int size) {

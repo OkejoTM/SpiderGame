@@ -22,8 +22,11 @@ public abstract class Spider extends Animal {
             if (nextWebCross.getAnimal() instanceof IPrey prey) {
                 eat(prey);
             }
-            getIntoWebCross(nextWebCross);
+            if (nextWebCross.getAnimal() == null){
+                getIntoWebCross(nextWebCross);
+            }
         }
+        notifySpiderMoved(); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
     }
 
     private void changeHealth(int delta) {

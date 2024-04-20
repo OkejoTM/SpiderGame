@@ -51,13 +51,16 @@ public class Flora {
         ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
 
         if (amount > emptyWebCrosses.size()) return;
+        int created = 0;
 
-        for (int i = 0; i < amount; i++) {
+        while(created < amount && !emptyWebCrosses.isEmpty()){
             int spiderHealth = 10;
             WebCross webCross = getRandomWebCross(emptyWebCrosses);
             BotSpider botSpider = botSpiderFactory.create(spiderHealth);
             botSpider.setMovementAlgorithm(new BotSpiderMovementAlgorithm(_web));
             _web.addBotSpider(botSpider, webCross);
+            emptyWebCrosses.remove(webCross);
+            created++;
         }
     }
 
