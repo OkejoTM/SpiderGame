@@ -40,7 +40,7 @@ public class BotSpider extends Spider{
     }
 
     @Override
-    public void die(){
+    protected void die(){
         super.die();
         fireBotSpiderDied();
     }

@@ -15,7 +15,7 @@ public class PlayerSpider extends Spider implements IPrey {
     }
 
     @Override
-    public void die() {
+    protected void die() {
         super.die();
         firePlayerDied();
     }

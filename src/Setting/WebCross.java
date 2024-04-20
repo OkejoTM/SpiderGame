@@ -53,7 +53,7 @@ public class WebCross {
         return _animal;
     }
 
-    public boolean releaseAnimal(){
+    boolean releaseAnimal(){
         if (_animal == null) {
             return false;
         }

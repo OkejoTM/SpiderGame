@@ -22,7 +22,7 @@ public abstract class Insect extends Animal implements IPrey {
     }
 
     @Override
-    public void die() {
+    protected void die() {
         super.die();
         fireInsectDied();
     }

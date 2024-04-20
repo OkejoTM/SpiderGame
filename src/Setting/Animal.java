@@ -36,7 +36,7 @@ public abstract class Animal {
         _webCross = webCross;
     }
 
-    public void die() {
+    protected void die() {
         _health = 0;
         clear();
     }

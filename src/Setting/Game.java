@@ -12,7 +12,6 @@ public class Game {
     private Web _web;
     private Flora _flora;
 
-
     public Game(Flora flora, int webSize) {
         createWeb(webSize);
         _flora = flora;
