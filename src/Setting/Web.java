@@ -36,15 +36,15 @@ public class Web implements Iterable<WebCross>{
     }
 
     private void createWebCrosses(){
-        for (int i = 0; i < _size - 1 ; i++){
-            for (int j = 0 ; j < _size - 1 ; j++){
+        for (int i = 0; i < _size  ; i++){
+            for (int j = 0 ; j < _size  ; j++){
                 WebCrossPosition pos = new WebCrossPosition(i,j);
                 _webCrosses.put(pos, new WebCross(pos));
             }
         }
 
-        for (int i = 0; i < _size - 1 ; i++){
-            for (int j = 0 ; j < _size - 1 ; j++){
+        for (int i = 0; i < _size  ; i++){
+            for (int j = 0 ; j < _size  ; j++){
                 WebCross webCross = getWebCross(new WebCrossPosition(i, j));
 
                 if (_size > 1 && i < _size - 1){
@@ -72,20 +72,25 @@ public class Web implements Iterable<WebCross>{
         return _webCrosses.get(new WebCrossPosition(row, column));
     }
 
-    void setPlayer(PlayerSpider spider){
+
+    // TODO: добавить isValid проверку для webCross?
+    void setPlayer(PlayerSpider spider, WebCross webCross){
         if (_playerSpider == null){
+            webCross.setAnimal(spider);
             _playerSpider = spider;
         }
     }
 
-    void addBotSpider(BotSpider botSpider){
+    void addBotSpider(BotSpider botSpider,WebCross webCross){
         if (!_botSpidersList.contains(botSpider)){
+            webCross.setAnimal(botSpider);
             _botSpidersList.add(botSpider);
         }
     }
 
-    void addInsect(Insect insect){
+    void addInsect(Insect insect, WebCross webCross){
         if (!_insectsList.contains(insect)){
+            webCross.setAnimal(insect);
             _insectsList.add(insect);
         }
     }
@@ -223,7 +228,7 @@ public class Web implements Iterable<WebCross>{
             }
             else{
                 nextWebCross = webCross.neighbour(Direction.east());
-                if (nextWebCross == null && webCross.getPosition().row() < _web.getSize()-1){
+                if (nextWebCross == null && webCross.getPosition().row() < _web.getSize()){
                     nextWebCross = _web.getWebCross(new WebCrossPosition(webCross.getPosition().row()+1, webCross.getPosition().column()));
                 }
             }

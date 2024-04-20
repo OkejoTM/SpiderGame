@@ -18,11 +18,10 @@ public class Main {
 //
 
         Flora flora = new Flora();
-        Game game = new Game(flora, 4);
+        Game game = new Game(flora, 3);
         game.startGame();
         game.getWeb().getPlayer().makeMove(Direction.north());
-        game.getWeb().getPlayer().makeMove(Direction.north());
-        game.getWeb().getPlayer().makeMove(Direction.north());
+
 
     }
 }

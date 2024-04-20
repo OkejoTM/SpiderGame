@@ -2,10 +2,9 @@ package Setting;
 
 import Entities.*;
 import Factories.*;
-import Utils.Algorithm;
+import Utils.BotSpiderMovementAlgorithm;
 import Utils.WebCrossPosition;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Flora {
@@ -19,61 +18,111 @@ public class Flora {
         factories.add(new GrassHopperFactory());
     }
 
+    private static final PlayerSpiderFactory playerFactory = new PlayerSpiderFactory();
+    private static final BotSpiderFactory botSpiderFactory = new BotSpiderFactory();
+
     public Flora() {
-    }
-
-    public void instantiateAnimals() {
-        createPlayerSpider(10);
-        createBotSpiders(3);
-        createInsects();
-    }
-
-    public boolean createPlayerSpider(int spiderHealth) {
-        if (_web.getPlayer() != null) return false;
-        int pos = (_web.getSize() - 1) / 2;
-        WebCross webCross = _web.getWebCross(new WebCrossPosition(pos, pos));
-        PlayerSpider playerSpider = new PlayerSpider(spiderHealth, null);
-        placeAnimalInWebCross(webCross, playerSpider);
-        _web.setPlayer(playerSpider);
-        return true;
-    }
-
-    public boolean createBotSpiders(int amount) {
-        if (amount > _web.getEmptyWebCrosses().size()) return false;
-        for (int i = 0; i < amount; i++) {
-            int spiderHealth = 10;
-            ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
-            if (emptyWebCrosses.isEmpty()) return false;
-            BotSpider botSpider = new BotSpider(spiderHealth, null, new Algorithm(_web));
-            placeAnimalInWebCross(getRandomWebCross(emptyWebCrosses), botSpider);
-            _web.addBotSpider(botSpider);
-        }
-        return true;
-    }
-
-
-    public void createInsects() {
-        for (AbstractInsectFactory factory : factories) {
-            ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
-            Insect insect = factory.createInsect();
-            if (insect != null && !emptyWebCrosses.isEmpty()) // Если создалось насекомое, и место для установки есть
-            {
-                placeAnimalInWebCross(getRandomWebCross(emptyWebCrosses), insect);
-                _web.addInsect(insect);
-            }
-        }
-    }
-
-    private void placeAnimalInWebCross(WebCross webCross, Animal animal) {
-        webCross.setAnimal(animal);
-    }
-
-    private WebCross getRandomWebCross(ArrayList<WebCross> webCrossesList) {
-        return webCrossesList.get((int)(Math.random() * (webCrossesList.size() - 1)));
     }
 
     public void setWeb(Web web) {
         _web = web;
     }
+
+
+    public void instantiateAnimals() {
+        generateEasyLevel();
+    }
+
+    public void generateEasyLevel() {
+        generatePlayerSpider(10);
+        generateBotSpiders(2);
+        generateInsects(2);
+    }
+
+    private void generatePlayerSpider(int spiderHealth) {
+        if (_web.getPlayer() != null) return;
+        int pos = _web.getSize() / 2;
+        WebCross webCross = _web.getWebCross(pos ,pos);
+        PlayerSpider playerSpider = playerFactory.create(spiderHealth);
+        _web.setPlayer(playerSpider, webCross);
+    }
+
+    private void generateBotSpiders(int amount) {
+        ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
+
+        if (amount > emptyWebCrosses.size()) return;
+
+        for (int i = 0; i < amount; i++) {
+            int spiderHealth = 10;
+            WebCross webCross = getRandomWebCross(emptyWebCrosses);
+            BotSpider botSpider = botSpiderFactory.create(spiderHealth);
+            botSpider.setMovementAlgorithm(new BotSpiderMovementAlgorithm(_web));
+            _web.addBotSpider(botSpider, webCross);
+        }
+    }
+
+
+    public void generateInsects() {
+        ArrayList<Insect> insectList = insectsFabricCreation();
+        ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
+
+        placeInsects(insectList, emptyWebCrosses, insectList.size());
+    }
+
+    // TODO: нормальное заселение насекомыми
+    private void generateInsects(int amount) {
+        ArrayList<Insect> insectList = insectsFabricCreation(amount);
+        ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
+
+        placeInsects(insectList, emptyWebCrosses, amount);
+    }
+
+    private void placeInsects(ArrayList<Insect> insectList, ArrayList<WebCross> emptyWebCrosses, int amount){
+        while (amount > 0 && !insectList.isEmpty() && !emptyWebCrosses.isEmpty()) {
+            WebCross webCross = getRandomWebCross(emptyWebCrosses);
+            Insect insect = insectList.get(0);
+            _web.addInsect(insect, webCross);
+            insectList.remove(insect);
+            emptyWebCrosses.remove(webCross);
+        }
+    }
+
+    private ArrayList<Insect> insectsFabricCreation() {
+        ArrayList<Insect> insectArrayList = new ArrayList<>();
+
+        for (AbstractInsectFactory factory : factories) {
+            Insect insect = factory.createInsect();
+            if (insect != null) // Если создалось насекомое
+            {
+                insectArrayList.add(insect);
+            }
+        }
+
+        return insectArrayList;
+    }
+    private ArrayList<Insect> insectsFabricCreation(int amount) {
+
+        int created = 0;
+        int factoryIndex = 0;
+        ArrayList<Insect> insectArrayList = new ArrayList<>();
+
+        while(created < amount) {
+            AbstractInsectFactory factory = factories.get(factoryIndex);
+            Insect insect = factory.createInsect();
+            if (insect != null) // Если создалось насекомое
+            {
+                insectArrayList.add(insect);
+                created++;
+            }
+            factoryIndex = (factoryIndex + 1) % factories.size();
+        }
+
+        return insectArrayList;
+    }
+
+    private WebCross getRandomWebCross(ArrayList<WebCross> webCrossesList) {
+        return webCrossesList.get((int) (Math.random() * (webCrossesList.size() - 1)));
+    }
+
 
 }

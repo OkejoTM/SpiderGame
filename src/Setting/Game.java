@@ -79,7 +79,7 @@ public class Game {
         public void playerMoved(PlayerActionEvent event) {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
             disappearInsects(); // Пропадают насекомые
-            _flora.createInsects();
+            _flora.generateInsects();
         }
     }
 

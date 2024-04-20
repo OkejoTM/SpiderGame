@@ -8,10 +8,10 @@ import Setting.WebCross;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Algorithm {
+public class BotSpiderMovementAlgorithm {
     private Web _web;
 
-    public Algorithm(Web web){
+    public BotSpiderMovementAlgorithm(Web web){
         _web = web;
     }
 

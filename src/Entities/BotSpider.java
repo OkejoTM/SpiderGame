@@ -2,23 +2,28 @@ package Entities;
 
 import Events.BotSpiderActionEvent;
 import Events.BotSpiderActionListener;
-import Interfaces.IPrey;
 import Setting.WebCross;
-import Utils.Algorithm;
+import Utils.BotSpiderMovementAlgorithm;
 import Utils.Direction;
 
 import java.util.ArrayList;
 
 public class BotSpider extends Spider{
-    private Algorithm _algorithm;
+    private BotSpiderMovementAlgorithm _botSpiderMovementAlgorithm;
 
-    public BotSpider(int health, WebCross webCross, Algorithm algorithm) {
+    public BotSpider(int health, WebCross webCross, BotSpiderMovementAlgorithm botSpiderMovementAlgorithm) {
         super(health, webCross);
-        _algorithm = algorithm;
+        _botSpiderMovementAlgorithm = botSpiderMovementAlgorithm;
+    }
+
+    public void setMovementAlgorithm(BotSpiderMovementAlgorithm botSpiderMovementAlgorithm){
+        if (_botSpiderMovementAlgorithm == null){
+            _botSpiderMovementAlgorithm = botSpiderMovementAlgorithm;
+        }
     }
 
     public void makeOptimalMove(){
-        Direction direction = _algorithm.findDirectionToNearest(this.getWebCross());
+        Direction direction = _botSpiderMovementAlgorithm.findDirectionToNearest(this.getWebCross());
         if (direction != null){
             makeMove(direction);
         }
@@ -31,7 +36,7 @@ public class BotSpider extends Spider{
     }
 
     private void clearAlgorithm(){
-        _algorithm = null;
+        _botSpiderMovementAlgorithm = null;
     }
 
     @Override
