@@ -39,7 +39,7 @@ public class Game {
         System.exit(0);
     }
 
-    public void createWeb(int size) {
+    private void createWeb(int size) {
         if (_web == null){
             _web = new Web(size);
         }

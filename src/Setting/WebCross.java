@@ -83,7 +83,7 @@ public class WebCross {
 
 
 
-    public void clear(){
+    void clear(){
         this.releaseAnimal();
         _isValid = false;
     }
