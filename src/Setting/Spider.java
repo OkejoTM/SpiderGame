@@ -21,13 +21,13 @@ public abstract class Spider extends Animal {
         }
         else if (_webCross.hasNeighbour(direction)) {
             WebCross nextWebCross = _webCross.neighbour(direction);
+            newWebCross = nextWebCross;
             if (nextWebCross.getAnimal() instanceof IPrey prey) {
                 eat(prey);
             }
             // Если не занята
             if (!nextWebCross.isOccupied()){
                 getIntoWebCross(nextWebCross);
-                newWebCross = nextWebCross;
             }
         }
         notifySpiderMoved(oldWebCross, newWebCross); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
