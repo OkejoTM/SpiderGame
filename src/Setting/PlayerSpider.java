@@ -23,8 +23,8 @@ public class PlayerSpider extends Spider implements IPrey {
     }
 
     @Override
-    protected void notifySpiderMoved() {
-        firePlayerMoved();
+    protected void notifySpiderMoved(WebCross from, WebCross to) {
+        firePlayerMoved(from, to);
     }
 
 
@@ -38,10 +38,12 @@ public class PlayerSpider extends Spider implements IPrey {
         _playerSpiderListenerList.remove(listener);
     }
 
-    protected void firePlayerMoved(){
+    protected void firePlayerMoved(WebCross from, WebCross to){
         for(PlayerActionListener listener : _playerSpiderListenerList){
             PlayerActionEvent event = new PlayerActionEvent(listener);
             event.setPlayer(this);
+            event.setFrom(from);
+            event.setTo(to);
             listener.playerMoved(event);
         }
     }

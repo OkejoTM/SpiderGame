@@ -3,7 +3,6 @@ package Setting;
 import Utils.Direction;
 import Utils.WebCrossPosition;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 

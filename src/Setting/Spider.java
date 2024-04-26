@@ -13,6 +13,8 @@ public abstract class Spider extends Animal {
     }
 
     public void makeMove(Direction direction) {
+        WebCross oldWebCross = this.getWebCross();
+        WebCross newWebCross = oldWebCross;
         changeHealth(-1);
         if (!isAlive()) {
             die();
@@ -25,9 +27,10 @@ public abstract class Spider extends Animal {
             // Если не занята
             if (!nextWebCross.isOccupied()){
                 getIntoWebCross(nextWebCross);
+                newWebCross = nextWebCross;
             }
         }
-        notifySpiderMoved(); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
+        notifySpiderMoved(oldWebCross, newWebCross); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
     }
 
     private void changeHealth(int delta) {
@@ -41,9 +44,9 @@ public abstract class Spider extends Animal {
 
     private void getIntoWebCross(WebCross nextWebCross) {
         nextWebCross.setAnimal(this);
-        notifySpiderMoved();
+//        notifySpiderMoved();
     }
 
-    protected abstract void notifySpiderMoved();
+    protected abstract void notifySpiderMoved(WebCross from, WebCross to);
 
 }

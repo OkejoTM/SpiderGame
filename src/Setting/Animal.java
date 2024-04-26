@@ -1,7 +1,5 @@
 package Setting;
 
-import Setting.WebCross;
-
 public abstract class Animal {
     protected int _health;
     protected WebCross _webCross;
@@ -9,6 +7,9 @@ public abstract class Animal {
     public Animal(int health, WebCross webCross) {
         _health = health;
         _webCross = webCross;
+        if (_webCross != null){
+            webCross.setAnimal(this);
+        }
     }
 
     public int getHealth() {

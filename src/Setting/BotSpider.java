@@ -45,8 +45,8 @@ public class BotSpider extends Spider{
     }
 
     @Override
-    protected void notifySpiderMoved() {
-        fireBotSpiderMoved();
+    protected void notifySpiderMoved(WebCross from, WebCross to) {
+        fireBotSpiderMoved(from, to);
     }
 
     private ArrayList<BotSpiderActionListener> _botSpiderListenerList = new ArrayList<>();
@@ -59,10 +59,12 @@ public class BotSpider extends Spider{
         _botSpiderListenerList.remove(listener);
     }
 
-    protected void fireBotSpiderMoved(){
+    protected void fireBotSpiderMoved(WebCross from, WebCross to){
         for(BotSpiderActionListener listener : _botSpiderListenerList){
             BotSpiderActionEvent event = new BotSpiderActionEvent(listener);
             event.setBot(this);
+            event.setFrom(from);
+            event.setTo(to);
             listener.botMoved(event);
         }
     }

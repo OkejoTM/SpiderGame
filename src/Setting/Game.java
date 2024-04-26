@@ -8,10 +8,9 @@ public class Game {
     private Web _web;
     private Flora _flora;
 
-    public Game(Flora flora, int webSize) {
+    public Game(int webSize) {
         createWeb(webSize);
-        _flora = flora;
-        _flora.setWeb(_web);
+        _flora = new Flora(_web);
     }
 
     public void startGame() {

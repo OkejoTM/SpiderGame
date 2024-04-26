@@ -19,7 +19,8 @@ public class Flora {
     private static final PlayerSpiderFactory playerFactory = new PlayerSpiderFactory();
     private static final BotSpiderFactory botSpiderFactory = new BotSpiderFactory();
 
-    public Flora() {
+    public Flora(Web web) {
+        _web = web;
     }
 
     public void setWeb(Web web) {
