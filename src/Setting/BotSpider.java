@@ -1,7 +1,6 @@
 package Setting;
 
-import Events.BotSpiderActionEvent;
-import Events.BotSpiderActionListener;
+import Events.*;
 import Utils.BotSpiderMovementAlgorithm;
 import Utils.Direction;
 
@@ -47,6 +46,7 @@ public class BotSpider extends Spider{
     @Override
     protected void notifySpiderMoved(WebCross from, WebCross to) {
         fireBotSpiderMoved(from, to);
+        fireBotMovedController(from, to);
     }
 
     private ArrayList<BotSpiderActionListener> _botSpiderListenerList = new ArrayList<>();
@@ -76,5 +76,26 @@ public class BotSpider extends Spider{
             listener.botDied(event);
         }
     }
+
+    private ArrayList<BotControllerActionListener> _botControllerListenerList = new ArrayList<>();
+
+    public void addBotControllerActionListener(BotControllerActionListener listener) {
+        _botControllerListenerList.add(listener);
+    }
+
+    public void removeBotControllerActionListener(BotControllerActionListener listener) {
+        _botControllerListenerList.remove(listener);
+    }
+
+    protected void fireBotMovedController(WebCross from, WebCross to){
+        for(BotControllerActionListener listener : _botControllerListenerList){
+            BotControllerActionEvent event = new BotControllerActionEvent(listener);
+            event.setBotSpider(this);
+            event.setFrom(from);
+            event.setTo(to);
+            listener.botMoved(event);
+        }
+    }
+
 
 }

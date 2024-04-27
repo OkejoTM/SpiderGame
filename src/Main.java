@@ -40,7 +40,7 @@ public class Main {
             _game.addGameActionListener(new GameController());
 
             JPanel content = (JPanel) this.getContentPane();
-            content.add(new WebWidget(_game.getWeb(), _widgetFactory));
+            content.add(new WebWidget(_game.getWeb(), _widgetFactory, _game));
 
             _widgetFactory.getWidget(_game.getWeb().getPlayer()).requestFocus();
 
@@ -56,9 +56,12 @@ public class Main {
                 JOptionPane.showMessageDialog(GamePanel.this, "Игра закончена");
             }
 
+            @Override
+            public void gameStepHappened(GameActionEvent event) {
+
+            }
+
         }
-
-
     }
 
 }

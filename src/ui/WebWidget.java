@@ -1,12 +1,8 @@
 package ui;
 
-import Events.PlayerActionEvent;
-import Events.PlayerActionListener;
-import Events.PlayerControllerActionEvent;
-import Events.PlayerControllerActionListener;
-import Setting.PlayerSpider;
-import Setting.Web;
-import Setting.WebCross;
+import Events.*;
+import Setting.*;
+import ui.cell.BotSpiderWidget;
 import ui.cell.PlayerSpiderWidget;
 import ui.cell.WebCrossWidget;
 
@@ -16,10 +12,12 @@ public class WebWidget extends JPanel {
 
     private final Web _web;
     private final WidgetFactory _widgetFactory;
+    private final Game _game;
 
-    public WebWidget(Web web, WidgetFactory widgetFactory) {
+    public WebWidget(Web web, WidgetFactory widgetFactory, Game game) {
         _web = web;
         _widgetFactory = widgetFactory;
+        _game = game;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         fillWeb();
         subscribeOnEntities();
@@ -47,6 +45,12 @@ public class WebWidget extends JPanel {
 
     private void subscribeOnEntities() {
         _web.getPlayer().addPlayerControllerActionListener(new PlayerController());
+
+        for (BotSpider bot : _web.getBotSpiders()){
+            bot.addBotControllerActionListener(new BotController());
+        }
+
+        _game.addGameActionListener(new GameStepObserver());
     }
 
     private class PlayerController implements PlayerControllerActionListener {
@@ -72,6 +76,46 @@ public class WebWidget extends JPanel {
             System.out.println(this.getClass().getName()  + " setting to new");
             webCrossWidgetTo.addItem(playerSpiderWidget);
             System.out.println(this.getClass().getName()  + " Done listener method");
+        }
+    }
+
+    private class BotController implements BotControllerActionListener {
+
+        @Override
+        public void botMoved(BotControllerActionEvent event) {
+            System.out.println(this.getClass().getName()  + " Doing listener method");
+            BotSpiderWidget botSpiderWidget = _widgetFactory.getWidget(event.getBotSpider());
+            WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
+            WebCrossWidget webCrossWidgetTo = _widgetFactory.getWidget(event.getTo());
+
+            System.out.println(this.getClass().getName()  + " removing from old");
+            webCrossWidgetFrom.removeItem(botSpiderWidget);
+            System.out.println(this.getClass().getName()  + " setting to new");
+            webCrossWidgetTo.addItem(botSpiderWidget);
+            System.out.println(this.getClass().getName()  + " Done listener method");
+        }
+
+        @Override
+        public void botDied(BotControllerActionEvent event) {
+            BotSpiderWidget botSpiderWidget = _widgetFactory.getWidget(event.getBotSpider());
+            WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
+            WebCrossWidget webCrossWidgetTo = _widgetFactory.getWidget(event.getTo());
+
+            webCrossWidgetFrom.removeItem(botSpiderWidget);
+            webCrossWidgetTo.addItem(botSpiderWidget);
+        }
+    }
+
+    private class GameStepObserver implements GameActionListener{
+
+        @Override
+        public void gameEnded(GameActionEvent event) {
+
+        }
+
+        @Override
+        public void gameStepHappened(GameActionEvent event) {
+            repaint();
         }
     }
 }

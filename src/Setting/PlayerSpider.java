@@ -26,10 +26,10 @@ public class PlayerSpider extends Spider implements IPrey {
 
     @Override
     protected void notifySpiderMoved(WebCross from, WebCross to) {
-        System.out.println(this.getClass().getName() + " Notifying controller...");
-        firePlayerMovedController(from, to);
-        System.out.println(this.getClass().getName()  + " Notified controller");
         firePlayerMoved(from, to);
+
+        firePlayerMovedController(from, to);
+
     }
 
 

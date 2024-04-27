@@ -73,9 +73,10 @@ public class Game {
 
         @Override
         public void playerMoved(PlayerActionEvent event) {
-//            moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
+            moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
 //            disappearInsects(); // Пропадают насекомые
 //            _flora.generateInsects();
+            fireGameStepHappened();
         }
     }
 
@@ -127,5 +128,12 @@ public class Game {
         }
     }
 
+    protected void fireGameStepHappened(){
+        for(GameActionListener listener : _gameListeners){
+            GameActionEvent event = new GameActionEvent(listener);
+            event.setGame(this);
+            listener.gameStepHappened(event);
+        }
+    }
 
 }

@@ -84,7 +84,7 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
                 System.out.println("\n\nStarting move:---------");
                 _playerSpider.makeMove(direction);
                 System.out.println("Made move");
-                setFocusable(true);
+
                 requestFocus();
             }
         }

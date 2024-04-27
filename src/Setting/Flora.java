@@ -32,6 +32,7 @@ public class Flora {
     public void instantiateAnimals() {
 //        generateEasyLevel();
         generatePlayerSpider(100);
+        generateBotSpiders(1);
 
     }
 

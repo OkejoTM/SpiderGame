@@ -1,8 +1,10 @@
 package ui;
 
 import Setting.Animal;
+import Setting.BotSpider;
 import Setting.PlayerSpider;
 import Setting.WebCross;
+import ui.cell.BotSpiderWidget;
 import ui.cell.PlayerSpiderWidget;
 import ui.cell.WebCrossWidget;
 
@@ -12,6 +14,7 @@ import java.util.Map;
 public class WidgetFactory {
     private final Map<WebCross, WebCrossWidget> _webCrosses = new HashMap<>();
     private final Map<PlayerSpider, PlayerSpiderWidget> _playerSpider = new HashMap<>();
+    private final Map<BotSpider, BotSpiderWidget> _botSpiderMap = new HashMap<>();
 
 
     public WebCrossWidget create(WebCross webCross){
@@ -24,6 +27,10 @@ public class WidgetFactory {
                 case "PlayerSpider":
                     PlayerSpiderWidget playerSpiderWidget = create((PlayerSpider) animal);
                     item.addItem(playerSpiderWidget);
+                    break;
+                case "BotSpider":
+                    BotSpiderWidget botSpiderWidget = create((BotSpider) animal);
+                    item.addItem(botSpiderWidget);
                     break;
             }
         }
@@ -53,5 +60,19 @@ public class WidgetFactory {
         _playerSpider.remove(playerSpider);
     }
 
+    public BotSpiderWidget create(BotSpider botSpider){
+        if (_botSpiderMap.containsKey(botSpider)) return _botSpiderMap.get(botSpider);
+        BotSpiderWidget botSpiderWidget = new BotSpiderWidget(botSpider);
+        _botSpiderMap.put(botSpider, botSpiderWidget);
+        return botSpiderWidget;
+    }
+
+    public BotSpiderWidget getWidget(BotSpider botSpider){
+        return _botSpiderMap.get(botSpider);
+    }
+
+    public void remove(BotSpider botSpider){
+        _botSpiderMap.remove(botSpider);
+    }
 
 }
