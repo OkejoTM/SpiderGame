@@ -28,6 +28,9 @@ public abstract class Animal {
         if (this.getWebCross() == webCross){
             return;
         }
+        if (webCross != null && _webCross != null){
+            _webCross.releaseAnimal(); // Освобождаем собственную клетку
+        }
         _webCross = webCross;
     }
 

@@ -56,7 +56,7 @@ public class WebCross {
         return _animal;
     }
 
-    private void releaseAnimal() {
+    void releaseAnimal() {
         if (_animal == null) {
             return;
         }

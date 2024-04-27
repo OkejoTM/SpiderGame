@@ -11,6 +11,7 @@ public class Game {
     public Game(int webSize) {
         createWeb(webSize);
         _flora = new Flora(_web);
+        startGame();
     }
 
     public void startGame() {
@@ -72,9 +73,9 @@ public class Game {
 
         @Override
         public void playerMoved(PlayerActionEvent event) {
-            moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
-            disappearInsects(); // Пропадают насекомые
-            _flora.generateInsects();
+//            moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
+//            disappearInsects(); // Пропадают насекомые
+//            _flora.generateInsects();
         }
     }
 

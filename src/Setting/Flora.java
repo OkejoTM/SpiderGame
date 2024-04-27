@@ -9,6 +9,7 @@ public class Flora {
     private Web _web;
 
     private static final ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
+
     static {
         factories.add(new MoleFactory());
         factories.add(new WaspFactory());
@@ -29,7 +30,9 @@ public class Flora {
 
 
     public void instantiateAnimals() {
-        generateEasyLevel();
+//        generateEasyLevel();
+        generatePlayerSpider(100);
+
     }
 
     public void generateEasyLevel() {
@@ -41,7 +44,7 @@ public class Flora {
     private void generatePlayerSpider(int spiderHealth) {
         if (_web.getPlayer() != null) return;
         int pos = _web.getSize() / 2;
-        WebCross webCross = _web.getWebCross(pos ,pos);
+        WebCross webCross = _web.getWebCross(pos, pos);
         PlayerSpider playerSpider = playerFactory.create(spiderHealth);
         _web.setPlayer(playerSpider, webCross);
     }
@@ -52,7 +55,7 @@ public class Flora {
         if (amount > emptyWebCrosses.size()) return;
         int created = 0;
 
-        while(created < amount && !emptyWebCrosses.isEmpty()){
+        while (created < amount && !emptyWebCrosses.isEmpty()) {
             int spiderHealth = 10;
             WebCross webCross = getRandomWebCross(emptyWebCrosses);
             BotSpider botSpider = botSpiderFactory.create(spiderHealth);
@@ -78,7 +81,7 @@ public class Flora {
         placeInsects(insectList, emptyWebCrosses, amount);
     }
 
-    private void placeInsects(ArrayList<Insect> insectList, ArrayList<WebCross> emptyWebCrosses, int amount){
+    private void placeInsects(ArrayList<Insect> insectList, ArrayList<WebCross> emptyWebCrosses, int amount) {
         while (amount > 0 && !insectList.isEmpty() && !emptyWebCrosses.isEmpty()) {
             WebCross webCross = getRandomWebCross(emptyWebCrosses);
             Insect insect = insectList.get(0);
@@ -101,13 +104,14 @@ public class Flora {
 
         return insectArrayList;
     }
+
     private ArrayList<Insect> insectsFabricCreation(int amount) {
 
         int created = 0;
         int factoryIndex = 0;
         ArrayList<Insect> insectArrayList = new ArrayList<>();
 
-        while(created < amount) {
+        while (created < amount) {
             AbstractInsectFactory factory = factories.get(factoryIndex);
             Insect insect = factory.createInsect();
             if (insect != null) // Если создалось насекомое

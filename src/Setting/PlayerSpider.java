@@ -2,6 +2,8 @@ package Setting;
 
 import Events.PlayerActionEvent;
 import Events.PlayerActionListener;
+import Events.PlayerControllerActionEvent;
+import Events.PlayerControllerActionListener;
 import Interfaces.IPrey;
 
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ public class PlayerSpider extends Spider implements IPrey {
 
     @Override
     protected void notifySpiderMoved(WebCross from, WebCross to) {
+        System.out.println(this.getClass().getName() + " Notifying controller...");
+        firePlayerMovedController(from, to);
+        System.out.println(this.getClass().getName()  + " Notified controller");
         firePlayerMoved(from, to);
     }
 
@@ -55,4 +60,26 @@ public class PlayerSpider extends Spider implements IPrey {
             listener.playerDied(event);
         }
     }
+
+    private ArrayList<PlayerControllerActionListener> _playerControllerListenerList = new ArrayList<>();
+
+    public void addPlayerControllerActionListener(PlayerControllerActionListener listener) {
+        _playerControllerListenerList.add(listener);
+    }
+
+    public void removePlayerControllerActionListener(PlayerControllerActionListener listener) {
+        _playerControllerListenerList.remove(listener);
+    }
+
+    protected void firePlayerMovedController(WebCross from, WebCross to){
+        for(PlayerControllerActionListener listener : _playerControllerListenerList){
+            PlayerControllerActionEvent event = new PlayerControllerActionEvent(listener);
+            event.setPlayer(this);
+            event.setFrom(from);
+            event.setTo(to);
+            listener.playerMoved(event);
+        }
+    }
+
+
 }
