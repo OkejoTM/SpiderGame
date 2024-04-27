@@ -10,16 +10,11 @@ import java.util.Map;
 public class WebCross {
     private final WebCrossPosition _position;
     private Animal _animal = null;
-    private boolean _isValid;
 
     public WebCross(WebCrossPosition position) {
         _position = position;
-        _isValid = true;
     }
 
-    public boolean isValid() {
-        return _isValid;
-    }
 
     public boolean isOccupied(){
         return _animal != null;
@@ -65,9 +60,6 @@ public class WebCross {
     }
 
     public boolean setAnimal(Animal animal) {
-        if (!isValid()) {
-            return false;
-        }
         if (animal == null) { // Если нужно удалить, удаляем
             releaseAnimal();
         }
@@ -87,6 +79,5 @@ public class WebCross {
 
     void clear() {
         this.releaseAnimal();
-        _isValid = false;
     }
 }

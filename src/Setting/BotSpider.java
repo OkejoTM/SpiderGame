@@ -39,15 +39,18 @@ public class BotSpider extends Spider{
 
     @Override
     protected void die(){
+        fireBotSpiderDiedController(this.getWebCross());
         super.die();
         fireBotSpiderDied();
     }
 
     @Override
     protected void notifySpiderMoved(WebCross from, WebCross to) {
-        fireBotSpiderMoved(from, to);
+        fireBotSpiderMoved();
         fireBotMovedController(from, to);
     }
+
+    // ----------------- Listeners for game ------------------------
 
     private ArrayList<BotSpiderActionListener> _botSpiderListenerList = new ArrayList<>();
 
@@ -59,12 +62,10 @@ public class BotSpider extends Spider{
         _botSpiderListenerList.remove(listener);
     }
 
-    protected void fireBotSpiderMoved(WebCross from, WebCross to){
+    protected void fireBotSpiderMoved(){
         for(BotSpiderActionListener listener : _botSpiderListenerList){
             BotSpiderActionEvent event = new BotSpiderActionEvent(listener);
             event.setBot(this);
-            event.setFrom(from);
-            event.setTo(to);
             listener.botMoved(event);
         }
     }
@@ -76,6 +77,8 @@ public class BotSpider extends Spider{
             listener.botDied(event);
         }
     }
+
+    // ----------------- Listeners for widgets ------------------------
 
     private ArrayList<BotControllerActionListener> _botControllerListenerList = new ArrayList<>();
 
@@ -94,6 +97,15 @@ public class BotSpider extends Spider{
             event.setFrom(from);
             event.setTo(to);
             listener.botMoved(event);
+        }
+    }
+
+    protected void fireBotSpiderDiedController(WebCross from){
+        for(BotControllerActionListener listener : _botControllerListenerList){
+            BotControllerActionEvent event = new BotControllerActionEvent(listener);
+            event.setBotSpider(this);
+            event.setFrom(from);
+            listener.botDied(event);
         }
     }
 

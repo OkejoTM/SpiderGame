@@ -55,15 +55,15 @@ public class WebWidget extends JPanel {
 
     private class PlayerController implements PlayerControllerActionListener {
 
+        @Override
+        public void playerDied(PlayerControllerActionEvent event) {
+            PlayerSpider playerSpider = event.getPlayer();
+            PlayerSpiderWidget playerSpiderWidget = _widgetFactory.getWidget(playerSpider);
+            WebCrossWidget webCrossWidget = _widgetFactory.getWidget(event.getFrom());
 
-//        @Override
-//        public void playerDied(PlayerActionEvent event) {
-//            PlayerSpider playerSpider = event.getPlayer();
-//            WebCrossWidget webCrossWidget = _widgetFactory.getWidget(playerSpider.getWebCross());
-//            PlayerSpiderWidget playerSpiderWidget = _widgetFactory.getWidget(playerSpider);
-//            webCrossWidget.removeItem(playerSpiderWidget);
-//            _widgetFactory.remove(playerSpider);
-//        }
+            webCrossWidget.removeItem(playerSpiderWidget);
+            _widgetFactory.remove(playerSpider);
+        }
 
         @Override
         public void playerMoved(PlayerControllerActionEvent event) {
@@ -99,10 +99,9 @@ public class WebWidget extends JPanel {
         public void botDied(BotControllerActionEvent event) {
             BotSpiderWidget botSpiderWidget = _widgetFactory.getWidget(event.getBotSpider());
             WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
-            WebCrossWidget webCrossWidgetTo = _widgetFactory.getWidget(event.getTo());
 
             webCrossWidgetFrom.removeItem(botSpiderWidget);
-            webCrossWidgetTo.addItem(botSpiderWidget);
+            _widgetFactory.remove(event.getBotSpider());
         }
     }
 

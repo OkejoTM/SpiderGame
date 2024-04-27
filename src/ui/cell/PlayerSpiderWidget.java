@@ -81,10 +81,7 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
         private void moveAction(int keyCode) {
             Direction direction = directionByKeyCode(keyCode);
             if (direction != null) {
-                System.out.println("\n\nStarting move:---------");
                 _playerSpider.makeMove(direction);
-                System.out.println("Made move");
-
                 requestFocus();
             }
         }

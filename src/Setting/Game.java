@@ -30,6 +30,7 @@ public class Game {
 
     public void endGame() {
         System.out.println("Game ended");
+        fireGameStepHappened();
         fireGameEnded();
         System.exit(0);
     }

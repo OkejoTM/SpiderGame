@@ -15,6 +15,7 @@ public class PlayerSpider extends Spider implements IPrey {
 
     @Override
     protected void die() {
+        firePlayerDiedController(this.getWebCross());
         super.die();
         firePlayerDied();
     }
@@ -26,12 +27,13 @@ public class PlayerSpider extends Spider implements IPrey {
 
     @Override
     protected void notifySpiderMoved(WebCross from, WebCross to) {
-        firePlayerMoved(from, to);
 
         firePlayerMovedController(from, to);
+        firePlayerMoved();
 
     }
 
+    // ----------------- Listeners for game ------------------------
 
     private ArrayList<PlayerActionListener> _playerSpiderListenerList = new ArrayList<>();
 
@@ -43,12 +45,10 @@ public class PlayerSpider extends Spider implements IPrey {
         _playerSpiderListenerList.remove(listener);
     }
 
-    protected void firePlayerMoved(WebCross from, WebCross to){
+    protected void firePlayerMoved(){
         for(PlayerActionListener listener : _playerSpiderListenerList){
             PlayerActionEvent event = new PlayerActionEvent(listener);
             event.setPlayer(this);
-            event.setFrom(from);
-            event.setTo(to);
             listener.playerMoved(event);
         }
     }
@@ -60,6 +60,8 @@ public class PlayerSpider extends Spider implements IPrey {
             listener.playerDied(event);
         }
     }
+
+    // ----------------- Listeners for widgets ------------------------
 
     private ArrayList<PlayerControllerActionListener> _playerControllerListenerList = new ArrayList<>();
 
@@ -78,6 +80,15 @@ public class PlayerSpider extends Spider implements IPrey {
             event.setFrom(from);
             event.setTo(to);
             listener.playerMoved(event);
+        }
+    }
+
+    protected void firePlayerDiedController(WebCross from){
+        for(PlayerControllerActionListener listener : _playerControllerListenerList){
+            PlayerControllerActionEvent event = new PlayerControllerActionEvent(listener);
+            event.setPlayer(this);
+            event.setFrom(from);
+            listener.playerDied(event);
         }
     }
 

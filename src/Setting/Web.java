@@ -70,7 +70,6 @@ public class Web implements Iterable<WebCross>{
     }
 
 
-    // TODO: добавить isValid проверку для webCross?
     void setPlayer(PlayerSpider spider, WebCross webCross){
         if (_playerSpider == null){
             webCross.setAnimal(spider);
