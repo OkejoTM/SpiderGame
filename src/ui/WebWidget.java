@@ -3,6 +3,7 @@ package ui;
 import Events.*;
 import Setting.*;
 import ui.cell.BotSpiderWidget;
+import ui.cell.InsectWidget;
 import ui.cell.PlayerSpiderWidget;
 import ui.cell.WebCrossWidget;
 
@@ -48,6 +49,10 @@ public class WebWidget extends JPanel {
 
         for (BotSpider bot : _web.getBotSpiders()){
             bot.addBotControllerActionListener(new BotController());
+        }
+
+        for (Insect insect : _web.getInsects()){
+            insect.addInsectControllerActionListener(new InsectController());
         }
 
         _game.addGameActionListener(new GameStepObserver());
@@ -102,6 +107,17 @@ public class WebWidget extends JPanel {
 
             webCrossWidgetFrom.removeItem(botSpiderWidget);
             _widgetFactory.remove(event.getBotSpider());
+        }
+    }
+
+    private class InsectController implements InsectControllerActionListener{
+
+        @Override
+        public void insectDied(InsectControllerActionEvent event) {
+            InsectWidget insectWidget = _widgetFactory.getWidget(event.getInsect());
+            WebCrossWidget webCrossWidget = _widgetFactory.getWidget(event.getFrom());
+            webCrossWidget.removeItem(insectWidget);
+            _widgetFactory.remove(event.getInsect());
         }
     }
 

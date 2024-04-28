@@ -1,12 +1,7 @@
 package ui;
 
-import Setting.Animal;
-import Setting.BotSpider;
-import Setting.PlayerSpider;
-import Setting.WebCross;
-import ui.cell.BotSpiderWidget;
-import ui.cell.PlayerSpiderWidget;
-import ui.cell.WebCrossWidget;
+import Setting.*;
+import ui.cell.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +10,7 @@ public class WidgetFactory {
     private final Map<WebCross, WebCrossWidget> _webCrosses = new HashMap<>();
     private final Map<PlayerSpider, PlayerSpiderWidget> _playerSpider = new HashMap<>();
     private final Map<BotSpider, BotSpiderWidget> _botSpiderMap = new HashMap<>();
+    private final Map<Insect, InsectWidget> _insectMap = new HashMap<>();
 
 
     public WebCrossWidget create(WebCross webCross){
@@ -31,6 +27,22 @@ public class WidgetFactory {
                 case "BotSpider":
                     BotSpiderWidget botSpiderWidget = create((BotSpider) animal);
                     item.addItem(botSpiderWidget);
+                    break;
+                case "Fly":
+                    FlyWidget flyWidget = create((Fly) animal);
+                    item.addItem(flyWidget);
+                    break;
+                case "Mole":
+                    MoleWidget moleWidget = create((Mole) animal);
+                    item.addItem(moleWidget);
+                    break;
+                case "GrassHopper":
+                    GrassHopperWidget grassHopperWidget = create((GrassHopper) animal);
+                    item.addItem(grassHopperWidget);
+                    break;
+                case "Wasp":
+                    WaspWidget waspWidget = create((Wasp) animal);
+                    item.addItem(waspWidget);
                     break;
             }
         }
@@ -74,5 +86,47 @@ public class WidgetFactory {
     public void remove(BotSpider botSpider){
         _botSpiderMap.remove(botSpider);
     }
+
+    public FlyWidget create(Fly fly){
+        if (_insectMap.containsKey(fly)) return (FlyWidget)_insectMap.get(fly);
+        FlyWidget flyWidget = new FlyWidget(fly);
+        _insectMap.put(fly, flyWidget);
+
+        return flyWidget;
+    }
+
+    public WaspWidget create(Wasp wasp){
+        if (_insectMap.containsKey(wasp)) return (WaspWidget)_insectMap.get(wasp);
+        WaspWidget waspWidget = new WaspWidget(wasp);
+        _insectMap.put(wasp, waspWidget);
+
+        return waspWidget;
+    }
+
+    public GrassHopperWidget create(GrassHopper grassHopper){
+        if (_insectMap.containsKey(grassHopper)) return (GrassHopperWidget)_insectMap.get(grassHopper);
+        GrassHopperWidget grassHopperWidget = new GrassHopperWidget(grassHopper);
+        _insectMap.put(grassHopper, grassHopperWidget);
+
+        return grassHopperWidget;
+    }
+
+    public MoleWidget create(Mole mole){
+        if (_insectMap.containsKey(mole)) return (MoleWidget) _insectMap.get(mole);
+        MoleWidget moleWidget = new MoleWidget(mole);
+        _insectMap.put(mole, moleWidget);
+
+        return moleWidget;
+    }
+
+    public InsectWidget getWidget(Insect insect) {
+        return _insectMap.get(insect);
+    }
+
+    public void remove(Insect insect){
+        _insectMap.remove(insect);
+    }
+
+
 
 }

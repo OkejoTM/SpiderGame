@@ -75,8 +75,8 @@ public class Game {
         @Override
         public void playerMoved(PlayerActionEvent event) {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
-//            disappearInsects(); // Пропадают насекомые
-//            _flora.generateInsects();
+            disappearInsects(); // Пропадают насекомые
+            _flora.generateInsects();
             fireGameStepHappened();
         }
     }

@@ -30,9 +30,9 @@ public class Flora {
 
 
     public void instantiateAnimals() {
-//        generateEasyLevel();
-        generatePlayerSpider(100);
-        generateBotSpiders(3);
+        generateEasyLevel();
+//        generatePlayerSpider(100);
+//        generateBotSpiders(2);
 
     }
 
@@ -57,7 +57,7 @@ public class Flora {
         int created = 0;
 
         while (created < amount && !emptyWebCrosses.isEmpty()) {
-            int spiderHealth = 5;
+            int spiderHealth = 10;
             WebCross webCross = getRandomWebCross(emptyWebCrosses);
             BotSpider botSpider = botSpiderFactory.create(spiderHealth);
             botSpider.setMovementAlgorithm(new BotSpiderMovementAlgorithm(_web));
