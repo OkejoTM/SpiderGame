@@ -3,6 +3,7 @@ package Setting;
 import Factories.*;
 import Utils.BotSpiderMovementAlgorithm;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Flora {
@@ -37,7 +38,7 @@ public class Flora {
     }
 
     public void generateEasyLevel() {
-        generatePlayerSpider(10);
+        generatePlayerSpider(100);
         generateBotSpiders(2);
         generateInsects(2);
     }
@@ -68,11 +69,11 @@ public class Flora {
     }
 
     // Game can invoke this method
-    void generateInsects() {
+    ArrayList<Insect> generateInsects() {
         ArrayList<Insect> insectList = insectsFabricCreation();
         ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
 
-        placeInsects(insectList, emptyWebCrosses, insectList.size());
+        return placeInsects(insectList, emptyWebCrosses, insectList.size());
     }
 
     private void generateInsects(int amount) {
@@ -82,14 +83,17 @@ public class Flora {
         placeInsects(insectList, emptyWebCrosses, amount);
     }
 
-    private void placeInsects(ArrayList<Insect> insectList, ArrayList<WebCross> emptyWebCrosses, int amount) {
+    private ArrayList<Insect> placeInsects(ArrayList<Insect> insectList, ArrayList<WebCross> emptyWebCrosses, int amount) {
+        ArrayList<Insect> createdList = new ArrayList<>();
         while (amount > 0 && !insectList.isEmpty() && !emptyWebCrosses.isEmpty()) {
             WebCross webCross = getRandomWebCross(emptyWebCrosses);
             Insect insect = insectList.get(0);
             _web.addInsect(insect, webCross);
+            createdList.add(insect);
             insectList.remove(insect);
             emptyWebCrosses.remove(webCross);
         }
+        return createdList;
     }
 
     private ArrayList<Insect> insectsFabricCreation() {
@@ -106,6 +110,8 @@ public class Flora {
         return insectArrayList;
     }
 
+
+    // TODO : сделать добавление насекомых связанное с ui
     private ArrayList<Insect> insectsFabricCreation(int amount) {
 
         int created = 0;

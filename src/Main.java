@@ -61,6 +61,11 @@ public class Main {
 
             }
 
+            @Override
+            public void insectsCreated(GameActionEvent event) {
+
+            }
+
         }
     }
 

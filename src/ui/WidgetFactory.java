@@ -44,6 +44,8 @@ public class WidgetFactory {
                     WaspWidget waspWidget = create((Wasp) animal);
                     item.addItem(waspWidget);
                     break;
+                case "Insect":
+                    break;
             }
         }
 
@@ -87,7 +89,7 @@ public class WidgetFactory {
         _botSpiderMap.remove(botSpider);
     }
 
-    public FlyWidget create(Fly fly){
+    private FlyWidget create(Fly fly){
         if (_insectMap.containsKey(fly)) return (FlyWidget)_insectMap.get(fly);
         FlyWidget flyWidget = new FlyWidget(fly);
         _insectMap.put(fly, flyWidget);
@@ -95,7 +97,7 @@ public class WidgetFactory {
         return flyWidget;
     }
 
-    public WaspWidget create(Wasp wasp){
+    private WaspWidget create(Wasp wasp){
         if (_insectMap.containsKey(wasp)) return (WaspWidget)_insectMap.get(wasp);
         WaspWidget waspWidget = new WaspWidget(wasp);
         _insectMap.put(wasp, waspWidget);
@@ -103,7 +105,7 @@ public class WidgetFactory {
         return waspWidget;
     }
 
-    public GrassHopperWidget create(GrassHopper grassHopper){
+    private GrassHopperWidget create(GrassHopper grassHopper){
         if (_insectMap.containsKey(grassHopper)) return (GrassHopperWidget)_insectMap.get(grassHopper);
         GrassHopperWidget grassHopperWidget = new GrassHopperWidget(grassHopper);
         _insectMap.put(grassHopper, grassHopperWidget);
@@ -111,7 +113,7 @@ public class WidgetFactory {
         return grassHopperWidget;
     }
 
-    public MoleWidget create(Mole mole){
+    private MoleWidget create(Mole mole){
         if (_insectMap.containsKey(mole)) return (MoleWidget) _insectMap.get(mole);
         MoleWidget moleWidget = new MoleWidget(mole);
         _insectMap.put(mole, moleWidget);
@@ -127,6 +129,31 @@ public class WidgetFactory {
         _insectMap.remove(insect);
     }
 
+    public InsectWidget create(Insect insect){
+        if (_insectMap.containsKey(insect)){
+            return _insectMap.get(insect);
+        }
+        WebCrossWidget item = _webCrosses.get(insect.getWebCross());
+        switch(insect.getClass().getName().split("\\.")[insect.getClass().getName().split("\\.").length-1]){
+            case "Fly":
+                FlyWidget fly = create((Fly) insect);
+                item.addItem(fly);
+                return fly;
+            case "Mole":
+                MoleWidget mole = create((Mole) insect);
+                item.addItem(mole);
+                return mole;
+            case "GrassHopper":
+                GrassHopperWidget grassHopperWidget = create((GrassHopper) insect);
+                item.addItem(grassHopperWidget);
+                return grassHopperWidget;
+            case "Wasp":
+                WaspWidget waspWidget = create((Wasp) insect);
+                item.addItem(waspWidget);
+                return waspWidget;
+        }
+        return null;
+    }
 
 
 }

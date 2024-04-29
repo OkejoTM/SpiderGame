@@ -22,8 +22,7 @@ public class WebCrossWidget extends JPanel {
         setBackground(ImageUtils.BACKGROUND_COLOR);
     }
 
-    public void addItem(WebCrossItemWidget item) { // !!! Какой-то контроль за количеством элементов должен вестись??
-        // DONE: Добавлен контроль за кол-вом элеменов
+    public void addItem(WebCrossItemWidget item) {
         if (items.size() > 1 ) throw new IllegalArgumentException();
         int index = -1;
 
@@ -31,12 +30,8 @@ public class WebCrossWidget extends JPanel {
 
         System.out.println(this.getClass().getName()  + " Amount of items :" + items.size());
         items.put(item.getLayer(), item);
-        System.out.println(this.getClass().getName()  + " Put in items");
-        System.out.println(this.getClass().getName()  + " Amount of items :" + items.size());
-        System.out.println(this.getClass().getName()  + " Adding component..");
         add(item, index);
         System.out.println(this.getClass().getName()  + " Done adding component");
-
     }
 
     public void removeItem(WebCrossItemWidget item) {

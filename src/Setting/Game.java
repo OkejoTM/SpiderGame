@@ -47,6 +47,9 @@ public class Game {
         }
         _web.removeBotSpiders(_botsToRemove);
         _botsToRemove.clear();
+        if (_web.getBotSpiders().isEmpty()){
+            fireGameEnded();
+        }
     }
 
     private void disappearInsects() {
@@ -55,6 +58,14 @@ public class Game {
         }
         _web.removeInsects(_insectsToRemove);
         _insectsToRemove.clear();
+    }
+
+    private void generateInsects(){
+        ArrayList<Insect> createdInsects = _flora.generateInsects();
+        for (Insect insect : createdInsects){
+            insect.addInsectActionListener(new InsectObserver());
+        }
+        fireInsectsAppeared(createdInsects);
     }
 
     public Web getWeb() {
@@ -75,8 +86,8 @@ public class Game {
         @Override
         public void playerMoved(PlayerActionEvent event) {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
-            disappearInsects(); // Пропадают насекомые
-            _flora.generateInsects();
+//            disappearInsects(); // Пропадают насекомые
+            generateInsects();
             fireGameStepHappened();
         }
     }
@@ -134,6 +145,15 @@ public class Game {
             GameActionEvent event = new GameActionEvent(listener);
             event.setGame(this);
             listener.gameStepHappened(event);
+        }
+    }
+
+    protected void fireInsectsAppeared(ArrayList<Insect> createdInsects){
+        for (GameActionListener listener : _gameListeners){
+            GameActionEvent event = new GameActionEvent(listener);
+            event.setCreatedInsects(createdInsects);
+            event.setGame(this);
+            listener.insectsCreated(event);
         }
     }
 

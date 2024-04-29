@@ -71,7 +71,6 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
 
             moveAction(keyCode);
 
-            repaint();
         }
 
         @Override

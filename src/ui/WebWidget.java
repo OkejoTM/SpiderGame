@@ -72,15 +72,12 @@ public class WebWidget extends JPanel {
 
         @Override
         public void playerMoved(PlayerControllerActionEvent event) {
-            System.out.println(this.getClass().getName()  + " Doing listener method");
             PlayerSpiderWidget playerSpiderWidget = _widgetFactory.getWidget(event.getPlayer());
             WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
             WebCrossWidget webCrossWidgetTo = _widgetFactory.getWidget(event.getTo());
-            System.out.println(this.getClass().getName()  + " removing from old");
+
             webCrossWidgetFrom.removeItem(playerSpiderWidget);
-            System.out.println(this.getClass().getName()  + " setting to new");
             webCrossWidgetTo.addItem(playerSpiderWidget);
-            System.out.println(this.getClass().getName()  + " Done listener method");
         }
     }
 
@@ -88,16 +85,12 @@ public class WebWidget extends JPanel {
 
         @Override
         public void botMoved(BotControllerActionEvent event) {
-            System.out.println(this.getClass().getName()  + " Doing listener method");
             BotSpiderWidget botSpiderWidget = _widgetFactory.getWidget(event.getBotSpider());
             WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
             WebCrossWidget webCrossWidgetTo = _widgetFactory.getWidget(event.getTo());
 
-            System.out.println(this.getClass().getName()  + " removing from old");
             webCrossWidgetFrom.removeItem(botSpiderWidget);
-            System.out.println(this.getClass().getName()  + " setting to new");
             webCrossWidgetTo.addItem(botSpiderWidget);
-            System.out.println(this.getClass().getName()  + " Done listener method");
         }
 
         @Override
@@ -125,13 +118,25 @@ public class WebWidget extends JPanel {
 
         @Override
         public void gameEnded(GameActionEvent event) {
-
         }
 
         @Override
         public void gameStepHappened(GameActionEvent event) {
             repaint();
         }
+
+        @Override
+        public void insectsCreated(GameActionEvent event) {
+            for (Insect insect : event.getCreatedInsects()){
+                _widgetFactory.create(insect);
+
+                insect.addInsectControllerActionListener(new InsectController());
+                System.out.println("Insect created at " + insect.getWebCross().getPosition().row() + insect.getWebCross().getPosition().column());
+            }
+        }
+
+
+
     }
 }
 
