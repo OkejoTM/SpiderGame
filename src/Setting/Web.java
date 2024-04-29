@@ -225,7 +225,7 @@ public class Web implements Iterable<WebCross>{
             else{
                 nextWebCross = webCross.neighbour(Direction.east());
                 if (nextWebCross == null && webCross.getPosition().row() < _web.getSize()){
-                    nextWebCross = _web.getWebCross(new WebCrossPosition(webCross.getPosition().row()+1, webCross.getPosition().column()));
+                    nextWebCross = _web.getWebCross(new WebCrossPosition(webCross.getPosition().row()+1, 0));
                 }
             }
 

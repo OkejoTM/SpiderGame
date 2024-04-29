@@ -19,7 +19,8 @@ public class Main {
 //
 
 //
-//        Game game = new Game(3);
+//        Game game = new Game(5);
+//        System.out.println(game.getWeb().getEmptyWebCrosses().size());
 //        game.getWeb().getPlayer().makeMove(Direction.north());
 //        game.getWeb().getPlayer().makeMove(Direction.east());
 //        game.getWeb().getPlayer().makeMove(Direction.west());
