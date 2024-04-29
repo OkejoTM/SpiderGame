@@ -28,24 +28,18 @@ public class WebCrossWidget extends JPanel {
 
         item.setState(WebCrossItemWidget.State.DEFAULT);
 
-        System.out.println(this.getClass().getName()  + " Amount of items :" + items.size());
         items.put(item.getLayer(), item);
         add(item, index);
-        System.out.println(this.getClass().getName()  + " Done adding component");
     }
 
     public void removeItem(WebCrossItemWidget item) {
         if (items.containsValue(item)) {
             int index = 0;
 
-            System.out.println(this.getClass().getName()  + " Amount of items :" + items.size());
-            System.out.println(this.getClass().getName()  + " remove component :");
             remove(index);
-            System.out.println(this.getClass().getName()  + " Done removing");
-            System.out.println(this.getClass().getName()  + " Remove from items");
+
             items.remove(item.getLayer());
-            System.out.println(this.getClass().getName()  + " Amount of items :" + items.size());
-//            repaint();
+
         }
     }
 

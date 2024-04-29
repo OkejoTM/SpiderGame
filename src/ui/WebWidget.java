@@ -122,6 +122,7 @@ public class WebWidget extends JPanel {
 
         @Override
         public void gameStepHappened(GameActionEvent event) {
+            revalidate();
             repaint();
         }
 

@@ -57,6 +57,7 @@ public class Game {
             insect.jumpOff();
         }
         _web.removeInsects(_insectsToRemove);
+
         _insectsToRemove.clear();
     }
 
@@ -86,7 +87,7 @@ public class Game {
         @Override
         public void playerMoved(PlayerActionEvent event) {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
-//            disappearInsects(); // Пропадают насекомые
+            disappearInsects(); // Пропадают насекомые
             generateInsects();
             fireGameStepHappened();
         }
@@ -156,5 +157,7 @@ public class Game {
             listener.insectsCreated(event);
         }
     }
+
+
 
 }
