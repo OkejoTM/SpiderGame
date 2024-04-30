@@ -10,12 +10,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static ui.cell.WebCrossWidget.CELL_SIZE;
+
 public class BotSpiderWidget extends WebCrossItemWidget{
 
     private final BotSpider _botSpider;
 
     public BotSpiderWidget(BotSpider botSpider){
-        super("images/spider.png", 60, 96);
+        super("images/spider.png", CELL_SIZE/2, CELL_SIZE-24);
         _botSpider = botSpider;
     }
 
@@ -24,10 +26,9 @@ public class BotSpiderWidget extends WebCrossItemWidget{
         return botWithHealth(_image);
     }
 
-
     @Override
     protected Dimension getDimension() {
-        return new Dimension(60, 120);
+        return new Dimension(CELL_SIZE/2, CELL_SIZE);
     }
 
     private BufferedImage botWithHealth(BufferedImage botImage) {

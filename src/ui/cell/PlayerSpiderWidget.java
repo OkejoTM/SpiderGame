@@ -9,12 +9,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
+import static ui.cell.WebCrossWidget.CELL_SIZE;
+
 public class PlayerSpiderWidget extends WebCrossItemWidget {
 
     private final PlayerSpider _playerSpider;
 
     public PlayerSpiderWidget(PlayerSpider playerSpider) {
-        super("images/playerSpider.png", 60, 96);
+        super("images/playerSpider.png", CELL_SIZE/2, CELL_SIZE-24);
         _playerSpider = playerSpider;
         setFocusable(true);
         addKeyListener(new KeyController());
@@ -27,11 +29,11 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
 
     @Override
     protected Dimension getDimension() {
-        return new Dimension(60, 120);
+        return new Dimension(CELL_SIZE/2, CELL_SIZE);
     }
 
     private BufferedImage playerImageWithHealth(BufferedImage playerImage) {
-        BufferedImage img = new BufferedImage(playerImage.getWidth(), 120, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage img = new BufferedImage(playerImage.getWidth(), CELL_SIZE, BufferedImage.TYPE_INT_ARGB);
         Graphics g = img.getGraphics();
         g.drawImage(playerImage, 0, 0, null);
 

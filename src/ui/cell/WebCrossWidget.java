@@ -11,7 +11,7 @@ public class WebCrossWidget extends JPanel {
 
     private WebCrossItemWidget _item = null;
 
-    private static final int CELL_SIZE = 120; // TODO : change to public
+    public static final int CELL_SIZE = 120;
 
     public WebCrossWidget() {
         setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
