@@ -26,7 +26,7 @@ public class WebCrossWidget extends JPanel {
 
         int index = -1;
 
-        item.setState(WebCrossItemWidget.State.DEFAULT);
+        item.updateState();
 
         _item = item;
         add(item, index);

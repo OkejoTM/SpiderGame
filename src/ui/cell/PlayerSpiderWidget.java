@@ -16,7 +16,7 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
     private final PlayerSpider _playerSpider;
 
     public PlayerSpiderWidget(PlayerSpider playerSpider) {
-        super("images/playerSpider.png", CELL_SIZE/2, CELL_SIZE-24);
+        super("images/playerSpider.png", CELL_SIZE / 2, CELL_SIZE - 24);
         _playerSpider = playerSpider;
         setFocusable(true);
         addKeyListener(new KeyController());
@@ -29,7 +29,7 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
 
     @Override
     protected Dimension getDimension() {
-        return new Dimension(CELL_SIZE/2, CELL_SIZE);
+        return new Dimension(CELL_SIZE / 2, CELL_SIZE);
     }
 
     private BufferedImage playerImageWithHealth(BufferedImage playerImage) {
@@ -37,11 +37,11 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
         Graphics g = img.getGraphics();
         g.drawImage(playerImage, 0, 0, null);
 
-        if (cellItemState == State.DEFAULT){
-            g.setFont(new Font("Arial", Font.PLAIN, 20));
-            g.setColor(GameWidgetsUtils.healthTextColor(_playerSpider.getHealth()));
-            GameWidgetsUtils.drawSpiderHealth(g, _playerSpider.getHealth());
-        }
+
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.setColor(GameWidgetsUtils.healthTextColor(_playerSpider.getHealth()));
+        GameWidgetsUtils.drawSpiderHealth(g, _playerSpider.getHealth());
+
 
         return img;
     }

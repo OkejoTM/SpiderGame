@@ -12,12 +12,12 @@ import java.io.IOException;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
-public class BotSpiderWidget extends WebCrossItemWidget{
+public class BotSpiderWidget extends WebCrossItemWidget {
 
     private final BotSpider _botSpider;
 
-    public BotSpiderWidget(BotSpider botSpider){
-        super("images/spider.png", CELL_SIZE/2, CELL_SIZE-24);
+    public BotSpiderWidget(BotSpider botSpider) {
+        super("images/spider.png", CELL_SIZE / 2, CELL_SIZE - 24);
         _botSpider = botSpider;
     }
 
@@ -28,7 +28,7 @@ public class BotSpiderWidget extends WebCrossItemWidget{
 
     @Override
     protected Dimension getDimension() {
-        return new Dimension(CELL_SIZE/2, CELL_SIZE);
+        return new Dimension(CELL_SIZE / 2, CELL_SIZE);
     }
 
     private BufferedImage botWithHealth(BufferedImage botImage) {
@@ -36,11 +36,11 @@ public class BotSpiderWidget extends WebCrossItemWidget{
         Graphics g = img.getGraphics();
         g.drawImage(botImage, 0, 0, null);
 
-        if (cellItemState == WebCrossItemWidget.State.DEFAULT){
-            g.setFont(new Font("Arial", Font.PLAIN, 20));
-            g.setColor(GameWidgetsUtils.healthTextColor(_botSpider.getHealth()));
-            GameWidgetsUtils.drawSpiderHealth(g, _botSpider.getHealth());
-        }
+
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.setColor(GameWidgetsUtils.healthTextColor(_botSpider.getHealth()));
+        GameWidgetsUtils.drawSpiderHealth(g, _botSpider.getHealth());
+
 
         return img;
     }

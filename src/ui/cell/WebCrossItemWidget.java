@@ -13,33 +13,25 @@ import ui.utils.ImageUtils;
 
 public abstract class WebCrossItemWidget extends JPanel {
 
-    public enum State {
-        DEFAULT,
-        SMALL
-    }
-
-    protected State cellItemState = State.DEFAULT;
-
     protected BufferedImage _image;
 
     public WebCrossItemWidget(String imagePath, int imageWidth, int imageHeight) {
-        setState(State.DEFAULT);
+        updateState();
         setOpaque(false);
         setImage(imagePath, imageWidth, imageHeight);
     }
 
-    void setState(State state) { // TODO: Update Item state
-        cellItemState = state;
+    void updateState() {
         setPreferredSize(getDimension());
         repaint();
         revalidate();
     }
 
-    protected BufferedImage getImage(){
+    protected BufferedImage getImage() {
         return _image;
     }
 
-    private void setImage(String path, int width, int height){
+    private void setImage(String path, int width, int height) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(path));
