@@ -18,7 +18,7 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
     private final PlayerSpider _playerSpider;
 
     public PlayerSpiderWidget(PlayerSpider playerSpider) {
-        super();
+        super("images/playerSpider.png", 60, 96);
         _playerSpider = playerSpider;
         setFocusable(true);
         addKeyListener(new KeyController());
@@ -26,15 +26,7 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
 
     @Override
     protected BufferedImage getImage() {
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File("images/playerSpider.png"));
-            image = ImageUtils.resizeImage(image, 60, 96);
-            image = playerImageWithHealth(image);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+        return playerImageWithHealth(_image);
     }
 
     @Override

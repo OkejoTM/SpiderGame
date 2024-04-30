@@ -1,11 +1,15 @@
 package ui.cell;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import ui.cell.WebCrossWidget.Layer;
+import ui.utils.ImageUtils;
 
 public abstract class WebCrossItemWidget extends JPanel {
 
@@ -16,10 +20,12 @@ public abstract class WebCrossItemWidget extends JPanel {
 
     protected State cellItemState = State.DEFAULT;
 
+    protected BufferedImage _image;
 
-    public WebCrossItemWidget() {
+    public WebCrossItemWidget(String imagePath, int imageWidth, int imageHeight) {
         setState(State.DEFAULT);
         setOpaque(false);
+        setImage(imagePath, imageWidth, imageHeight);
     }
 
     void setState(State state) {
@@ -29,7 +35,20 @@ public abstract class WebCrossItemWidget extends JPanel {
         revalidate();
     }
 
-    protected abstract BufferedImage getImage();
+    protected BufferedImage getImage(){
+        return _image;
+    }
+
+    private void setImage(String path, int width, int height){
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(path));
+            image = ImageUtils.resizeImage(image, width, height);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        _image = image;
+    }
 
     public abstract Layer getLayer();
 

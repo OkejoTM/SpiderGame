@@ -15,21 +15,13 @@ public class BotSpiderWidget extends WebCrossItemWidget{
     private final BotSpider _botSpider;
 
     public BotSpiderWidget(BotSpider botSpider){
-        super();
+        super("images/spider.png", 60, 96);
         _botSpider = botSpider;
     }
 
     @Override
     protected BufferedImage getImage() {
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File("images/spider.png"));
-            image = ImageUtils.resizeImage(image, 60, 96);
-            image = botWithHealth(image);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+        return botWithHealth(_image);
     }
 
     @Override
