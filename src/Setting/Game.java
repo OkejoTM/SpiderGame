@@ -8,6 +8,13 @@ public class Game {
     private Web _web;
     private Flora _flora;
 
+    private enum GameStatus {
+        ON_GAME,
+        END_GAME
+    }
+
+    private GameStatus gameStatus;
+
     public Game(int webSize) {
         createWeb(webSize);
         _flora = new Flora(_web);
@@ -26,12 +33,18 @@ public class Game {
         for (Insect insect : _web.getInsects()) {
             insect.addInsectActionListener(new InsectObserver());
         }
+
+        gameStatus = GameStatus.ON_GAME;
     }
 
     public void endGame() {
         System.out.println("Game ended");
         fireGameStepHappened();
         fireGameEnded();
+    }
+
+    private void gameStateChanged(GameStatus status){
+        gameStatus = status;
     }
 
     private void createWeb(int size) {
@@ -80,7 +93,8 @@ public class Game {
     private class PlayerSpiderObserver implements PlayerActionListener {
         @Override
         public void playerDied(PlayerActionEvent event) {
-            endGame();
+            gameStateChanged(GameStatus.END_GAME);
+            _web.removePlayer();
         }
 
         @Override
@@ -88,6 +102,9 @@ public class Game {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
             disappearInsects(); // Пропадают насекомые
             generateInsects();
+            if (gameStatus == GameStatus.END_GAME){
+                endGame();
+            }
             fireGameStepHappened();
         }
     }
