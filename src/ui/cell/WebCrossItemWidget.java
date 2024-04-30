@@ -21,7 +21,7 @@ public abstract class WebCrossItemWidget extends JPanel {
         setImage(imagePath, imageWidth, imageHeight);
     }
 
-    void updateState() {
+    private void updateState() {
         setPreferredSize(getDimension());
         repaint();
         revalidate();

@@ -26,8 +26,6 @@ public class WebCrossWidget extends JPanel {
 
         int index = -1;
 
-        item.updateState();
-
         _item = item;
         add(item, index);
     }
