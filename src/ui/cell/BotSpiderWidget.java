@@ -23,27 +23,12 @@ public class BotSpiderWidget extends WebCrossItemWidget {
 
     @Override
     protected BufferedImage getImage() {
-        return botWithHealth(_image);
+        return GameWidgetsUtils.spiderWithHealthImage(_image, _botSpider.getHealth());
     }
 
     @Override
     protected Dimension getDimension() {
         return new Dimension(CELL_SIZE / 2, CELL_SIZE);
     }
-
-    private BufferedImage botWithHealth(BufferedImage botImage) {
-        BufferedImage img = new BufferedImage(botImage.getWidth(), 120, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = img.getGraphics();
-        g.drawImage(botImage, 0, 0, null);
-
-
-        g.setFont(new Font("Arial", Font.PLAIN, 20));
-        g.setColor(GameWidgetsUtils.healthTextColor(_botSpider.getHealth()));
-        GameWidgetsUtils.drawSpiderHealth(g, _botSpider.getHealth());
-
-
-        return img;
-    }
-
 
 }

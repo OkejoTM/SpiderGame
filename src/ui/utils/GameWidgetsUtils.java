@@ -1,6 +1,9 @@
 package ui.utils;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import static ui.cell.WebCrossWidget.CELL_SIZE;
 
 public class GameWidgetsUtils {
 
@@ -30,6 +33,19 @@ public class GameWidgetsUtils {
         else{
             g.drawString("[" + health + "]", 17, 112);
         }
+    }
+
+    public static BufferedImage spiderWithHealthImage(BufferedImage spiderImage, int spiderHealth){
+
+        BufferedImage img = new BufferedImage(spiderImage.getWidth(), CELL_SIZE, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = img.getGraphics();
+        g.drawImage(spiderImage, 0, 0, null);
+
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.setColor(healthTextColor(spiderHealth));
+        drawSpiderHealth(g, spiderHealth);
+
+        return img;
     }
 
 }
