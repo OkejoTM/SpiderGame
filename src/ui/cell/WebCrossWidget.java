@@ -8,14 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WebCrossWidget extends JPanel {
-    public enum Layer {
-        TOP,
-        BOTTOM
-    }
 
-    private Map<Layer, WebCrossItemWidget> items = new HashMap();
+    private WebCrossItemWidget _item = null;
 
-    private static final int CELL_SIZE = 120;
+    private static final int CELL_SIZE = 120; // TODO : change to public
 
     public WebCrossWidget() {
         setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
@@ -23,23 +19,26 @@ public class WebCrossWidget extends JPanel {
     }
 
     public void addItem(WebCrossItemWidget item) {
-        if (items.size() > 1 ) throw new IllegalArgumentException();
+        if (_item == item)
+            return;
+
+        if (_item != null) throw new IllegalArgumentException();
+
         int index = -1;
 
         item.setState(WebCrossItemWidget.State.DEFAULT);
 
-        items.put(item.getLayer(), item);
+        _item = item;
         add(item, index);
     }
 
     public void removeItem(WebCrossItemWidget item) {
-        if (items.containsValue(item)) {
+        if (_item == item) {
             int index = 0;
 
             remove(index);
 
-            items.remove(item.getLayer());
-
+            _item = null;
         }
     }
 
@@ -49,8 +48,8 @@ public class WebCrossWidget extends JPanel {
         g.setColor(Color.white);
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(3));
-        g2.drawLine(0, CELL_SIZE/2, CELL_SIZE, CELL_SIZE/2);
-        g2.drawLine(CELL_SIZE/2, 0, CELL_SIZE/2, CELL_SIZE);
+        g2.drawLine(0, CELL_SIZE / 2, CELL_SIZE, CELL_SIZE / 2);
+        g2.drawLine(CELL_SIZE / 2, 0, CELL_SIZE / 2, CELL_SIZE);
     }
 
 }

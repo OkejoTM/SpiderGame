@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import ui.cell.WebCrossWidget.Layer;
+
 import ui.utils.ImageUtils;
 
 public abstract class WebCrossItemWidget extends JPanel {
@@ -28,7 +28,7 @@ public abstract class WebCrossItemWidget extends JPanel {
         setImage(imagePath, imageWidth, imageHeight);
     }
 
-    void setState(State state) {
+    void setState(State state) { // TODO: Update Item state
         cellItemState = state;
         setPreferredSize(getDimension());
         repaint();
@@ -49,8 +49,6 @@ public abstract class WebCrossItemWidget extends JPanel {
         }
         _image = image;
     }
-
-    public abstract Layer getLayer();
 
     protected abstract Dimension getDimension();
 

@@ -24,10 +24,6 @@ public class BotSpiderWidget extends WebCrossItemWidget{
         return botWithHealth(_image);
     }
 
-    @Override
-    public WebCrossWidget.Layer getLayer() {
-        return WebCrossWidget.Layer.BOTTOM;
-    }
 
     @Override
     protected Dimension getDimension() {

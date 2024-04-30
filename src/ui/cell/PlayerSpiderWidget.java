@@ -26,11 +26,6 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
     }
 
     @Override
-    public WebCrossWidget.Layer getLayer() {
-        return WebCrossWidget.Layer.BOTTOM;
-    }
-
-    @Override
     protected Dimension getDimension() {
         return new Dimension(60, 120);
     }
