@@ -47,9 +47,10 @@ public class WebCrossWidget extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.white);
-        g.drawLine(0, CELL_SIZE/2, CELL_SIZE, CELL_SIZE/2);
-        g.drawLine(CELL_SIZE/2, 0, CELL_SIZE/2, CELL_SIZE);
-        g.setColor(Color.black);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(3));
+        g2.drawLine(0, CELL_SIZE/2, CELL_SIZE, CELL_SIZE/2);
+        g2.drawLine(CELL_SIZE/2, 0, CELL_SIZE/2, CELL_SIZE);
     }
 
 }

@@ -3,15 +3,11 @@ package ui.cell;
 import Setting.PlayerSpider;
 import Utils.Direction;
 import ui.utils.GameWidgetsUtils;
-import ui.utils.ImageUtils;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class PlayerSpiderWidget extends WebCrossItemWidget {
 
