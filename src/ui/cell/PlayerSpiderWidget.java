@@ -55,22 +55,10 @@ public class PlayerSpiderWidget extends WebCrossItemWidget {
         if (cellItemState == State.DEFAULT){
             g.setFont(new Font("Arial", Font.PLAIN, 20));
             g.setColor(GameWidgetsUtils.healthTextColor(_playerSpider.getHealth()));
-            drawSpiderHealthText(g);
+            GameWidgetsUtils.drawSpiderHealth(g, _playerSpider.getHealth());
         }
 
         return img;
-    }
-
-    private void drawSpiderHealthText(Graphics g){
-        if (_playerSpider.getHealth() >= 100){
-            g.drawString("[" + _playerSpider.getHealth() + "]", 5, 112);
-        }
-        else if (_playerSpider.getHealth() >= 10 && _playerSpider.getHealth() <100){
-            g.drawString("[" + _playerSpider.getHealth() + "]", 7, 112);
-        }
-        else{
-            g.drawString("[" + _playerSpider.getHealth() + "]", 10, 112);
-        }
     }
 
     private class KeyController implements KeyListener {
