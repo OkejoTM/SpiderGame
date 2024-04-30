@@ -4,7 +4,7 @@ import java.awt.*;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
-public abstract class InsectWidget extends WebCrossItemWidget{
+public abstract class InsectWidget extends AnimalWidget{
 
     public InsectWidget(String imagePath, int imageWidth, int imageHeight) {
         super(imagePath, imageWidth, imageHeight);

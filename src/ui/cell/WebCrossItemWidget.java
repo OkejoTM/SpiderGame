@@ -21,14 +21,14 @@ public abstract class WebCrossItemWidget extends JPanel {
         setImage(imagePath, imageWidth, imageHeight);
     }
 
+    protected BufferedImage getImage() {
+        return _image;
+    }
+
     private void updateState() {
         setPreferredSize(getDimension());
         repaint();
         revalidate();
-    }
-
-    protected BufferedImage getImage() {
-        return _image;
     }
 
     private void setImage(String path, int width, int height) {

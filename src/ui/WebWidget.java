@@ -36,7 +36,7 @@ public class WebWidget extends JPanel {
         row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
 
         for (int i = 0; i < _web.getSize(); i++) {
-            WebCross webCross = _web.getWebCross(rowIndex, i); // TODO точно ли (rowIndex, i)
+            WebCross webCross = _web.getWebCross(rowIndex, i);
             WebCrossWidget webCrossWidget = _widgetFactory.create(webCross);
 
             row.add(webCrossWidget);

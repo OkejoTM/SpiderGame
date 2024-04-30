@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
-public class PlayerSpiderWidget extends WebCrossItemWidget {
+public class PlayerSpiderWidget extends AnimalWidget {
 
     private final PlayerSpider _playerSpider;
 

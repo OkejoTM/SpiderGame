@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
-public class BotSpiderWidget extends WebCrossItemWidget {
+public class BotSpiderWidget extends AnimalWidget {
 
     private final BotSpider _botSpider;
 
