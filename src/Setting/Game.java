@@ -32,7 +32,6 @@ public class Game {
         System.out.println("Game ended");
         fireGameStepHappened();
         fireGameEnded();
-        System.exit(0);
     }
 
     private void createWeb(int size) {

@@ -1,6 +1,7 @@
 package ui.cell;
 
 import Setting.BotSpider;
+import ui.utils.GameWidgetsUtils;
 import ui.utils.ImageUtils;
 
 import javax.imageio.ImageIO;
@@ -31,6 +32,18 @@ public class BotSpiderWidget extends WebCrossItemWidget{
         return image;
     }
 
+    private void drawSpiderHealthText(Graphics g){
+        if (_botSpider.getHealth() >= 100){
+            g.drawString("[" + _botSpider.getHealth() + "]", 5, 112);
+        }
+        else if (_botSpider.getHealth() >= 10 && _botSpider.getHealth() <100){
+            g.drawString("[" + _botSpider.getHealth() + "]", 7, 112);
+        }
+        else{
+            g.drawString("[" + _botSpider.getHealth() + "]", 10, 112);
+        }
+    }
+
     @Override
     public WebCrossWidget.Layer getLayer() {
         return WebCrossWidget.Layer.BOTTOM;
@@ -48,7 +61,8 @@ public class BotSpiderWidget extends WebCrossItemWidget{
 
         if (cellItemState == WebCrossItemWidget.State.DEFAULT){
             g.setFont(new Font("Arial", Font.PLAIN, 20));
-            g.drawString("[" + _botSpider.getHealth() + "]", 5, 112);
+            g.setColor(GameWidgetsUtils.healthTextColor(_botSpider.getHealth()));
+            drawSpiderHealthText(g);
         }
 
         return img;

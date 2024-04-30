@@ -55,6 +55,7 @@ public class Main {
             @Override
             public void gameEnded(GameActionEvent event) {
                 JOptionPane.showMessageDialog(GamePanel.this, "Игра закончена");
+                System.exit(0);
             }
 
             @Override
