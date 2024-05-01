@@ -15,10 +15,14 @@ public class Main {
     }
 
     static class GamePanel extends JFrame {
-        public WidgetFactory _widgetFactory;
+        private WidgetFactory _widgetFactory;
+        private JLabel _stepsLabel;
+        private JLabel _insectsLabel;
+        private int _steps = 0;
+        private int _insects = 0;
 
         public GamePanel() throws HeadlessException {
-            setVisible(true);
+            super("Spider Game"); // Заголовок окна
 
             _widgetFactory = new WidgetFactory();
             Game _game = new Game(5, Game.GameLevel.MIDDLE);
@@ -26,13 +30,25 @@ public class Main {
             _game.addGameActionListener(new GameController());
 
             JPanel content = (JPanel) this.getContentPane();
-            content.add(new WebWidget(_game.getWeb(), _widgetFactory, _game));
+            content.setLayout(new BorderLayout()); // Используем BorderLayout для управления компонентами
+
+            // Добавляем JLabel'ы для сводки
+            _stepsLabel = new JLabel("Количество шагов: ");
+            _insectsLabel = new JLabel("Съедено насекомых: ");
+            JPanel summaryPanel = new JPanel();
+            summaryPanel.add(_stepsLabel);
+            summaryPanel.add(_insectsLabel);
+            content.add(summaryPanel, BorderLayout.NORTH);
+
+            // Добавляем паутину
+            content.add(new WebWidget(_game.getWeb(), _widgetFactory, _game), BorderLayout.CENTER);
 
             _widgetFactory.getWidget(_game.getWeb().getPlayer()).requestFocus();
 
             pack();
             setResizable(false);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
+            setVisible(true); // Делаем окно видимым
         }
 
         private final class GameController implements GameActionListener {
@@ -45,7 +61,9 @@ public class Main {
 
             @Override
             public void gameStepHappened(GameActionEvent event) {
-
+                _steps += 1;
+                _stepsLabel.setText("Количество шагов: " + _steps);
+                _insectsLabel.setText("Съедено насекомых: " + _insects);
             }
 
             @Override
