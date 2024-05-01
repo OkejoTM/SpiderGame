@@ -39,10 +39,6 @@ public class WidgetFactory {
         return (BotSpiderWidget) _animalMap.get(botSpider);
     }
 
-    public InsectWidget getWidget(Insect insect) {
-        return (InsectWidget) _animalMap.get(insect);
-    }
-
     public AnimalWidget getWidget(Animal animal){
         return _animalMap.get(animal);
     }
@@ -82,10 +78,10 @@ public class WidgetFactory {
         return switch (animal.getClass().getName().split("\\.")[animal.getClass().getName().split("\\.").length - 1]) {
             case "PlayerSpider" -> createPlayer((PlayerSpider) animal);
             case "BotSpider" -> new BotSpiderWidget((BotSpider) animal);
-            case "Fly" -> new FlyWidget((Fly)animal);
-            case "Mole" -> new MoleWidget((Mole)animal);
-            case "GrassHopper" -> new GrassHopperWidget((GrassHopper)animal);
-            case "Wasp" -> new WaspWidget((Wasp)animal);
+            case "Fly" -> new FlyWidget();
+            case "Mole" -> new MoleWidget();
+            case "GrassHopper" -> new GrassHopperWidget();
+            case "Wasp" -> new WaspWidget();
             default -> null;
         };
     }
