@@ -33,7 +33,9 @@ public abstract class Spider extends Animal {
                 newWebCross = nextWebCross;
             }
         }
-        fireSpiderMovedController(oldWebCross, newWebCross); // Сообщить контроллеру
+        if (isAlive()){
+            fireSpiderMovedController(oldWebCross, newWebCross); // Сообщить контроллеру
+        }
         notifySpiderMoved(); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
     }
 

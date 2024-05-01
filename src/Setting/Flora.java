@@ -39,7 +39,7 @@ public class Flora {
     }
 
     private void generateMiddleLevel() {
-        generatePlayerSpider(50);
+        generatePlayerSpider(1);
         generateBotSpiders(2);
         generateInsects(3);
     }
