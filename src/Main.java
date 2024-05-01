@@ -15,14 +15,13 @@ public class Main {
     }
 
     static class GamePanel extends JFrame {
-        private Game _game;
         public WidgetFactory _widgetFactory;
 
         public GamePanel() throws HeadlessException {
             setVisible(true);
 
             _widgetFactory = new WidgetFactory();
-            _game = new Game(5, Game.GameLevel.MIDDLE);
+            Game _game = new Game(5, Game.GameLevel.MIDDLE);
 
             _game.addGameActionListener(new GameController());
 

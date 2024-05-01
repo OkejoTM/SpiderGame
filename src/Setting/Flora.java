@@ -3,11 +3,10 @@ package Setting;
 import Factories.*;
 import Utils.BotSpiderMovementAlgorithm;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Flora {
-    private Web _web;
+    private final Web _web;
 
     private static final ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
 

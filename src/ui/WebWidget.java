@@ -103,7 +103,6 @@ public class WebWidget extends JPanel {
                 _widgetFactory.create(insect);
 
                 insect.addAnimalControllerActionListener(new AnimalController());
-                System.out.println("Insect created at " + insect.getWebCross().getPosition().row() + insect.getWebCross().getPosition().column());
             }
         }
     }
