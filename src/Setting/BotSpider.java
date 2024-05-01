@@ -44,6 +44,11 @@ public class BotSpider extends Spider{
     }
 
     @Override
+    protected void notifySpiderAteInsect() {
+
+    }
+
+    @Override
     protected void notifySpiderMoved() {
         fireBotSpiderMoved();
     }

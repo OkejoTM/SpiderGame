@@ -116,6 +116,11 @@ public class Game {
             }
             fireGameStepHappened();
         }
+
+        @Override
+        public void playerAteInsect(PlayerActionEvent event) {
+            firePlayerAteInsect();
+        }
     }
 
     private class BotSpiderObserver implements BotSpiderActionListener {
@@ -183,6 +188,12 @@ public class Game {
         }
     }
 
-
+    protected void firePlayerAteInsect(){
+        for (GameActionListener listener : _gameListeners){
+            GameActionEvent event = new GameActionEvent(listener);
+            event.setGame(this);
+            listener.playerAteInsect(event);
+        }
+    }
 
 }

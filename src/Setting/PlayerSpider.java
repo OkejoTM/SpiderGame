@@ -27,6 +27,11 @@ public class PlayerSpider extends Spider implements IPrey {
         firePlayerMoved();
     }
 
+    @Override
+    protected void notifySpiderAteInsect() {
+        firePlayerAteInsect();
+    }
+
     // ----------------- Listeners for game ------------------------
 
     private ArrayList<PlayerActionListener> _playerSpiderListenerList = new ArrayList<>();
@@ -55,5 +60,12 @@ public class PlayerSpider extends Spider implements IPrey {
         }
     }
 
+    protected void firePlayerAteInsect(){
+        for(PlayerActionListener listener : _playerSpiderListenerList){
+            PlayerActionEvent event = new PlayerActionEvent(listener);
+            event.setPlayer(this);
+            listener.playerAteInsect(event);
+        }
+    }
 
 }

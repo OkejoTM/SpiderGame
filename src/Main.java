@@ -71,6 +71,11 @@ public class Main {
 
             }
 
+            @Override
+            public void playerAteInsect(GameActionEvent event) {
+                _insects +=1 ;
+            }
+
         }
     }
 

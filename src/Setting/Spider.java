@@ -46,6 +46,9 @@ public abstract class Spider extends Animal {
     private void eat(IPrey prey) {
         changeHealth(((Animal) prey).getHealth());
         prey.getsEaten();
+        if (prey instanceof Insect) {
+            notifySpiderAteInsect();
+        }
     }
 
     private void getIntoWebCross(WebCross nextWebCross) {
@@ -53,6 +56,10 @@ public abstract class Spider extends Animal {
     }
 
     protected abstract void notifySpiderMoved();
+
+    protected void notifySpiderAteInsect(){
+
+    }
 
 
     private ArrayList<SpiderControllerActionListener> _spiderControllerListenersList = new ArrayList<>();

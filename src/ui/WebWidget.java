@@ -105,6 +105,11 @@ public class WebWidget extends JPanel {
                 insect.addAnimalControllerActionListener(new AnimalController());
             }
         }
+
+        @Override
+        public void playerAteInsect(GameActionEvent event) {
+
+        }
     }
 }
 
