@@ -1,5 +1,10 @@
 package Setting;
 
+import Events.Controllers.AnimalControllerActionEvent;
+import Events.Controllers.AnimalControllerActionListener;
+
+import java.util.ArrayList;
+
 public abstract class Animal {
     protected int _health;
     protected WebCross _webCross;
@@ -36,6 +41,7 @@ public abstract class Animal {
 
     protected void die() {
         _health = 0;
+        fireAnimalDiedController(this.getWebCross());
         clear();
     }
 
@@ -44,5 +50,25 @@ public abstract class Animal {
             _webCross.clear();
         }
     }
+
+    private ArrayList<AnimalControllerActionListener> _animalControllerListenerList = new ArrayList<>();
+
+    public void addAnimalControllerActionListener(AnimalControllerActionListener listener) {
+        _animalControllerListenerList.add(listener);
+    }
+
+    public void removeAnimalControllerActionListener(AnimalControllerActionListener listener) {
+        _animalControllerListenerList.remove(listener);
+    }
+
+    protected void fireAnimalDiedController(WebCross webCross){
+        for(AnimalControllerActionListener listener : _animalControllerListenerList){
+            AnimalControllerActionEvent event = new AnimalControllerActionEvent(listener);
+            event.setAnimal(this);
+            event.setWebCross(webCross);
+            listener.animalDied(event);
+        }
+    }
+
 
 }

@@ -39,15 +39,13 @@ public class BotSpider extends Spider{
 
     @Override
     protected void die(){
-        fireBotSpiderDiedController(this.getWebCross());
         super.die();
         fireBotSpiderDied();
     }
 
     @Override
-    protected void notifySpiderMoved(WebCross from, WebCross to) {
+    protected void notifySpiderMoved() {
         fireBotSpiderMoved();
-        fireBotMovedController(from, to);
     }
 
     // ----------------- Listeners for game ------------------------
@@ -74,37 +72,6 @@ public class BotSpider extends Spider{
         for(BotSpiderActionListener listener : _botSpiderListenerList){
             BotSpiderActionEvent event = new BotSpiderActionEvent(listener);
             event.setBot(this);
-            listener.botDied(event);
-        }
-    }
-
-    // ----------------- Listeners for widgets ------------------------
-
-    private ArrayList<BotControllerActionListener> _botControllerListenerList = new ArrayList<>();
-
-    public void addBotControllerActionListener(BotControllerActionListener listener) {
-        _botControllerListenerList.add(listener);
-    }
-
-    public void removeBotControllerActionListener(BotControllerActionListener listener) {
-        _botControllerListenerList.remove(listener);
-    }
-
-    protected void fireBotMovedController(WebCross from, WebCross to){
-        for(BotControllerActionListener listener : _botControllerListenerList){
-            BotControllerActionEvent event = new BotControllerActionEvent(listener);
-            event.setBotSpider(this);
-            event.setFrom(from);
-            event.setTo(to);
-            listener.botMoved(event);
-        }
-    }
-
-    protected void fireBotSpiderDiedController(WebCross from){
-        for(BotControllerActionListener listener : _botControllerListenerList){
-            BotControllerActionEvent event = new BotControllerActionEvent(listener);
-            event.setBotSpider(this);
-            event.setFrom(from);
             listener.botDied(event);
         }
     }

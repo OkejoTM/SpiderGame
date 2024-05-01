@@ -1,13 +1,13 @@
-package Events;
+package Events.Controllers;
 
-import Setting.PlayerSpider;
+import Setting.Spider;
 import Setting.WebCross;
 
 import java.util.EventObject;
 
-public class PlayerControllerActionEvent extends EventObject {
+public class SpiderControllerActionEvent extends EventObject {
 
-    private PlayerSpider _player;
+    private Spider _spider;
     private WebCross _from;
     private WebCross _to;
 
@@ -26,13 +26,14 @@ public class PlayerControllerActionEvent extends EventObject {
     public WebCross getTo() {
         return _to;
     }
-    public void setPlayer(PlayerSpider player){
-        _player = player;
-    }
-    public PlayerSpider getPlayer(){
-        return  _player;
+
+    public void setSpider(Spider spider){
+        _spider = spider;
     }
 
+    public Spider getSpider(){
+        return _spider;
+    }
 
     /**
      * Constructs a prototypical Event.
@@ -40,7 +41,7 @@ public class PlayerControllerActionEvent extends EventObject {
      * @param source the object on which the Event initially occurred
      * @throws IllegalArgumentException if source is null
      */
-    public PlayerControllerActionEvent(Object source) {
+    public SpiderControllerActionEvent(Object source) {
         super(source);
     }
 }

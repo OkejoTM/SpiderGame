@@ -2,8 +2,6 @@ package Setting;
 
 import Events.PlayerActionEvent;
 import Events.PlayerActionListener;
-import Events.PlayerControllerActionEvent;
-import Events.PlayerControllerActionListener;
 import Interfaces.IPrey;
 
 import java.util.ArrayList;
@@ -15,7 +13,6 @@ public class PlayerSpider extends Spider implements IPrey {
 
     @Override
     protected void die() {
-        firePlayerDiedController(this.getWebCross());
         super.die();
         firePlayerDied();
     }
@@ -26,11 +23,8 @@ public class PlayerSpider extends Spider implements IPrey {
     }
 
     @Override
-    protected void notifySpiderMoved(WebCross from, WebCross to) {
-
-        firePlayerMovedController(from, to);
+    protected void notifySpiderMoved() {
         firePlayerMoved();
-
     }
 
     // ----------------- Listeners for game ------------------------
@@ -57,37 +51,6 @@ public class PlayerSpider extends Spider implements IPrey {
         for(PlayerActionListener listener : _playerSpiderListenerList){
             PlayerActionEvent event = new PlayerActionEvent(listener);
             event.setPlayer(this);
-            listener.playerDied(event);
-        }
-    }
-
-    // ----------------- Listeners for widgets ------------------------
-
-    private ArrayList<PlayerControllerActionListener> _playerControllerListenerList = new ArrayList<>();
-
-    public void addPlayerControllerActionListener(PlayerControllerActionListener listener) {
-        _playerControllerListenerList.add(listener);
-    }
-
-    public void removePlayerControllerActionListener(PlayerControllerActionListener listener) {
-        _playerControllerListenerList.remove(listener);
-    }
-
-    protected void firePlayerMovedController(WebCross from, WebCross to){
-        for(PlayerControllerActionListener listener : _playerControllerListenerList){
-            PlayerControllerActionEvent event = new PlayerControllerActionEvent(listener);
-            event.setPlayer(this);
-            event.setFrom(from);
-            event.setTo(to);
-            listener.playerMoved(event);
-        }
-    }
-
-    protected void firePlayerDiedController(WebCross from){
-        for(PlayerControllerActionListener listener : _playerControllerListenerList){
-            PlayerControllerActionEvent event = new PlayerControllerActionEvent(listener);
-            event.setPlayer(this);
-            event.setFrom(from);
             listener.playerDied(event);
         }
     }

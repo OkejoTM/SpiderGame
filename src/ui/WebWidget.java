@@ -1,11 +1,12 @@
 package ui;
 
 import Events.*;
+import Events.Controllers.AnimalControllerActionEvent;
+import Events.Controllers.AnimalControllerActionListener;
+import Events.Controllers.SpiderControllerActionEvent;
+import Events.Controllers.SpiderControllerActionListener;
 import Setting.*;
-import ui.cell.BotSpiderWidget;
-import ui.cell.InsectWidget;
-import ui.cell.PlayerSpiderWidget;
-import ui.cell.WebCrossWidget;
+import ui.cell.*;
 
 import javax.swing.*;
 
@@ -45,72 +46,42 @@ public class WebWidget extends JPanel {
     }
 
     private void subscribeOnEntities() {
-        _web.getPlayer().addPlayerControllerActionListener(new PlayerController());
+        _web.getPlayer().addAnimalControllerActionListener(new AnimalController());
+        _web.getPlayer().addSpiderControllerActionListener(new SpiderController());
 
         for (BotSpider bot : _web.getBotSpiders()){
-            bot.addBotControllerActionListener(new BotController());
+            bot.addAnimalControllerActionListener(new AnimalController());
+            bot.addSpiderControllerActionListener(new SpiderController());
         }
 
         for (Insect insect : _web.getInsects()){
-            insect.addInsectControllerActionListener(new InsectController());
+            insect.addAnimalControllerActionListener(new AnimalController());
         }
 
         _game.addGameActionListener(new GameStepObserver());
     }
 
-    private class PlayerController implements PlayerControllerActionListener {
-
+    private class AnimalController implements AnimalControllerActionListener{
         @Override
-        public void playerDied(PlayerControllerActionEvent event) {
-            PlayerSpider playerSpider = event.getPlayer();
-            PlayerSpiderWidget playerSpiderWidget = _widgetFactory.getWidget(playerSpider);
-            WebCrossWidget webCrossWidget = _widgetFactory.getWidget(event.getFrom());
+        public void animalDied(AnimalControllerActionEvent event) {
+            Animal animal = event.getAnimal();
+            AnimalWidget animalWidget = _widgetFactory.getWidget(animal);
+            WebCrossWidget webCrossWidget = _widgetFactory.getWidget(event.getWebCross());
 
-            webCrossWidget.removeItem(playerSpiderWidget);
-            _widgetFactory.remove(playerSpider);
-        }
-
-        @Override
-        public void playerMoved(PlayerControllerActionEvent event) {
-            PlayerSpiderWidget playerSpiderWidget = _widgetFactory.getWidget(event.getPlayer());
-            WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
-            WebCrossWidget webCrossWidgetTo = _widgetFactory.getWidget(event.getTo());
-
-            webCrossWidgetFrom.removeItem(playerSpiderWidget);
-            webCrossWidgetTo.addItem(playerSpiderWidget);
+            webCrossWidget.removeItem(animalWidget);
+            _widgetFactory.remove(animal);
         }
     }
 
-    private class BotController implements BotControllerActionListener {
-
+    private class SpiderController implements SpiderControllerActionListener{
         @Override
-        public void botMoved(BotControllerActionEvent event) {
-            BotSpiderWidget botSpiderWidget = _widgetFactory.getWidget(event.getBotSpider());
+        public void spiderMoved(SpiderControllerActionEvent event) {
+            AnimalWidget spiderWidget = _widgetFactory.getWidget(event.getSpider());
             WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
             WebCrossWidget webCrossWidgetTo = _widgetFactory.getWidget(event.getTo());
 
-            webCrossWidgetFrom.removeItem(botSpiderWidget);
-            webCrossWidgetTo.addItem(botSpiderWidget);
-        }
-
-        @Override
-        public void botDied(BotControllerActionEvent event) {
-            BotSpiderWidget botSpiderWidget = _widgetFactory.getWidget(event.getBotSpider());
-            WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
-
-            webCrossWidgetFrom.removeItem(botSpiderWidget);
-            _widgetFactory.remove(event.getBotSpider());
-        }
-    }
-
-    private class InsectController implements InsectControllerActionListener{
-
-        @Override
-        public void insectDied(InsectControllerActionEvent event) {
-            InsectWidget insectWidget = _widgetFactory.getWidget(event.getInsect());
-            WebCrossWidget webCrossWidget = _widgetFactory.getWidget(event.getFrom());
-            webCrossWidget.removeItem(insectWidget);
-            _widgetFactory.remove(event.getInsect());
+            webCrossWidgetFrom.removeItem(spiderWidget);
+            webCrossWidgetTo.addItem(spiderWidget);
         }
     }
 
@@ -131,13 +102,10 @@ public class WebWidget extends JPanel {
             for (Insect insect : event.getCreatedInsects()){
                 _widgetFactory.create(insect);
 
-                insect.addInsectControllerActionListener(new InsectController());
+                insect.addAnimalControllerActionListener(new AnimalController());
                 System.out.println("Insect created at " + insect.getWebCross().getPosition().row() + insect.getWebCross().getPosition().column());
             }
         }
-
-
-
     }
 }
 

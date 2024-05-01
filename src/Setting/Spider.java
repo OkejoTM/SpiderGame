@@ -1,9 +1,11 @@
 package Setting;
 
+import Events.Controllers.SpiderControllerActionEvent;
+import Events.Controllers.SpiderControllerActionListener;
 import Interfaces.IPrey;
-import Setting.Animal;
-import Setting.WebCross;
 import Utils.Direction;
+
+import java.util.ArrayList;
 
 import static java.lang.Math.max;
 
@@ -31,8 +33,10 @@ public abstract class Spider extends Animal {
                 newWebCross = nextWebCross;
             }
         }
-        if (isAlive())
-            notifySpiderMoved(oldWebCross, newWebCross); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
+        if (isAlive()){
+            fireSpiderMovedController(oldWebCross, newWebCross); // Сообщить контроллеру
+            notifySpiderMoved(); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
+        }
     }
 
     private void changeHealth(int delta) {
@@ -48,6 +52,28 @@ public abstract class Spider extends Animal {
         nextWebCross.setAnimal(this);
     }
 
-    protected abstract void notifySpiderMoved(WebCross from, WebCross to);
+    protected abstract void notifySpiderMoved();
+
+
+    private ArrayList<SpiderControllerActionListener> _spiderControllerListenersList = new ArrayList<>();
+
+    public void addSpiderControllerActionListener(SpiderControllerActionListener listener) {
+        _spiderControllerListenersList.add(listener);
+    }
+
+    public void removeSpiderControllerActionListener(SpiderControllerActionListener listener) {
+        _spiderControllerListenersList.remove(listener);
+    }
+
+    protected void fireSpiderMovedController(WebCross from, WebCross to){
+        for(SpiderControllerActionListener listener : _spiderControllerListenersList){
+            SpiderControllerActionEvent event = new SpiderControllerActionEvent(listener);
+            event.setSpider(this);
+            event.setFrom(from);
+            event.setTo(to);
+            listener.spiderMoved(event);
+        }
+    }
+
 
 }

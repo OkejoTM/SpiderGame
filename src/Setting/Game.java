@@ -43,8 +43,8 @@ public class Game {
         fireGameEnded();
     }
 
-    private void gameStateChanged(GameStatus status){
-        gameStatus = status;
+    private void gameStatusChanged(){
+        gameStatus = GameStatus.END_GAME;
     }
 
     private void createWeb(int size) {
@@ -93,7 +93,7 @@ public class Game {
     private class PlayerSpiderObserver implements PlayerActionListener {
         @Override
         public void playerDied(PlayerActionEvent event) {
-            gameStateChanged(GameStatus.END_GAME);
+            gameStatusChanged();
             _web.removePlayer();
         }
 
