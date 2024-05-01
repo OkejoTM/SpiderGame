@@ -73,9 +73,14 @@ public class WidgetFactory {
         return animalWidget;
     }
 
+    private PlayerSpiderWidget createPlayer(PlayerSpider playerSpider){
+        _playerInWeb = true;
+        return new PlayerSpiderWidget(playerSpider);
+    }
+
     private AnimalWidget createWidget(Animal animal){
         return switch (animal.getClass().getName().split("\\.")[animal.getClass().getName().split("\\.").length - 1]) {
-            case "PlayerSpider" -> new PlayerSpiderWidget((PlayerSpider)animal);
+            case "PlayerSpider" -> createPlayer((PlayerSpider) animal);
             case "BotSpider" -> new BotSpiderWidget((BotSpider) animal);
             case "Fly" -> new FlyWidget((Fly)animal);
             case "Mole" -> new MoleWidget((Mole)animal);
