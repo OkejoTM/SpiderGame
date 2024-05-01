@@ -15,14 +15,23 @@ public class Game {
 
     private GameStatus gameStatus;
 
-    public Game(int webSize) {
+    public enum GameLevel {
+        EASY,
+        MIDDLE,
+        HARD
+    }
+
+    private GameLevel _gameLevel;
+
+    public Game(int webSize, GameLevel level) {
         createWeb(webSize);
+        _gameLevel = level;
         _flora = new Flora(_web);
         startGame();
     }
 
     public void startGame() {
-        _flora.instantiateAnimals();
+        _flora.instantiateAnimals(_gameLevel);
 
         _web.getPlayer().addPlayerSpiderActionListener(new PlayerSpiderObserver());
 

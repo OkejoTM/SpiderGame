@@ -1,9 +1,8 @@
 package Setting;
 
-import Events.*;
+import Events.InsectActionEvent;
+import Events.InsectActionListener;
 import Interfaces.IPrey;
-import Setting.Animal;
-import Setting.WebCross;
 
 import java.util.ArrayList;
 

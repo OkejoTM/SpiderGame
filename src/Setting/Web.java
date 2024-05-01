@@ -145,14 +145,6 @@ public class Web implements Iterable<WebCross>{
         return emptyWebCrossList;
     }
 
-//    public ArrayList<WebCross> getWebCrosses(){
-//        ArrayList<WebCross> webCrosses = new ArrayList<>();
-//        for(WebCross webCross : _webCrossList){
-//            webCrosses.add((WebCross)webCross.clone());
-//        }
-//        return webCrosses;
-//    }
-
     public PlayerSpider getPlayer(){
         return _playerSpider;
     }
@@ -163,36 +155,6 @@ public class Web implements Iterable<WebCross>{
 
     public ArrayList<Insect> getInsects() {
         return new ArrayList<>(_insectsList);
-    }
-
-    public void clear(){
-        removePlayer();
-        clearSpiders();
-        clearInsects();
-        clearWebCrosses();
-    }
-
-    private void clearWebCrosses(){
-        Iterator<WebCross> webCrossIterator = new WebIterator(this);
-        while(webCrossIterator.hasNext()){
-            WebCross webCross = webCrossIterator.next();
-            webCross.clear();
-        }
-        _webCrosses.clear();
-    }
-
-    private void clearSpiders(){
-        for (BotSpider spider : _botSpidersList){
-            spider.clear();
-        }
-        _botSpidersList.clear();
-    }
-
-    private void clearInsects(){
-        for (Insect insect : _insectsList){
-            insect.clear();
-        }
-        _insectsList.clear();
     }
 
     // --- Iterator for webCrosses ---

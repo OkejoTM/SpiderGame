@@ -28,7 +28,7 @@ public class BotSpider extends Spider{
     }
 
     @Override
-    public void clear() {
+    void clear() {
         super.clear();
         clearAlgorithm();
     }

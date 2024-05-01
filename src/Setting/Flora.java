@@ -25,23 +25,32 @@ public class Flora {
         _web = web;
     }
 
-    public void setWeb(Web web) {
-        _web = web;
+    public void instantiateAnimals(Game.GameLevel level) {
+        switch (level){
+            case EASY -> generateEasyLevel();
+            case MIDDLE -> generateMiddleLevel();
+            case HARD -> generateHardLevel();
+        }
     }
 
-
-    public void instantiateAnimals() {
-        generateEasyLevel();
-//        generatePlayerSpider(100);
-//        generateBotSpiders(2);
-
-    }
-
-    public void generateEasyLevel() {
+    private void generateEasyLevel() {
         generatePlayerSpider(100);
+        generateBotSpiders(1);
+        generateInsects(5);
+    }
+
+    private void generateMiddleLevel() {
+        generatePlayerSpider(50);
         generateBotSpiders(2);
+        generateInsects(3);
+    }
+
+    private void generateHardLevel() {
+        generatePlayerSpider(10);
+        generateBotSpiders(3);
         generateInsects(2);
     }
+
 
     private void generatePlayerSpider(int spiderHealth) {
         if (_web.getPlayer() != null) return;
@@ -110,8 +119,6 @@ public class Flora {
         return insectArrayList;
     }
 
-
-    // TODO : сделать добавление насекомых связанное с ui
     private ArrayList<Insect> insectsFabricCreation(int amount) {
 
         int created = 0;

@@ -40,17 +40,13 @@ public abstract class WebCrossItemWidget extends JPanel {
             e.printStackTrace();
         }
         _image = image;
-    }
 
+    }
     protected abstract Dimension getDimension();
 
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println(LocalDateTime.now() + "Trying to repaint super" + super.getClass().getName());
         super.paintComponent(g);
-        System.out.println(LocalDateTime.now() + "Trying to repaint" + this.getClass().getName());
         g.drawImage(getImage(), 0, 0, null);
-        System.out.println(LocalDateTime.now() + " Repainted" + this.getClass().getName());
-        System.out.println("\n");
     }
 }

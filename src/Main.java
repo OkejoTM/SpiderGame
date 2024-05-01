@@ -11,20 +11,6 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args){
-//        Web web = new Web(4);
-//        Flora flora = new Flora();
-//        flora.setWeb(web);
-//        flora.createPlayerSpider(2);
-//        web.getPlayer().makeMove(Direction.north());
-//
-
-//
-//        Game game = new Game(5);
-//        System.out.println(game.getWeb().getEmptyWebCrosses().size());
-//        game.getWeb().getPlayer().makeMove(Direction.north());
-//        game.getWeb().getPlayer().makeMove(Direction.east());
-//        game.getWeb().getPlayer().makeMove(Direction.west());
-
         SwingUtilities.invokeLater(GamePanel::new);
     }
 
@@ -36,7 +22,7 @@ public class Main {
             setVisible(true);
 
             _widgetFactory = new WidgetFactory();
-            _game = new Game(5);
+            _game = new Game(5, Game.GameLevel.MIDDLE);
 
             _game.addGameActionListener(new GameController());
 
