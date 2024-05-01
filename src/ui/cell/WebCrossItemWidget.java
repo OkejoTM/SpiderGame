@@ -13,7 +13,7 @@ import ui.utils.ImageUtils;
 
 public abstract class WebCrossItemWidget extends JPanel {
 
-    protected BufferedImage _image;
+    private BufferedImage _image;
 
     public WebCrossItemWidget(String imagePath, int imageWidth, int imageHeight) {
         updateState();

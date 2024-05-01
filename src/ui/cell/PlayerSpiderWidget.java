@@ -24,7 +24,7 @@ public class PlayerSpiderWidget extends AnimalWidget {
 
     @Override
     protected BufferedImage getImage() {
-        return GameWidgetsUtils.spiderWithHealthImage(_image, _playerSpider.getHealth());
+        return GameWidgetsUtils.spiderWithHealthImage(super.getImage(), _playerSpider.getHealth());
     }
 
     @Override
