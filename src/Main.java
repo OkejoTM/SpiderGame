@@ -33,8 +33,8 @@ public class Main {
             content.setLayout(new BorderLayout()); // Используем BorderLayout для управления компонентами
 
             // Добавляем JLabel'ы для сводки
-            _stepsLabel = new JLabel("Количество шагов: ");
-            _insectsLabel = new JLabel("Съедено насекомых: ");
+            _stepsLabel = new JLabel("Количество шагов: "+ 0);
+            _insectsLabel = new JLabel("Съедено насекомых: "+ 0);
             JPanel summaryPanel = new JPanel();
             summaryPanel.add(_stepsLabel);
             summaryPanel.add(_insectsLabel);

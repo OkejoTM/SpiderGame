@@ -66,7 +66,7 @@ public class Flora {
         int created = 0;
 
         while (created < amount && !emptyWebCrosses.isEmpty()) {
-            int spiderHealth = 10;
+            int spiderHealth = 2;
             WebCross webCross = getRandomWebCross(emptyWebCrosses);
             BotSpider botSpider = botSpiderFactory.create(spiderHealth);
             botSpider.setMovementAlgorithm(new BotSpiderMovementAlgorithm(_web));

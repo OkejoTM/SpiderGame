@@ -69,7 +69,7 @@ public class Game {
         _web.removeBotSpiders(_botsToRemove);
         _botsToRemove.clear();
         if (_web.getBotSpiders().isEmpty()){
-            fireGameEnded();
+            gameStatusChanged();
         }
     }
 

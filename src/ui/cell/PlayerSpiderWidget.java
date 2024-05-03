@@ -16,7 +16,7 @@ public class PlayerSpiderWidget extends AnimalWidget {
     private final PlayerSpider _playerSpider;
 
     public PlayerSpiderWidget(PlayerSpider playerSpider) {
-        super("images/playerSpider.png", CELL_SIZE / 2, CELL_SIZE - 24);
+        super("images/activePlayer.png", CELL_SIZE / 2, CELL_SIZE - 24);
         _playerSpider = playerSpider;
         setFocusable(true);
         addKeyListener(new KeyController());
