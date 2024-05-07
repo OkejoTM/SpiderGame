@@ -2,7 +2,7 @@ package ui.cell;
 
 import Setting.PlayerSpider;
 import Utils.Direction;
-import ui.utils.GameWidgetsUtils;
+import ui.utils.SpiderUtils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -24,7 +24,7 @@ public class PlayerSpiderWidget extends AnimalWidget {
 
     @Override
     protected BufferedImage getImage() {
-        return GameWidgetsUtils.spiderWithHealthImage(super.getImage(), _playerSpider.getHealth());
+        return SpiderUtils.spiderWithHealthImage(super.getImage(), _playerSpider.getHealth());
     }
 
     @Override

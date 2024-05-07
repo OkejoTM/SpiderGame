@@ -21,7 +21,7 @@ public class Game {
         HARD
     }
 
-    private GameLevel _gameLevel;
+    private final GameLevel _gameLevel;
 
     public Game(int webSize, GameLevel level) {
         createWeb(webSize);

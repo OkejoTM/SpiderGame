@@ -1,8 +1,6 @@
 import Events.GameActionEvent;
 import Events.GameActionListener;
-import Setting.Flora;
 import Setting.Game;
-import Utils.Direction;
 import ui.WebWidget;
 import ui.WidgetFactory;
 
@@ -15,16 +13,15 @@ public class Main {
     }
 
     static class GamePanel extends JFrame {
-        private WidgetFactory _widgetFactory;
-        private JLabel _stepsLabel;
-        private JLabel _insectsLabel;
+        private final JLabel _stepsLabel;
+        private final JLabel _insectsLabel;
         private int _steps = 0;
         private int _insects = 0;
 
         public GamePanel() throws HeadlessException {
             super("Spider Game"); // Заголовок окна
 
-            _widgetFactory = new WidgetFactory();
+            WidgetFactory _widgetFactory = new WidgetFactory();
             Game _game = new Game(5, Game.GameLevel.MIDDLE);
 
             _game.addGameActionListener(new GameController());

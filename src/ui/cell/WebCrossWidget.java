@@ -4,8 +4,6 @@ import ui.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class WebCrossWidget extends JPanel {
 

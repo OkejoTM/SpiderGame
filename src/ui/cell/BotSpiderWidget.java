@@ -1,14 +1,10 @@
 package ui.cell;
 
 import Setting.BotSpider;
-import ui.utils.GameWidgetsUtils;
-import ui.utils.ImageUtils;
+import ui.utils.SpiderUtils;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
@@ -23,7 +19,7 @@ public class BotSpiderWidget extends AnimalWidget {
 
     @Override
     protected BufferedImage getImage() {
-        return GameWidgetsUtils.spiderWithHealthImage(super.getImage(), _botSpider.getHealth());
+        return SpiderUtils.spiderWithHealthImage(super.getImage(), _botSpider.getHealth());
     }
 
     @Override

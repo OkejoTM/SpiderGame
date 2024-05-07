@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
-public class GameWidgetsUtils {
+public class SpiderUtils {
 
     public static Color healthTextColor(int health){
         Color textColor;
