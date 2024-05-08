@@ -40,8 +40,8 @@ public class Flora {
 
     private void generateMiddleLevel() {
         generatePlayerSpider(50);
-        generateBotSpiders(10);
-        generateInsects(10);
+        generateBotSpiders(2);
+        generateInsects(3);
     }
 
     private void generateHardLevel() {
@@ -66,7 +66,7 @@ public class Flora {
         int created = 0;
 
         while (created < amount && !emptyWebCrosses.isEmpty()) {
-            int spiderHealth = 2;
+            int spiderHealth = 10;
             WebCross webCross = getRandomWebCross(emptyWebCrosses);
             BotSpider botSpider = botSpiderFactory.create(spiderHealth);
             botSpider.setMovementAlgorithm(new BotSpiderMovementAlgorithm(_web));
