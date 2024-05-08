@@ -48,7 +48,11 @@ public class PlayerSpider extends Spider implements IPrey {
         for(PlayerActionListener listener : _playerSpiderListenerList){
             PlayerActionEvent event = new PlayerActionEvent(listener);
             event.setPlayer(this);
-            listener.playerMoved(event);
+            Runnable r = () -> {
+                listener.playerMoved(event);
+            };
+            Thread newThread = new Thread(r, "Listener");
+            newThread.start();
         }
     }
 

@@ -61,7 +61,7 @@ public class WidgetFactory {
         AnimalWidget animalWidget = createWidget(animal);
         WebCrossWidget webCrossWidget = _webCrosses.get(animal.getWebCross());
 
-        if (animalWidget != null){
+        if (animalWidget != null && webCrossWidget != null){
             webCrossWidget.addItem(animalWidget);
             _animalMap.put(animal, animalWidget);
         }

@@ -2,6 +2,8 @@ package Setting;
 
 import Events.Controllers.SpiderControllerActionEvent;
 import Events.Controllers.SpiderControllerActionListener;
+import Events.GameActionEvent;
+import Events.GameActionListener;
 import Interfaces.IPrey;
 import Utils.Direction;
 
@@ -37,6 +39,7 @@ public abstract class Spider extends Animal {
             fireSpiderMovedController(oldWebCross, newWebCross); // Сообщить контроллеру
         }
         notifySpiderMoved(); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
+
     }
 
     private void changeHealth(int delta) {
@@ -81,6 +84,8 @@ public abstract class Spider extends Animal {
             listener.spiderMoved(event);
         }
     }
+
+
 
 
 }

@@ -51,6 +51,7 @@ public class BotSpider extends Spider{
     @Override
     protected void notifySpiderMoved() {
         fireBotSpiderMoved();
+        fireStepHappened();
     }
 
     // ----------------- Listeners for game ------------------------
@@ -81,5 +82,15 @@ public class BotSpider extends Spider{
         }
     }
 
+    private ArrayList<GameActionListener> _gameListeners = new ArrayList<>();
 
+    public void addGameListener(GameActionListener listener){
+        _gameListeners.add(listener);
+    }
+
+    protected void fireStepHappened(){
+        for (GameActionListener listener : _gameListeners){
+            listener.gameStepHappened(new GameActionEvent(listener));
+        }
+    }
 }

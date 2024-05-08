@@ -52,6 +52,7 @@ public class WebWidget extends JPanel {
         for (BotSpider bot : _web.getBotSpiders()){
             bot.addAnimalControllerActionListener(new AnimalController());
             bot.addSpiderControllerActionListener(new SpiderController());
+            bot.addGameListener(new GameStepObserver());
         }
 
         for (Insect insect : _web.getInsects()){
@@ -108,6 +109,7 @@ public class WebWidget extends JPanel {
 
         @Override
         public void playerAteInsect(GameActionEvent event) {
+//            PlayerSpiderWidget playerSpiderWidget = _widgetFactory.getWidget(event.getGame().getWeb().getPlayer());
 
         }
     }
