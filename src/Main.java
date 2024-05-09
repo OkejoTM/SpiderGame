@@ -6,6 +6,7 @@ import ui.WidgetFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class Main {
     public static void main(String[] args){
@@ -30,12 +31,18 @@ public class Main {
             content.setLayout(new BorderLayout()); // Используем BorderLayout для управления компонентами
 
             // Добавляем JLabel'ы для сводки
-            _stepsLabel = new JLabel("Количество шагов: "+ 0);
-            _insectsLabel = new JLabel("Съедено насекомых: "+ 0);
+            _stepsLabel = new JLabel(new ImageIcon(new ImageIcon("images/steps.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+            _insectsLabel = new JLabel(new ImageIcon(new ImageIcon("images/food.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+            _stepsLabel.setText(String.valueOf(_steps));
+            _stepsLabel.setFont(_stepsLabel.getFont().deriveFont(20f));
+            _insectsLabel.setText(String.valueOf(_insects));
+            _insectsLabel.setFont(_insectsLabel.getFont().deriveFont(20f));
+
             JPanel summaryPanel = new JPanel();
             summaryPanel.add(_stepsLabel);
+            summaryPanel.add(new JLabel("     "));
             summaryPanel.add(_insectsLabel);
-            content.add(summaryPanel, BorderLayout.NORTH);
+            content.add(summaryPanel, BorderLayout.SOUTH);
 
             // Добавляем паутину
             content.add(new WebWidget(_game.getWeb(), _widgetFactory, _game), BorderLayout.CENTER);
@@ -59,8 +66,8 @@ public class Main {
             @Override
             public void gameStepHappened(GameActionEvent event) {
                 _steps += 1;
-                _stepsLabel.setText("Количество шагов: " + _steps);
-                _insectsLabel.setText("Съедено насекомых: " + _insects);
+                _stepsLabel.setText(String.valueOf(_steps));
+                _insectsLabel.setText(String.valueOf(_insects));
             }
 
             @Override

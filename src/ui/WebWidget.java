@@ -49,20 +49,20 @@ public class WebWidget extends JPanel {
         _web.getPlayer().addAnimalControllerActionListener(new AnimalController());
         _web.getPlayer().addSpiderControllerActionListener(new SpiderController());
 
-        for (BotSpider bot : _web.getBotSpiders()){
+        for (BotSpider bot : _web.getBotSpiders()) {
             bot.addAnimalControllerActionListener(new AnimalController());
             bot.addSpiderControllerActionListener(new SpiderController());
             bot.addGameListener(new GameStepObserver());
         }
 
-        for (Insect insect : _web.getInsects()){
+        for (Insect insect : _web.getInsects()) {
             insect.addAnimalControllerActionListener(new AnimalController());
         }
 
         _game.addGameActionListener(new GameStepObserver());
     }
 
-    private class AnimalController implements AnimalControllerActionListener{
+    private class AnimalController implements AnimalControllerActionListener {
         @Override
         public void animalDied(AnimalControllerActionEvent event) {
             Animal animal = event.getAnimal();
@@ -74,7 +74,7 @@ public class WebWidget extends JPanel {
         }
     }
 
-    private class SpiderController implements SpiderControllerActionListener{
+    private class SpiderController implements SpiderControllerActionListener {
         @Override
         public void spiderMoved(SpiderControllerActionEvent event) {
             AnimalWidget spiderWidget = _widgetFactory.getWidget(event.getSpider());
@@ -86,7 +86,7 @@ public class WebWidget extends JPanel {
         }
     }
 
-    private class GameStepObserver implements GameActionListener{
+    private class GameStepObserver implements GameActionListener {
 
         @Override
         public void gameEnded(GameActionEvent event) {
@@ -100,7 +100,7 @@ public class WebWidget extends JPanel {
 
         @Override
         public void insectsCreated(GameActionEvent event) {
-            for (Insect insect : event.getCreatedInsects()){
+            for (Insect insect : event.getCreatedInsects()) {
                 _widgetFactory.create(insect);
 
                 insect.addAnimalControllerActionListener(new AnimalController());
@@ -109,7 +109,6 @@ public class WebWidget extends JPanel {
 
         @Override
         public void playerAteInsect(GameActionEvent event) {
-//            PlayerSpiderWidget playerSpiderWidget = _widgetFactory.getWidget(event.getGame().getWeb().getPlayer());
 
         }
     }
