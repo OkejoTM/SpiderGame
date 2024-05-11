@@ -39,7 +39,6 @@ public abstract class Spider extends Animal {
             fireSpiderMovedController(oldWebCross, newWebCross); // Сообщить контроллеру
         }
         notifySpiderMoved(); // Даже если паук не сделал шаг, сообщить, что он попытался сходить
-
     }
 
     private void changeHealth(int delta) {
@@ -61,7 +60,6 @@ public abstract class Spider extends Animal {
     protected abstract void notifySpiderMoved();
 
     protected void notifySpiderAteInsect(){
-
     }
 
 

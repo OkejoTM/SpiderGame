@@ -1,19 +1,23 @@
 package Setting;
 
 import Events.*;
-
 import java.util.ArrayList;
 
 public class Game {
     private Web _web;
-    private Flora _flora;
+    private final Flora _flora;
 
-    private enum GameStatus {
+    public enum GameStatus {
         ON_GAME,
-        END_GAME
+        WIN,
+        LOSE
     }
 
-    private GameStatus gameStatus;
+    private GameStatus _gameStatus;
+
+    public GameStatus getGameStatus(){
+        return _gameStatus;
+    }
 
     public enum GameLevel {
         EASY,
@@ -43,17 +47,15 @@ public class Game {
             insect.addInsectActionListener(new InsectObserver());
         }
 
-        gameStatus = GameStatus.ON_GAME;
+        _gameStatus = GameStatus.ON_GAME;
     }
 
-    public void endGame() {
-        System.out.println("Game ended");
-        fireGameStepHappened();
+    private void endGame() {
         fireGameEnded();
     }
 
-    private void gameStatusChanged() {
-        gameStatus = GameStatus.END_GAME;
+    private void gameStatusChanged(GameStatus status) {
+        _gameStatus = status;
     }
 
     private void createWeb(int size) {
@@ -71,7 +73,7 @@ public class Game {
             _web.removeBotSpiders(_botsToRemove);
             _botsToRemove.clear();
             if (_web.getBotSpiders().isEmpty()) {
-                gameStatusChanged();
+                gameStatusChanged(GameStatus.WIN);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -119,7 +121,7 @@ public class Game {
     private class PlayerSpiderObserver implements PlayerActionListener {
         @Override
         public void playerDied(PlayerActionEvent event) {
-            gameStatusChanged();
+            gameStatusChanged(GameStatus.LOSE);
             _web.removePlayer();
         }
 
@@ -128,7 +130,7 @@ public class Game {
             moveAllBots(); // Если сходил паук-игрок, после него должны сходить пауки-боты
             disappearInsects(); // Пропадают насекомые
             generateInsects();
-            if (gameStatus == GameStatus.END_GAME) {
+            if (_gameStatus != GameStatus.ON_GAME) {
                 endGame();
             }
             fireGameStepHappened();
@@ -143,9 +145,7 @@ public class Game {
     private class BotSpiderObserver implements BotSpiderActionListener {
 
         @Override
-        public void botMoved(BotSpiderActionEvent event) {
-
-        }
+        public void botMoved(BotSpiderActionEvent event) {}
 
         @Override
         public void botDied(BotSpiderActionEvent event) {

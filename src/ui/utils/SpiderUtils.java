@@ -10,7 +10,7 @@ public class SpiderUtils {
     public static Color healthTextColor(int health){
         Color textColor;
 
-        if (health > 25){
+        if (health >= 25){
             textColor = Color.GREEN;
         }
         else if (health >= 10){

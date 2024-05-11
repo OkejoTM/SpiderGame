@@ -6,7 +6,6 @@ import ui.WidgetFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 public class Main {
     public static void main(String[] args){
@@ -59,7 +58,14 @@ public class Main {
 
             @Override
             public void gameEnded(GameActionEvent event) {
-                JOptionPane.showMessageDialog(GamePanel.this, "Игра закончена");
+                switch (event.getGame().getGameStatus()){
+                    case WIN:
+                        JOptionPane.showMessageDialog(GamePanel.this, "Игра закончена. Вы победили!");
+                        break;
+                    case LOSE:
+                        JOptionPane.showMessageDialog(GamePanel.this, "Игра закончена. Вы проиграли!");
+                        break;
+                }
                 System.exit(0);
             }
 
@@ -71,9 +77,7 @@ public class Main {
             }
 
             @Override
-            public void insectsCreated(GameActionEvent event) {
-
-            }
+            public void insectsCreated(GameActionEvent event) {}
 
             @Override
             public void playerAteInsect(GameActionEvent event) {

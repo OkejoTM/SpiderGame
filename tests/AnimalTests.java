@@ -14,10 +14,9 @@
 //    @Test
 //    public void PlayerSpiderDiesTest(){
 //        Web web = new Web(3);
-//        Flora flora = new Flora();
-//        flora.setWeb(web);
-//        flora.createPlayerSpider(2);
-//        web.getPlayer().die();
+//        Flora flora = new Flora(web);
+//        flora.instantiateAnimals(Game.GameLevel.EASY);
+//
 //        Assert.assertEquals(0, web.getPlayer().getHealth());
 //        Assert.assertNull(web.getPlayer().getWebCross());
 //        Assert.assertEquals(4, web.getEmptyWebCrosses().size());

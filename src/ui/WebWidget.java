@@ -89,8 +89,7 @@ public class WebWidget extends JPanel {
     private class GameStepObserver implements GameActionListener {
 
         @Override
-        public void gameEnded(GameActionEvent event) {
-        }
+        public void gameEnded(GameActionEvent event) {}
 
         @Override
         public void gameStepHappened(GameActionEvent event) {
@@ -108,9 +107,7 @@ public class WebWidget extends JPanel {
         }
 
         @Override
-        public void playerAteInsect(GameActionEvent event) {
-
-        }
+        public void playerAteInsect(GameActionEvent event) {}
     }
 }
 
