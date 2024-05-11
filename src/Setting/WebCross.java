@@ -66,6 +66,9 @@ public class WebCross {
         else if (this.getAnimal() == animal || (animal.getWebCross() != null && !animal.getWebCross().isOccupied()) ) { // Если одинаковые или животное занято другим
             return true;
         }
+        else if (animal.getWebCross() == null && this.getAnimal() != null){ // Если занято, но у животного нет пересечения
+            return true;
+        }
         else {
             animal.setWebCross(this);
             _animal = animal;

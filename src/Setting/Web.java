@@ -69,22 +69,24 @@ public class Web implements Iterable<WebCross>{
         return _webCrosses.get(new WebCrossPosition(row, column));
     }
 
-
-    void setPlayer(PlayerSpider spider, WebCross webCross){
+    // Сделал public для тестов
+    public void setPlayer(PlayerSpider spider, WebCross webCross){
         if (_playerSpider == null){
             webCross.setAnimal(spider);
             _playerSpider = spider;
         }
     }
 
-    void addBotSpider(BotSpider botSpider,WebCross webCross){
+    // Сделал public для тестов
+    public void addBotSpider(BotSpider botSpider,WebCross webCross){
         if (!_botSpidersList.contains(botSpider)){
             webCross.setAnimal(botSpider);
             _botSpidersList.add(botSpider);
         }
     }
 
-    void addInsect(Insect insect, WebCross webCross){
+    // Сделал public для тестов
+    public void addInsect(Insect insect, WebCross webCross){
         if (!_insectsList.contains(insect)){
             webCross.setAnimal(insect);
             _insectsList.add(insect);

@@ -1,73 +1,98 @@
-//import Setting.*;
-//import Entities.*;
-//import Utils.Direction;
-//import org.junit.Test;
-//import org.junit.Assert;
-//
-//public class WebTests {
-//
-//    @Test
-//    public void WebCreationTest(){
-//        Web web = new Web(3);
-//        Assert.assertEquals(4, web.getWebCrosses().size());
-//        for (var wb : web.getWebCrosses()){
-//            Assert.assertNull(wb.getAnimal());
-//        }
-//    }
-//
-//    @Test
-//    public void WebGetPlayerTest(){
-//        Web web = new Web(3);
-//        Flora flora = new Flora();
-//        flora.setWeb(web);
-//        flora.createPlayerSpider(2);
-//        Assert.assertNotNull(web.getPlayer());
-//        Assert.assertEquals(web.getPlayer().getClass(), PlayerSpider.class);
-//    }
-//
-//    @Test
-//    public void WebGetBotSpidersTest(){
-//        Web web = new Web(3);
-//        Flora flora = new Flora();
-//        flora.setWeb(web);
-//        flora.createBotSpiders(2);
-//        Assert.assertEquals(2, web.getBotSpiders().size());
-//    }
-//
-//    @Test
-//    public void WebGetAllEmptyWebCrossesTest(){
-//        Web web = new Web(3);
-//        Assert.assertEquals(4, web.getEmptyWebCrosses().size());
-//    }
-//
-//    @Test
-//    public void WebGetNoEmptyWebCrossesTest(){
-//        Web web = new Web(3);
-//        Flora flora = new Flora();
-//        flora.setWeb(web);
-//        flora.createBotSpiders(4);
-//        Assert.assertEquals(0, web.getEmptyWebCrosses().size());
-//    }
-//
-//    @Test
-//    public void ClearWebTest(){
-////        Web web = new Web(3);
-////        Flora flora = new Flora();
-////        flora.setWeb(web);
-////        flora.createPlayerSpider();
-////        flora.createBotSpiders(1);
-////        Insect insect = new Mole(1, null);
-////        insect.setWebCross(web.getEmptyWebCrosses().get(0));
-////        insect.getWebCross().setAnimal(insect);
-////        web.getInsects().add(insect);
-////        web.clearWeb();
-////
-////        Assert.assertNull(web.getPlayer());
-////        Assert.assertEquals(0, web.getWebCrosses().size());
-////        Assert.assertEquals(0, web.getBotSpiders().size());
-////        Assert.assertEquals(0, web.getInsects().size());
-//    }
-//
-//
-//
-//}
+import Setting.*;
+import Utils.BotSpiderMovementAlgorithm;
+import org.junit.Test;
+import org.junit.Assert;
+
+public class WebTests {
+
+    @Test
+    public void WebGetAllEmptyWebCrossesTest(){
+        Web web = new Web(3);
+
+        Assert.assertEquals(9, web.getEmptyWebCrosses().size());
+    }
+
+    @Test
+    public void WebGetEmptyWebCrossesWithEntitiesInWebTest(){
+        Web web = new Web(3);
+
+        BotSpiderMovementAlgorithm algorithm = new BotSpiderMovementAlgorithm(web);
+
+        Insect insect = new Mole(10, null);
+        web.addInsect(insect, web.getWebCross(0,2));
+
+        BotSpider bot = new BotSpider(10, null, algorithm);
+        web.addBotSpider(bot, web.getWebCross(2,2));
+
+        Assert.assertEquals(7, web.getEmptyWebCrosses().size());
+    }
+
+
+    @Test
+    public void WebGetNoEmptyWebCrossesTest(){
+        Web web = new Web(2);
+
+        Insect insect = new Mole(10, null);
+        web.addInsect(insect, web.getWebCross(0,0));
+
+        Insect insect2 = new Mole(10, null);
+        web.addInsect(insect2, web.getWebCross(0,1));
+
+        Insect insect3 = new Mole(10, null);
+        web.addInsect(insect3, web.getWebCross(1,0));
+
+        Insect insect4 = new Mole(10, null);
+        web.addInsect(insect4, web.getWebCross(1,1));
+
+        Assert.assertEquals(0, web.getEmptyWebCrosses().size());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void PlaceInNonExistedWebCross(){
+        Web web = new Web(2);
+
+        Insect insect = new Mole(10, null);
+
+        web.addInsect(insect, web.getWebCross(0,4));
+    }
+
+    @Test
+    public void WebGetPreysTest(){
+        Web web = new Web(2);
+
+        Insect insect = new Mole(10, null);
+        web.addInsect(insect, web.getWebCross(0,0));
+
+        Insect insect2 = new Mole(10, null);
+        web.addInsect(insect2, web.getWebCross(0,1));
+
+        Insect insect3 = new Mole(10, null);
+        web.addInsect(insect3, web.getWebCross(1,0));
+
+        Insect insect4 = new Mole(10, null);
+        web.addInsect(insect4, web.getWebCross(1,1));
+
+        Assert.assertEquals(4, web.getAllPreys().size());
+    }
+
+    @Test
+    public void WebGetPreysWithPlayerTest(){
+        Web web = new Web(2);
+
+        PlayerSpider playerSpider = new PlayerSpider(1, null);
+        web.setPlayer(playerSpider, web.getWebCross(0,0));
+
+        Insect insect2 = new Mole(10, null);
+        web.addInsect(insect2, web.getWebCross(0,1));
+
+        Insect insect3 = new Mole(10, null);
+        web.addInsect(insect3, web.getWebCross(1,0));
+
+        Insect insect4 = new Mole(10, null);
+        web.addInsect(insect4, web.getWebCross(1,1));
+
+        Assert.assertEquals(4, web.getAllPreys().size());
+    }
+
+
+}
