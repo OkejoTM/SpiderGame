@@ -113,6 +113,20 @@ public class Web implements Iterable<WebCross>{
         return false;
     }
 
+    boolean removeInsect(Insect insect){
+        if (_insectsList.contains(insect)){
+            return _insectsList.remove(insect);
+        }
+        return false;
+    }
+
+    boolean removeBotSpider(BotSpider spider){
+        if (_botSpidersList.contains(spider)){
+            return _botSpidersList.remove(spider);
+        }
+        return false;
+    }
+
     boolean removeBotSpiders(ArrayList<BotSpider> botSpiderRange){
         if (!_botSpidersList.isEmpty()){
             for(var bot : botSpiderRange){

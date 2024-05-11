@@ -50,10 +50,6 @@ public class Game {
         _gameStatus = GameStatus.ON_GAME;
     }
 
-    private void endGame() {
-        fireGameEnded();
-    }
-
     private void gameStatusChanged(GameStatus status) {
         _gameStatus = status;
     }
@@ -70,8 +66,6 @@ public class Game {
                 bot.makeOptimalMove();
                 Thread.sleep(50);
             }
-            _web.removeBotSpiders(_botsToRemove);
-            _botsToRemove.clear();
             if (_web.getBotSpiders().isEmpty()) {
                 gameStatusChanged(GameStatus.WIN);
             }
@@ -81,15 +75,11 @@ public class Game {
     }
 
     private synchronized void disappearInsects() {
-
         try {
             for (Insect insect : _web.getInsects()) {
                 insect.jumpOff();
                 Thread.sleep(50);
             }
-            _web.removeInsects(_insectsToRemove);
-
-            _insectsToRemove.clear();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -113,9 +103,6 @@ public class Game {
         return _web;
     }
 
-    private ArrayList<BotSpider> _botsToRemove = new ArrayList<>();
-    private ArrayList<Insect> _insectsToRemove = new ArrayList<>();
-
     // --------------------------- Game Observes ---------------------------------------
 
     private class PlayerSpiderObserver implements PlayerActionListener {
@@ -131,7 +118,7 @@ public class Game {
             disappearInsects(); // Пропадают насекомые
             generateInsects();
             if (_gameStatus != GameStatus.ON_GAME) {
-                endGame();
+                fireGameEnded();
             }
             fireGameStepHappened();
         }
@@ -149,7 +136,7 @@ public class Game {
 
         @Override
         public void botDied(BotSpiderActionEvent event) {
-            _botsToRemove.add(event.getBot());
+            _web.removeBotSpider(event.getBot());
         }
     }
 
@@ -157,14 +144,7 @@ public class Game {
 
         @Override
         public void insectDied(InsectActionEvent event) {
-            _insectsToRemove.add(event.getInsect());
-        }
-
-        @Override
-        public void insectWasEaten(InsectActionEvent event) {
-            _insectsToRemove.add(event.getInsect());
-            _web.removeInsects(_insectsToRemove);
-            _insectsToRemove.clear();
+            _web.removeInsect(event.getInsect());
         }
     }
 

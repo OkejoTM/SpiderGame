@@ -15,8 +15,7 @@ public abstract class Insect extends Animal implements IPrey {
 
     @Override
     public void getsEaten() {
-        super.die();
-        fireInsectWasEaten();
+        this.die();
     }
 
     @Override
@@ -44,14 +43,6 @@ public abstract class Insect extends Animal implements IPrey {
             InsectActionEvent event = new InsectActionEvent(listener);
             event.setInsect(this);
             listener.insectDied(event);
-        }
-    }
-
-    protected void fireInsectWasEaten(){
-        for(InsectActionListener listener : _insectListenersList){
-            InsectActionEvent event = new InsectActionEvent(listener);
-            event.setInsect(this);
-            listener.insectWasEaten(event);
         }
     }
 
