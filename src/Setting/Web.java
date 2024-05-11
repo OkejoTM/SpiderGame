@@ -14,8 +14,8 @@ public class Web implements Iterable<WebCross>{
     private final int _size;
     private PlayerSpider _playerSpider;
     private final HashMap<WebCrossPosition, WebCross> _webCrosses = new HashMap<>();
-    private ArrayList<BotSpider> _botSpidersList = new ArrayList<>();
-    private ArrayList<Insect> _insectsList = new ArrayList<>();
+    private final ArrayList<BotSpider> _botSpidersList = new ArrayList<>();
+    private final ArrayList<Insect> _insectsList = new ArrayList<>();
 
     public Web(int size){
         if (size < 0) throw new IllegalArgumentException("Illegal size");
@@ -100,19 +100,6 @@ public class Web implements Iterable<WebCross>{
         return false;
     }
 
-    boolean removeInsects(ArrayList<Insect> insectRange){
-        if (!_insectsList.isEmpty()){
-            for (var insect : insectRange){
-                if (!_insectsList.contains(insect)){
-                    return false;
-                }
-                insect.clear();
-            }
-            return _insectsList.removeAll(insectRange);
-        }
-        return false;
-    }
-
     boolean removeInsect(Insect insect){
         if (_insectsList.contains(insect)){
             return _insectsList.remove(insect);
@@ -123,19 +110,6 @@ public class Web implements Iterable<WebCross>{
     boolean removeBotSpider(BotSpider spider){
         if (_botSpidersList.contains(spider)){
             return _botSpidersList.remove(spider);
-        }
-        return false;
-    }
-
-    boolean removeBotSpiders(ArrayList<BotSpider> botSpiderRange){
-        if (!_botSpidersList.isEmpty()){
-            for(var bot : botSpiderRange){
-                if (!_botSpidersList.contains(bot)){
-                    return false;
-                }
-                bot.clear();
-            }
-            return _botSpidersList.removeAll(botSpiderRange);
         }
         return false;
     }

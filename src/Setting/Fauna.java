@@ -5,7 +5,7 @@ import Utils.BotSpiderMovementAlgorithm;
 
 import java.util.ArrayList;
 
-public class Flora {
+public class Fauna {
     private final Web _web;
 
     private static final ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
@@ -20,7 +20,7 @@ public class Flora {
     private static final PlayerSpiderFactory playerFactory = new PlayerSpiderFactory();
     private static final BotSpiderFactory botSpiderFactory = new BotSpiderFactory();
 
-    public Flora(Web web) {
+    public Fauna(Web web) {
         _web = web;
     }
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Game {
     private Web _web;
-    private final Flora _flora;
+    private final Fauna _fauna;
 
     public enum GameStatus {
         ON_GAME,
@@ -30,12 +30,12 @@ public class Game {
     public Game(int webSize, GameLevel level) {
         createWeb(webSize);
         _gameLevel = level;
-        _flora = new Flora(_web);
+        _fauna = new Fauna(_web);
         startGame();
     }
 
     public void startGame() {
-        _flora.instantiateAnimals(_gameLevel);
+        _fauna.instantiateAnimals(_gameLevel);
 
         _web.getPlayer().addPlayerSpiderActionListener(new PlayerSpiderObserver());
 
@@ -87,7 +87,7 @@ public class Game {
 
     private synchronized void generateInsects() {
         try {
-            ArrayList<Insect> createdInsects = _flora.generateInsects();
+            ArrayList<Insect> createdInsects = _fauna.generateInsects();
             for (Insect insect : createdInsects) {
                 insect.addInsectActionListener(new InsectObserver());
                 Thread.sleep(50);
