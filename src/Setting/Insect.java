@@ -8,9 +8,12 @@ import java.util.ArrayList;
 
 public abstract class Insect extends Animal implements IPrey {
 
-    public Insect(int health, WebCross webCross) {
-        super(health, webCross);
+    protected final int _size;
 
+    public Insect(int health, WebCross webCross, int size) {
+        super(health, webCross);
+        if (size > 10 || size < 1) throw new IllegalArgumentException("illegal size");
+        _size = size;
     }
 
     @Override
@@ -24,7 +27,13 @@ public abstract class Insect extends Animal implements IPrey {
         fireInsectDied();
     }
 
+    @Override
+    public int getHealth(){
+        return _health * (_size/5);
+    }
+
     public abstract void jumpOff();
+    public abstract double getProbabilityDisAppearance();
 
     // ------------------ Listeners for Game -----------------------
 

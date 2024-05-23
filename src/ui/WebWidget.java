@@ -1,10 +1,7 @@
 package ui;
 
 import Events.*;
-import Events.Controllers.AnimalControllerActionEvent;
-import Events.Controllers.AnimalControllerActionListener;
-import Events.Controllers.SpiderControllerActionEvent;
-import Events.Controllers.SpiderControllerActionListener;
+import Events.Controllers.*;
 import Setting.*;
 import ui.cell.*;
 
@@ -57,6 +54,8 @@ public class WebWidget extends JPanel {
 
         for (Insect insect : _web.getInsects()) {
             insect.addAnimalControllerActionListener(new AnimalController());
+            if (insect instanceof GrassHopper grassHopper)
+                grassHopper.addGrassHopperActionListener(new GrassHopperController());
         }
 
         _game.addGameActionListener(new GameStepObserver());
@@ -86,6 +85,18 @@ public class WebWidget extends JPanel {
         }
     }
 
+    private class GrassHopperController implements GrassHopperControllerActionListener {
+        @Override
+        public void jumpedTo(GrassHopperControllerActionEvent event) {
+            AnimalWidget spiderWidget = _widgetFactory.getWidget(event.getGrassHopper());
+            WebCrossWidget webCrossWidgetFrom = _widgetFactory.getWidget(event.getFrom());
+            WebCrossWidget webCrossWidgetTo = _widgetFactory.getWidget(event.getTo());
+
+            webCrossWidgetFrom.removeItem(spiderWidget);
+            webCrossWidgetTo.addItem(spiderWidget);
+        }
+    }
+
     private class GameStepObserver implements GameActionListener {
 
         @Override
@@ -103,6 +114,8 @@ public class WebWidget extends JPanel {
                 _widgetFactory.create(insect);
 
                 insect.addAnimalControllerActionListener(new AnimalController());
+                if (insect instanceof GrassHopper grassHopper)
+                    grassHopper.addGrassHopperActionListener(new GrassHopperController());
             }
         }
 

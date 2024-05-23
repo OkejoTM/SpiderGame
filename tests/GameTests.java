@@ -190,7 +190,7 @@ public class GameTests {
 
         BotSpiderMovementAlgorithm algorithm = new BotSpiderMovementAlgorithm(web);
 
-        Insect insect = new Mole(10, null);
+        Insect insect = new Mole(10, null, 5);
         web.addInsect(insect, web.getWebCross(0,2));
 
         BotSpider bot = new BotSpider(10, null, algorithm);
@@ -208,7 +208,7 @@ public class GameTests {
 
         BotSpiderMovementAlgorithm algorithm = new BotSpiderMovementAlgorithm(web);
 
-        Insect insect = new Mole(10, null);
+        Insect insect = new Mole(10, null, 5);
         web.addInsect(insect, web.getWebCross(2,0));
 
         BotSpider bot = new BotSpider(10, null, algorithm);
@@ -226,7 +226,7 @@ public class GameTests {
 
         BotSpiderMovementAlgorithm algorithm = new BotSpiderMovementAlgorithm(web);
 
-        Insect insect = new Mole(10, null);
+        Insect insect = new Mole(10, null, 5);
         web.addInsect(insect, web.getWebCross(2,0));
 
         BotSpider bot = new BotSpider(10, null, algorithm);
@@ -244,7 +244,7 @@ public class GameTests {
 
         BotSpiderMovementAlgorithm algorithm = new BotSpiderMovementAlgorithm(web);
 
-        Insect insect = new Mole(10, null);
+        Insect insect = new Mole(10, null, 5);
         web.addInsect(insect, web.getWebCross(0,2));
 
         BotSpider bot = new BotSpider(10, null, algorithm);
@@ -256,7 +256,22 @@ public class GameTests {
         Assert.assertEquals(web.getWebCross(1,2).getAnimal(), bot);
     }
 
+    @Test
+    public void SpiderGetStingByWaspAlive(){
 
+    }
+
+    @Test
+    public void SpiderGetStingByWaspDead(){
+        Web web = new Web(3);
+        PlayerSpider spider = new PlayerSpider(5, null);
+        web.setPlayer(spider, web.getWebCross(1,1));
+
+        Insect wasp = new Wasp(3, null, 5);
+        web.addInsect(wasp, web.getWebCross(1,0));
+
+        spider.makeMove(Direction.west());
+    }
 
 
 

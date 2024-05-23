@@ -40,14 +40,14 @@ public class PlayerSpiderWidget extends AnimalWidget {
 
         @Override
         public void keyPressed(KeyEvent ke) {
+        }
+
+        @Override
+        public void keyReleased(KeyEvent ke) {
             int keyCode = ke.getKeyCode();
 
             moveAction(keyCode);
 
-        }
-
-        @Override
-        public void keyReleased(KeyEvent arg0) {
         }
 
         private void moveAction(int keyCode) {

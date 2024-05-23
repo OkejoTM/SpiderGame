@@ -2,16 +2,15 @@ package Setting;
 
 import Events.Controllers.SpiderControllerActionEvent;
 import Events.Controllers.SpiderControllerActionListener;
-import Events.GameActionEvent;
-import Events.GameActionListener;
 import Interfaces.IPrey;
+import Interfaces.IStingable;
 import Utils.Direction;
 
 import java.util.ArrayList;
 
 import static java.lang.Math.max;
 
-public abstract class Spider extends Animal {
+public abstract class Spider extends Animal implements IStingable {
     public Spider(int health, WebCross webCross) {
         super(health, webCross);
     }
@@ -46,10 +45,15 @@ public abstract class Spider extends Animal {
     }
 
     private void eat(IPrey prey) {
-        changeHealth(((Animal) prey).getHealth());
-        prey.getsEaten();
-        if (prey instanceof Insect) {
-            notifySpiderAteInsect();
+        int restoringHealth;
+        restoringHealth = ((Animal) prey).getHealth();
+        if (prey instanceof Wasp wasp)
+            wasp.sting(this);
+        // Если остался жив после укуса, если он был
+        if (isAlive()){
+            changeHealth(restoringHealth);
+            prey.getsEaten();
+            if (prey instanceof Insect) notifySpiderAteInsect();
         }
     }
 
@@ -62,6 +66,13 @@ public abstract class Spider extends Animal {
     protected void notifySpiderAteInsect(){
     }
 
+    @Override
+    public void getStung(int health) {
+        changeHealth(-health);
+        if (!isAlive()){
+            die();
+        }
+    }
 
     private ArrayList<SpiderControllerActionListener> _spiderControllerListenersList = new ArrayList<>();
 

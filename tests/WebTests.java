@@ -18,7 +18,7 @@ public class WebTests {
 
         BotSpiderMovementAlgorithm algorithm = new BotSpiderMovementAlgorithm(web);
 
-        Insect insect = new Mole(10, null);
+        Insect insect = new Mole(10, null, 5);
         web.addInsect(insect, web.getWebCross(0,2));
 
         BotSpider bot = new BotSpider(10, null, algorithm);
@@ -32,16 +32,16 @@ public class WebTests {
     public void WebGetNoEmptyWebCrossesTest(){
         Web web = new Web(2);
 
-        Insect insect = new Mole(10, null);
+        Insect insect = new Mole(10, null, 5);
         web.addInsect(insect, web.getWebCross(0,0));
 
-        Insect insect2 = new Mole(10, null);
+        Insect insect2 = new Mole(10, null, 5);
         web.addInsect(insect2, web.getWebCross(0,1));
 
-        Insect insect3 = new Mole(10, null);
+        Insect insect3 = new Mole(10, null, 5);
         web.addInsect(insect3, web.getWebCross(1,0));
 
-        Insect insect4 = new Mole(10, null);
+        Insect insect4 = new Mole(10, null, 5);
         web.addInsect(insect4, web.getWebCross(1,1));
 
         Assert.assertEquals(0, web.getEmptyWebCrosses().size());
@@ -51,7 +51,7 @@ public class WebTests {
     public void PlaceInNonExistedWebCross(){
         Web web = new Web(2);
 
-        Insect insect = new Mole(10, null);
+        Insect insect = new Mole(10, null, 5);
 
         web.addInsect(insect, web.getWebCross(0,4));
     }
@@ -60,16 +60,16 @@ public class WebTests {
     public void WebGetPreysTest(){
         Web web = new Web(2);
 
-        Insect insect = new Mole(10, null);
+        Insect insect = new Mole(10, null, 5);
         web.addInsect(insect, web.getWebCross(0,0));
 
-        Insect insect2 = new Mole(10, null);
+        Insect insect2 = new Mole(10, null, 5);
         web.addInsect(insect2, web.getWebCross(0,1));
 
-        Insect insect3 = new Mole(10, null);
+        Insect insect3 = new Mole(10, null, 5);
         web.addInsect(insect3, web.getWebCross(1,0));
 
-        Insect insect4 = new Mole(10, null);
+        Insect insect4 = new Mole(10, null, 5);
         web.addInsect(insect4, web.getWebCross(1,1));
 
         Assert.assertEquals(4, web.getAllPreys().size());
@@ -82,13 +82,13 @@ public class WebTests {
         PlayerSpider playerSpider = new PlayerSpider(1, null);
         web.setPlayer(playerSpider, web.getWebCross(0,0));
 
-        Insect insect2 = new Mole(10, null);
+        Insect insect2 = new Mole(10, null, 5);
         web.addInsect(insect2, web.getWebCross(0,1));
 
-        Insect insect3 = new Mole(10, null);
+        Insect insect3 = new Mole(10, null, 5);
         web.addInsect(insect3, web.getWebCross(1,0));
 
-        Insect insect4 = new Mole(10, null);
+        Insect insect4 = new Mole(10, null, 5);
         web.addInsect(insect4, web.getWebCross(1,1));
 
         Assert.assertEquals(4, web.getAllPreys().size());
