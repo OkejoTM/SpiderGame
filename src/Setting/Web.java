@@ -104,6 +104,7 @@ public class Web implements Iterable<WebCross>{
 
     boolean removeInsect(Insect insect){
         if (_insectsList.contains(insect)){
+            insect.clear();
             return _insectsList.remove(insect);
         }
         return false;
@@ -111,6 +112,7 @@ public class Web implements Iterable<WebCross>{
 
     boolean removeBotSpider(BotSpider spider){
         if (_botSpidersList.contains(spider)){
+            spider.clear();
             return _botSpidersList.remove(spider);
         }
         return false;

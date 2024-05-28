@@ -6,5 +6,6 @@ public class WaspWidget extends AnimalWidget{
 
     public WaspWidget(){
         super("images/bee.png", (int) (CELL_SIZE/2.6), (int) (CELL_SIZE/1.58));
+
     }
 }

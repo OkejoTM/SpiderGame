@@ -1,24 +1,13 @@
 package Setting;
 
-import Factories.*;
 import Utils.BotSpiderMovementAlgorithm;
+import Utils.InsectUtils;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Fauna {
     private final Web _web;
-
-    private static final ArrayList<AbstractInsectFactory> factories = new ArrayList<>();
-
-    static {
-        factories.add(new MoleFactory());
-        factories.add(new WaspFactory());
-        factories.add(new FlyFactory());
-        factories.add(new GrassHopperFactory());
-    }
-
-    private static final PlayerSpiderFactory playerFactory = new PlayerSpiderFactory();
-    private static final BotSpiderFactory botSpiderFactory = new BotSpiderFactory();
 
     public Fauna(Web web) {
         _web = web;
@@ -41,7 +30,7 @@ public class Fauna {
     private void generateMiddleLevel() {
         generatePlayerSpider(50);
         generateBotSpiders(2);
-        generateInsects(3);
+        generateInsects(10);
     }
 
     private void generateHardLevel() {
@@ -50,12 +39,11 @@ public class Fauna {
         generateInsects(2);
     }
 
-
     private void generatePlayerSpider(int spiderHealth) {
         if (_web.getPlayer() != null) return;
         int pos = _web.getSize() / 2;
         WebCross webCross = _web.getWebCross(pos, pos);
-        PlayerSpider playerSpider = playerFactory.create(spiderHealth);
+        PlayerSpider playerSpider = PlayerSpider.create(spiderHealth);
         _web.setPlayer(playerSpider, webCross);
     }
 
@@ -68,7 +56,7 @@ public class Fauna {
         while (created < amount && !emptyWebCrosses.isEmpty()) {
             int spiderHealth = 10;
             WebCross webCross = getRandomWebCross(emptyWebCrosses);
-            BotSpider botSpider = botSpiderFactory.create(spiderHealth);
+            BotSpider botSpider = BotSpider.create(spiderHealth);
             botSpider.setMovementAlgorithm(new BotSpiderMovementAlgorithm(_web));
             _web.addBotSpider(botSpider, webCross);
             emptyWebCrosses.remove(webCross);
@@ -78,14 +66,14 @@ public class Fauna {
 
     // Game can invoke this method
     ArrayList<Insect> generateInsects() {
-        ArrayList<Insect> insectList = insectsFabricCreation();
+        ArrayList<Insect> insectList = insectsCreation();
         ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
 
         return placeInsects(insectList, emptyWebCrosses, insectList.size());
     }
 
     private void generateInsects(int amount) {
-        ArrayList<Insect> insectList = insectsFabricCreation(amount);
+        ArrayList<Insect> insectList = insectsCreation(amount);
         ArrayList<WebCross> emptyWebCrosses = _web.getEmptyWebCrosses();
 
         placeInsects(insectList, emptyWebCrosses, amount);
@@ -104,13 +92,14 @@ public class Fauna {
         return createdList;
     }
 
-    private ArrayList<Insect> insectsFabricCreation() {
+    private ArrayList<Insect> insectsCreation() {
         ArrayList<Insect> insectArrayList = new ArrayList<>();
+        Set<Class<? extends Insect>> insectClasses = InsectUtils.getAllInsectSubclasses();
 
-        for (AbstractInsectFactory factory : factories) {
-            Insect insect = factory.createInsect();
-            if (insect != null) // Если создалось насекомое
-            {
+        for (Class<? extends Insect> insectClass: insectClasses) {
+            Insect insect = Insect.create(insectClass);
+
+            if (insect != null) {
                 insectArrayList.add(insect);
             }
         }
@@ -118,21 +107,23 @@ public class Fauna {
         return insectArrayList;
     }
 
-    private ArrayList<Insect> insectsFabricCreation(int amount) {
+    private ArrayList<Insect> insectsCreation(int amount) {
+        ArrayList<Insect> insectArrayList = new ArrayList<>();
+        Set<Class<? extends Insect>> insectClasses = InsectUtils.getAllInsectSubclasses();
 
         int created = 0;
-        int factoryIndex = 0;
-        ArrayList<Insect> insectArrayList = new ArrayList<>();
 
         while (created < amount) {
-            AbstractInsectFactory factory = factories.get(factoryIndex);
-            Insect insect = factory.createInsect();
-            if (insect != null) // Если создалось насекомое
-            {
-                insectArrayList.add(insect);
-                created++;
+            for (Class<? extends Insect> insectClass : insectClasses) {
+                if (created >= amount) break;
+
+                Insect insect = Insect.create(insectClass);
+
+                if (insect != null) {
+                    insectArrayList.add(insect);
+                    created++;
+                }
             }
-            factoryIndex = (factoryIndex + 1) % factories.size();
         }
 
         return insectArrayList;

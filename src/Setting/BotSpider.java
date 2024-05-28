@@ -49,6 +49,10 @@ public class BotSpider extends Spider{
         fireStepHappened();
     }
 
+    public static BotSpider create(int health){
+        return new BotSpider(health, null, null);
+    }
+
     // ----------------- Listeners for game ------------------------
 
     private ArrayList<BotSpiderActionListener> _botSpiderListenerList = new ArrayList<>();

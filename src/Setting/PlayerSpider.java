@@ -32,6 +32,10 @@ public class PlayerSpider extends Spider implements IPrey {
         firePlayerAteInsect();
     }
 
+    public static PlayerSpider create(int health){
+        return new PlayerSpider(health, null);
+    }
+
     // ----------------- Listeners for game ------------------------
 
     private ArrayList<PlayerActionListener> _playerSpiderListenerList = new ArrayList<>();

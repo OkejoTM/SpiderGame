@@ -15,6 +15,7 @@ public class BotSpiderWidget extends AnimalWidget {
     public BotSpiderWidget(BotSpider botSpider) {
         super("images/bot.png", CELL_SIZE / 2, CELL_SIZE - 24);
         _botSpider = botSpider;
+
     }
 
     @Override

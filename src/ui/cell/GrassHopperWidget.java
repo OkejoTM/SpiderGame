@@ -8,6 +8,7 @@ public class GrassHopperWidget extends AnimalWidget {
 
     public GrassHopperWidget() {
         super("images/grasshopper.png", CELL_SIZE/2, CELL_SIZE);
+
     }
 
     @Override
