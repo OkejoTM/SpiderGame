@@ -13,14 +13,6 @@ public class Wasp extends Insect implements IStinging {
     }
 
     @Override
-    public void jumpOff() {
-        double probability = Math.round(Math.random() * 10)/10.0;
-        if (probability <= _probabilityOfDisappearance){
-            die();
-        }
-    }
-
-    @Override
     public double getProbabilityDisAppearance() {
         return _size/10.0 * _probabilityOfDisappearance;
     }

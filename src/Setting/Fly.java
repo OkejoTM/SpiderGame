@@ -9,17 +9,7 @@ public class Fly extends Insect{
     }
 
     @Override
-    public void jumpOff() {
-        double probability = Math.round(Math.random() * 10)/10.0;
-        if (probability <= getProbabilityDisAppearance()){
-            die();
-        }
-    }
-
-    @Override
     public double getProbabilityDisAppearance() {
         return _size/10.0 * _probabilityOfDisappearance;
     }
-
-
 }

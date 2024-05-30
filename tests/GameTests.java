@@ -208,7 +208,7 @@ public class GameTests {
 
         BotSpiderMovementAlgorithm algorithm = new BotSpiderMovementAlgorithm(web);
 
-        Insect insect = new Mole(10, null, 5);
+        Insect insect = new GrassHopper(10, null, 5);
         web.addInsect(insect, web.getWebCross(2,0));
 
         BotSpider bot = new BotSpider(10, null, algorithm);
@@ -226,7 +226,7 @@ public class GameTests {
 
         BotSpiderMovementAlgorithm algorithm = new BotSpiderMovementAlgorithm(web);
 
-        Insect insect = new Mole(10, null, 5);
+        Insect insect = new Fly(10, null, 5);
         web.addInsect(insect, web.getWebCross(2,0));
 
         BotSpider bot = new BotSpider(10, null, algorithm);

@@ -49,7 +49,13 @@ public abstract class Insect extends Animal implements IPrey {
         return null;
     }
 
-    public abstract void jumpOff();
+    public void jumpOff(){
+        double probability = Math.round(Math.random() * 10)/10.0;
+        if (probability <= getProbabilityDisAppearance()){
+            die();
+        }
+    }
+
     public abstract double getProbabilityDisAppearance();
 
     // ------------------ Listeners for Game -----------------------

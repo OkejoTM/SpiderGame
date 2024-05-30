@@ -19,10 +19,7 @@ public class GrassHopper extends Insect{
 
     @Override
     public void jumpOff() {
-        double probability = Math.round(Math.random() * 10)/10.0;
-        if (probability <= _probabilityOfDisappearance){
-            die();
-        }
+        super.jumpOff();
         if (Math.round(Math.random() * 10)/10.0 <= _probabilityToJump)
         {
             jumpToOtherWebCross();
