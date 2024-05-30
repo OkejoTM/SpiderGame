@@ -16,9 +16,9 @@ public abstract class WebCrossItemWidget extends JPanel {
     private BufferedImage _image;
 
     public WebCrossItemWidget(String imagePath, int imageWidth, int imageHeight) {
-        updateState();
-        setOpaque(false);
         setImage(imagePath, imageWidth, imageHeight);
+        setOpaque(false);
+        updateState();
     }
 
     protected BufferedImage getImage() {
@@ -44,9 +44,9 @@ public abstract class WebCrossItemWidget extends JPanel {
     }
     protected abstract Dimension getDimension();
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(getImage(), 0, 0, null);
-    }
+//    @Override
+//    protected void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        g.drawImage(getImage(), 0, 0, null);
+//    }
 }
