@@ -2,8 +2,6 @@ package ui.cell;
 
 import Setting.BotSpider;
 import ui.utils.SpiderUtils;
-
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
@@ -22,10 +20,4 @@ public class BotSpiderWidget extends AnimalWidget {
     protected BufferedImage getImage() {
         return SpiderUtils.spiderWithHealthImage(super.getImage(), _botSpider.getHealth());
     }
-
-    @Override
-    protected Dimension getDimension() {
-        return new Dimension(CELL_SIZE / 2, CELL_SIZE);
-    }
-
 }

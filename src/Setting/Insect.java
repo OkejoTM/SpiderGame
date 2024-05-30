@@ -4,7 +4,6 @@ import Events.InsectActionEvent;
 import Events.InsectActionListener;
 import Interfaces.IPrey;
 import Utils.InsectUtils;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public abstract class Insect extends Animal implements IPrey {
 
     @Override
     public int getHealth(){
-        return _health * (_size/5);
+        return (int) (_health * (_size/4.5));
     }
 
     public int getSize() {

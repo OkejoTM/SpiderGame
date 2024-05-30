@@ -1,6 +1,5 @@
 package Utils;
 
-
 import Setting.Insect;
 import org.reflections.Reflections;
 
@@ -14,7 +13,7 @@ public class InsectUtils {
         return reflections.getSubTypesOf(Insect.class);
     }
 
-    public static double getProbabilityToAppear(Class<? extends Insect> insectClass){
+    public static double getProbabilityToAppear(Class<? extends Insect> insectClass) {
         try {
             Field field = insectClass.getDeclaredField("_probabilityOfAppearance");
             field.setAccessible(true);
@@ -25,7 +24,7 @@ public class InsectUtils {
         }
     }
 
-    public static int getInitialHealth(Class<? extends Insect> insectClass){
+    public static int getInitialHealth(Class<? extends Insect> insectClass) {
         return switch (insectClass.getSimpleName()) {
             case "Fly" -> 4;
             case "Mole" -> 2;

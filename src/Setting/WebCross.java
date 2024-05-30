@@ -2,10 +2,8 @@ package Setting;
 
 import Utils.Direction;
 import Utils.WebCrossPosition;
-
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class WebCross {
     private final WebCrossPosition _position;
@@ -15,8 +13,7 @@ public class WebCross {
         _position = position;
     }
 
-
-    public boolean isOccupied(){
+    public boolean isOccupied() {
         return _animal != null;
     }
 
@@ -46,7 +43,6 @@ public class WebCross {
     }
 
     // ----- Animal -----
-
     public Animal getAnimal() {
         return _animal;
     }
@@ -62,14 +58,11 @@ public class WebCross {
     public boolean setAnimal(Animal animal) {
         if (animal == null) { // Если нужно удалить, удаляем
             releaseAnimal();
-        }
-        else if (this.getAnimal() == animal || (animal.getWebCross() != null && !animal.getWebCross().isOccupied()) ) { // Если одинаковые или животное занято другим
+        } else if (this.getAnimal() == animal || (animal.getWebCross() != null && !animal.getWebCross().isOccupied())) { // Если одинаковые или животное занято другим
             return true;
-        }
-        else if (animal.getWebCross() == null && this.getAnimal() != null){ // Если занято, но у животного нет пересечения
+        } else if (animal.getWebCross() == null && this.getAnimal() != null) { // Если занято, но у животного нет пересечения
             return true;
-        }
-        else {
+        } else {
             animal.setWebCross(this);
             _animal = animal;
         }

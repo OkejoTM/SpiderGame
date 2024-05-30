@@ -3,8 +3,6 @@ package ui.cell;
 import Setting.PlayerSpider;
 import Utils.Direction;
 import ui.utils.SpiderUtils;
-
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -25,11 +23,6 @@ public class PlayerSpiderWidget extends AnimalWidget {
     @Override
     protected BufferedImage getImage() {
         return SpiderUtils.spiderWithHealthImage(super.getImage(), _playerSpider.getHealth());
-    }
-
-    @Override
-    protected Dimension getDimension() {
-        return new Dimension(CELL_SIZE / 2, CELL_SIZE);
     }
 
     private class KeyController implements KeyListener {
@@ -77,5 +70,4 @@ public class PlayerSpiderWidget extends AnimalWidget {
             return direction;
         }
     }
-
 }

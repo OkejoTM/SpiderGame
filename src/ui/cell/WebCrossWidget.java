@@ -1,7 +1,6 @@
 package ui.cell;
 
 import ui.utils.ImageUtils;
-
 import javax.swing.*;
 import java.awt.*;
 

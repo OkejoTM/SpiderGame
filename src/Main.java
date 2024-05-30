@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(GamePanel::new);
     }
 
@@ -58,7 +58,7 @@ public class Main {
 
             @Override
             public void gameEnded(GameActionEvent event) {
-                switch (event.getGame().getGameStatus()){
+                switch (event.getGame().getGameStatus()) {
                     case WIN:
                         JOptionPane.showMessageDialog(GamePanel.this, "Игра закончена. Вы победили!");
                         break;
@@ -77,11 +77,12 @@ public class Main {
             }
 
             @Override
-            public void insectsCreated(GameActionEvent event) {}
+            public void insectsCreated(GameActionEvent event) {
+            }
 
             @Override
             public void playerAteInsect(GameActionEvent event) {
-                _insects +=1 ;
+                _insects += 1;
             }
 
         }
