@@ -2,6 +2,8 @@ package ui.cell;
 
 import java.awt.*;
 
+import static ui.cell.WebCrossWidget.CELL_SIZE;
+
 public class InsectWidget extends AnimalWidget{
 
     public InsectWidget(String imagePath, int imageWidth, int imageHeight) {
@@ -10,7 +12,7 @@ public class InsectWidget extends AnimalWidget{
 
     @Override
     protected Dimension getDimension() {
-        return new Dimension(getImage().getWidth()+30, getImage().getHeight()+40);
+        return new Dimension(CELL_SIZE, CELL_SIZE);
     }
 
     @Override

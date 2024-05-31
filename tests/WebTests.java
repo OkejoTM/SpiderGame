@@ -94,5 +94,30 @@ public class WebTests {
         Assert.assertEquals(4, web.getAllPreys().size());
     }
 
+    @Test
+    public void WebFloraInstantiateEntitiesToFullFilledWebTest(){
+        Web web = new Web(2);
+
+        Insect insect = new Mole(10, null, 5);
+        web.addInsect(insect, web.getWebCross(0,0));
+
+        Insect insect2 = new Mole(10, null, 5);
+        web.addInsect(insect2, web.getWebCross(0,1));
+
+        Insect insect3 = new Mole(10, null, 5);
+        web.addInsect(insect3, web.getWebCross(1,0));
+
+        Insect insect4 = new Mole(10, null, 5);
+        web.addInsect(insect4, web.getWebCross(1,1));
+
+        Fauna fauna = new Fauna(web);
+        fauna.instantiateAnimals(Game.GameLevel.EASY);
+
+        Assert.assertEquals(insect, web.getWebCross(0,0).getAnimal());
+        Assert.assertEquals(insect2, web.getWebCross(0,1).getAnimal());
+        Assert.assertEquals(insect3, web.getWebCross(1,0).getAnimal());
+        Assert.assertEquals(insect4, web.getWebCross(1,1).getAnimal());
+    }
+
 
 }

@@ -27,13 +27,12 @@ public class GrassHopper extends Insect{
         }
     }
 
-    private void jumpToOtherWebCross(){
+    protected void jumpToOtherWebCross(){
         WebCross webCross = findEmptyWebCross();
         if (webCross != null){
             WebCross oldWebCross = this.getWebCross();
             webCross.setAnimal(this);
             fireGrassHopperJumpedController(oldWebCross, webCross);
-
         }
     }
 
