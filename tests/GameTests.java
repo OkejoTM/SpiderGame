@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.junit.Assert;
 
 
+/**
+ * Класс Игровых тестов
+ */
 public class GameTests {
     static class GrassHopperMocked extends GrassHopper {
 

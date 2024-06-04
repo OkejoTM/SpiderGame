@@ -8,6 +8,9 @@ import java.util.*;
 
 import static java.lang.Math.max;
 
+/**
+ * Класс Кузнечика
+ */
 public class GrassHopper extends Insect{
     public static final double _probabilityOfDisappearance = 0.4;
     public static final double _probabilityOfAppearance = 0.6;

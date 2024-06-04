@@ -7,6 +7,9 @@ import Utils.InsectUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+/**
+ * Класс абстрактного Насекомого
+ */
 public abstract class Insect extends Animal implements IPrey {
 
     protected final int _size;

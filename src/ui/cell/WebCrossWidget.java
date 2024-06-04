@@ -4,6 +4,9 @@ import ui.utils.ImageUtils;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Класс виджета Перекрестия
+ */
 public class WebCrossWidget extends JPanel {
 
     private WebCrossItemWidget _item = null;

@@ -7,6 +7,9 @@ import ui.cell.*;
 
 import javax.swing.*;
 
+/**
+ * Класс виджета Паутины
+ */
 public class WebWidget extends JPanel {
 
     private final Web _web;

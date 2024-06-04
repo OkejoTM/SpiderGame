@@ -1,5 +1,8 @@
 package Setting;
 
+/**
+ * Класс Мухи
+ */
 public class Fly extends Insect{
     public static final double _probabilityOfDisappearance = 0.2;
     public static final double _probabilityOfAppearance = 1;

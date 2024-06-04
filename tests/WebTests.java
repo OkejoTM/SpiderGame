@@ -3,6 +3,9 @@ import Utils.BotSpiderMovementAlgorithm;
 import org.junit.Test;
 import org.junit.Assert;
 
+/**
+ * Класс тестов Паутины
+ */
 public class WebTests {
 
     @Test

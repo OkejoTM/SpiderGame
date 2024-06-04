@@ -1,5 +1,8 @@
 package Utils;
 
+/**
+ * Класс Направления
+ */
 public class Direction {
 
     private int _angle = 90;

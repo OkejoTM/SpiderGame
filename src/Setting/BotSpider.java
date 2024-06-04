@@ -6,6 +6,9 @@ import Utils.Direction;
 
 import java.util.ArrayList;
 
+/**
+ * Класс Паука-Бота
+ */
 public class BotSpider extends Spider{
     private BotSpiderMovementAlgorithm _botSpiderMovementAlgorithm;
 

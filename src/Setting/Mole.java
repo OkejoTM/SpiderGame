@@ -1,5 +1,8 @@
 package Setting;
 
+/**
+ * Класс Букашки
+ */
 public class Mole extends Insect{
     public static final double _probabilityOfDisappearance = 0.1;
     public static final double _probabilityOfAppearance = 0.9;

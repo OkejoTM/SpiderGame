@@ -6,6 +6,9 @@ import Utils.InsectUtils;
 import java.util.ArrayList;
 import java.util.Set;
 
+/**
+ * Класс Фауны
+ */
 public class Fauna {
     private final Web _web;
 

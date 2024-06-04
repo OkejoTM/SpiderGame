@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
+/**
+ * Класс виджета Паука-Бота
+ */
 public class BotSpiderWidget extends AnimalWidget {
 
     private final BotSpider _botSpider;

@@ -6,6 +6,9 @@ import Interfaces.IPrey;
 
 import java.util.ArrayList;
 
+/**
+ * Класс Паука-Игрока
+ */
 public class PlayerSpider extends Spider implements IPrey {
     public PlayerSpider(int health, WebCross webCross) {
         super(health, webCross);

@@ -5,6 +5,9 @@ import Events.Controllers.AnimalControllerActionListener;
 
 import java.util.ArrayList;
 
+/**
+ * Класс Животного
+ */
 public abstract class Animal {
     protected int _health;
     protected WebCross _webCross;

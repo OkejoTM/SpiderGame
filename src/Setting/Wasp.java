@@ -3,6 +3,9 @@ package Setting;
 import Interfaces.IStingable;
 import Interfaces.IStinging;
 
+/**
+ * Класс Осы
+ */
 public class Wasp extends Insect implements IStinging {
 
     public static final double _probabilityOfDisappearance = 0.3;

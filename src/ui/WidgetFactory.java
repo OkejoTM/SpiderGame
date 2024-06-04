@@ -7,6 +7,9 @@ import java.util.Map;
 import static Utils.InsectUtils.getAllInsectSubclasses;
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
+/**
+ * Класс фабрики виджетов
+ */
 public class WidgetFactory {
     private final Map<WebCross, WebCrossWidget> _webCrosses = new HashMap<>();
     private final Map<Animal, AnimalWidget> _animalMap = new HashMap<>();

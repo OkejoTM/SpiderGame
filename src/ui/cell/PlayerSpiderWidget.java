@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 
 import static ui.cell.WebCrossWidget.CELL_SIZE;
 
+/**
+ * Класс виджета Паука-Игрока
+ */
 public class PlayerSpiderWidget extends AnimalWidget {
 
     private final PlayerSpider _playerSpider;

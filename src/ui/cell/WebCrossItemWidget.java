@@ -9,6 +9,9 @@ import java.io.IOException;
 
 import ui.utils.ImageUtils;
 
+/**
+ * Класс абстрактного предмета Перекрестия
+ */
 public abstract class WebCrossItemWidget extends JPanel {
 
     private BufferedImage _image;

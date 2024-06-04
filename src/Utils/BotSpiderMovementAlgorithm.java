@@ -7,6 +7,9 @@ import Setting.WebCross;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Класс алгоритма передвижения паука-бота
+ */
 public class BotSpiderMovementAlgorithm {
     private Web _web;
 

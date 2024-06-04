@@ -3,6 +3,9 @@ package Setting;
 import Events.*;
 import java.util.ArrayList;
 
+/**
+ * Класс Игры
+ */
 public class Game {
     private Web _web;
     private final Fauna _fauna;

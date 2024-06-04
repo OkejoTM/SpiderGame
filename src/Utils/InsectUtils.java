@@ -6,6 +6,9 @@ import org.reflections.Reflections;
 import java.lang.reflect.Field;
 import java.util.Set;
 
+/**
+ * Класс методов для работы с Насекомыми
+ */
 public class InsectUtils {
 
     public static Set<Class<? extends Insect>> getAllInsectSubclasses() {

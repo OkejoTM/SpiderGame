@@ -5,6 +5,10 @@ import Utils.WebCrossPosition;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Класс Перекрестия
+ */
 public class WebCross {
     private final WebCrossPosition _position;
     private Animal _animal = null;

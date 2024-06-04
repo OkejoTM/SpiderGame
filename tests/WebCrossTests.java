@@ -5,6 +5,9 @@ import org.junit.Assert;
 
 import java.awt.*;
 
+/**
+ * Класс тестов Перекрестия
+ */
 public class WebCrossTests {
 
     @Test

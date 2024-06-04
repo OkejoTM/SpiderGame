@@ -1,5 +1,8 @@
 package Utils;
 
+/**
+ * Класс позиции Перекрестия
+ */
 public class WebCrossPosition {
     private final int _row;
     private final int _column;

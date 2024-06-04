@@ -7,6 +7,9 @@ import Interfaces.IPrey;
 import Utils.Direction;
 import Utils.WebCrossPosition;
 
+/**
+ * Класс Паутины
+ */
 public class Web implements Iterable<WebCross> {
 
     private final int _size;

@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import static java.lang.Math.max;
 
+/**
+ * Класс абстрактного Паука
+ */
 public abstract class Spider extends Animal implements IStingable {
     public Spider(int health, WebCross webCross) {
         super(health, webCross);
